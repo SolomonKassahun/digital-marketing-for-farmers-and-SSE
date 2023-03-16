@@ -1,7 +1,9 @@
+import 'package:dmfsse/src/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 
 class Homepage extends StatefulWidget {
+   static const String routeName = "/";
   const Homepage({Key? key}) : super(key: key);
 
   @override
@@ -11,6 +13,13 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return  Scaffold(
+      appBar: AppBar(title: const Text("homepage"),),
+      body: Center(
+        child: ElevatedButton(onPressed: (){
+          Navigator.pushNamed(context, LoginScreen.routeName);
+        }, child: const Text("Log in")),
+      ),
+    );
   }
 }
