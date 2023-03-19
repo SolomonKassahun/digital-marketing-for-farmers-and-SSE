@@ -14,7 +14,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(title: const Text("homepage"),),
+     
       body: Center(
         child: ElevatedButton(onPressed: (){
           Navigator.pushNamed(context, LoginScreen.routeName);
