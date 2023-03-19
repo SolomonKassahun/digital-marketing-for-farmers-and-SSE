@@ -1,6 +1,6 @@
-import 'package:dmfsse/src/bloc/Auth/login_bloc.dart';
-import 'package:dmfsse/src/bloc/Auth/login_event.dart';
-import 'package:dmfsse/src/bloc/Auth/login_state.dart';
+import 'package:dmfsse/src/bloc/Auth/auth_bloc.dart';
+import 'package:dmfsse/src/bloc/Auth/auth_event.dart';
+import 'package:dmfsse/src/bloc/Auth/auth_state.dart';
 import 'package:dmfsse/src/models/login_info.dart';
 import 'package:dmfsse/src/screens/customer/customer_homepage.dart';
 import 'package:dmfsse/src/screens/farmer/farmer_homepage.dart';

@@ -2,8 +2,8 @@
 
 import 'dart:io';
 
-import 'package:dmfsse/src/bloc/Auth/login_event.dart';
-import 'package:dmfsse/src/bloc/Auth/login_state.dart';
+import 'package:dmfsse/src/bloc/Auth/auth_event.dart';
+import 'package:dmfsse/src/bloc/Auth/auth_state.dart';
 import 'package:dmfsse/src/data_repository/user_data_repository.dart';
 import 'package:dmfsse/src/models/login_info.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
