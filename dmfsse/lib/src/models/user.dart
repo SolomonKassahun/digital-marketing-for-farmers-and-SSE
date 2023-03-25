@@ -1,11 +1,11 @@
 class User{
-  final int UserId; 
-  final String firstName;
-  final String lastName;
-  final String password;
-  final String role;
-  final String username;
-  User(this.UserId, this.firstName, this.lastName, this.role, this.password, this.username);
+   int? UserId; 
+   String? firstName;
+   String? lastName;
+   String? password;
+   String? role;
+   String? username;
+  User({this.UserId, this.firstName, this.lastName, this.role, this.password, this.username});
   Map<String, dynamic> toJson() =>{
     'UserId':UserId,
     'firstName':firstName,
