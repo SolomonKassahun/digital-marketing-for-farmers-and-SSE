@@ -5,8 +5,11 @@ import 'package:dmfsse/local_storage/user_preference.dart';
 import 'package:dmfsse/src/models/login_info.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/user.dart';
+
 class UserDataProvider {
-  final baseUrl = 'http://127.0.0.1:5000/api/LoginInfo/login';
+  final baseUrl = 'http://10.5.224.86:5000/api/LoginInfo/login';
+  final registrationUrl = 'http://127.0.0.1:5000/api/LoginInfo';
   final UserPreference userPreference;
   UserDataProvider(this.userPreference);
 
@@ -39,5 +42,40 @@ class UserDataProvider {
     } catch (e) {
       throw throw e;
     }
+  }
+  Future<bool> createUser(User user) async{
+    try {
+      final url = Uri.parse(registrationUrl);
+      final response = await http.post(url,
+       headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ',
+            },
+          body: jsonEncode({
+            'UserId':user.UserId,
+            'username':user.username,
+            'role':user.role,
+            'firstName':user.firstName,
+            'lastName':user.lastName,
+            'password':user.password
+
+          })
+
+      );
+              if (response.statusCode == 201) {
+          return true;
+        } else {
+          print(response.statusCode);
+          throw Exception('Failed to create user');
+        }
+
+      
+    } catch (e) {
+      // ignore: avoid_print
+      print("Exception throuwn $e");
+    }
+return false;
+    
   }
 }

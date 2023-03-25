@@ -11,6 +11,7 @@ class CustomLoginTextField extends StatelessWidget {
   final bool? isPassword;
   final bool? isDisabled;
   final Function(bool isObscured)? isObscured;
+  final String? errorMessage;
 
   // ignore: use_key_in_widget_constructors
   const CustomLoginTextField({
@@ -22,7 +23,8 @@ class CustomLoginTextField extends StatelessWidget {
     required this.icon,
     required this.validator,
     required this.obsecureText,
-    required this.isDisabled
+    required this.isDisabled,
+    required this.errorMessage
   });
 
   @override
@@ -38,6 +40,7 @@ class CustomLoginTextField extends StatelessWidget {
         obscureText: obsecureText,
         keyboardType: keyboardType,
         enabled: isDisabled,
+        
         textInputAction: TextInputAction.done,
         onEditingComplete: () => FocusScope.of(context).unfocus(),
         style: const TextStyle(fontSize: 18, color: Colors.grey),
@@ -63,7 +66,11 @@ class CustomLoginTextField extends StatelessWidget {
           ),
           errorMaxLines: 1,
         ),
-        validator: (value) => validator(value),
+       validator: (values){
+        if(values == null || values.isEmpty){
+          return 'please enter $errorMessage';
+        }
+       },
       ),
     );
   }
