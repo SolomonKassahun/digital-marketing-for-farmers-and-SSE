@@ -11,7 +11,7 @@ class UserDataRepository {
     return await userDataProvider.login(loginInfo);
   }
  Future<bool> createUser(User user)  async {
-  print('data arrived at repo is ${userDataProvider.createUser(user)}');
+ 
   return (userDataProvider.createUser(user));
  }
 }

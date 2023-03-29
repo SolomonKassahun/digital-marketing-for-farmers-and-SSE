@@ -12,7 +12,7 @@ class Product {
     'description':description,
     'photos':photos
   };
-  Product.from(Map<String, dynamic> json):
+  Product.fromJson(Map<String, dynamic> json):
     ProductId= json['ProductId'],
     title = json['title'],
     price = json['price'],

@@ -9,7 +9,7 @@ import '../models/user.dart';
 
 class UserDataProvider {
   final baseUrl = 'http://10.5.224.86:5000/api/LoginInfo/login';
-  final registrationUrl = 'http://127.0.0.1:5000/api/LoginInfo';
+  final registrationUrl = 'http://10.6.210.99:5000/api/LoginInfo';
   final UserPreference userPreference;
   UserDataProvider(this.userPreference);
 
@@ -66,7 +66,7 @@ class UserDataProvider {
               if (response.statusCode == 201) {
           return true;
         } else {
-          print(response.statusCode);
+         
           throw Exception('Failed to create user');
         }
 

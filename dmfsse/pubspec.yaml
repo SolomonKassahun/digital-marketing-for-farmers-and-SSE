@@ -43,6 +43,8 @@ dependencies:
   dropdown_formfield: ^0.1.4
   firebase_storage: ^11.0.16
   path: ^1.8.2
+  cached_network_image: ^3.2.3
+  flutter_spinkit: ^5.1.0
 
 dev_dependencies:
   flutter_test:

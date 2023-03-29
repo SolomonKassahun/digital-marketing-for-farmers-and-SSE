@@ -23,7 +23,7 @@ class _UploadImageState extends State<UploadImage> {
         file = File(pickedFile.path);
       });
     } catch (e) {
-      print("Image picker error " + e.toString());
+      throw Exception(e);
     }
   }
 
@@ -38,8 +38,8 @@ class _UploadImageState extends State<UploadImage> {
       child: Container(
         height: size.width * 0.5,
         width: size.width * 0.85,
-        decoration: BoxDecoration(
-          color: Colors.blue,
+        decoration: const BoxDecoration(
+          color: Colors.white,
         ),
         child: file == null
             ? Container(
@@ -54,7 +54,7 @@ class _UploadImageState extends State<UploadImage> {
                 height: 120.0,
                 width: 120.0,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Colors.white,
                   image: DecorationImage(
                     image: FileImage(
                       file!,

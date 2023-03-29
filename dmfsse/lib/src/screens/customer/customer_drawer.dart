@@ -3,14 +3,14 @@
 import 'package:dmfsse/src/screens/homepage_screen.dart';
 import 'package:flutter/material.dart';
 
-class FarmerDrawer extends StatefulWidget {
-  const FarmerDrawer({super.key});
+class CustomerDrawer extends StatefulWidget {
+  const CustomerDrawer({super.key});
 
   @override
-  State<FarmerDrawer> createState() => _FarmerDrawerState();
+  State<CustomerDrawer> createState() => _CustomerDrawerState();
 }
 
-class _FarmerDrawerState extends State<FarmerDrawer> {
+class _CustomerDrawerState extends State<CustomerDrawer> {
 
   
   @override
