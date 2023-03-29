@@ -6,6 +6,7 @@ class AddProduct extends ProductEvent{
   AddProduct(this.product);
   
 }
+class FetchAllProduct extends ProductEvent {}
 class UpdateProduct extends ProductEvent {
   int  ProductId;
   UpdateProduct(this.ProductId);

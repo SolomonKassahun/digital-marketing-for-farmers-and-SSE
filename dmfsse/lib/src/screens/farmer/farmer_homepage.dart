@@ -67,9 +67,9 @@ class _FarmerHomepageState extends State<FarmerHomepage> {
             
       ],
       currentIndex: selectedIndex,
-      selectedItemColor: Colors.black,
+      selectedItemColor: Colors.blue,
       onTap: _onItemTapped,
-      unselectedItemColor: Colors.grey,
+      unselectedItemColor: Colors.black,
       ),
     );
   }

@@ -24,4 +24,9 @@ class FirebaseTaskManager {
      throw Exception(e);
    }
   }
+ static Future<String> getImage(String fileName, String folder, int subStringLength) async{
+    String imgUrl = await downloadImage(fileName.substring(subStringLength), folder);
+    print('image url is $imgUrl');
+    return imgUrl;
+  }
 }
