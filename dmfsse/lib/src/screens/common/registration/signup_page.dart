@@ -17,7 +17,8 @@ class _SignupPageState extends State<SignupPage> {
   String role = 'Customer';
 
   FocusNode focusNode = FocusNode();
-  TextEditingController fullNameController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController rolesController = TextEditingController();
@@ -76,17 +77,32 @@ class _SignupPageState extends State<SignupPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Full Name",
+                          "First Name",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.blue),
                         ),
                         //  InputTextFormField(),
                         InputTextFormField(
-                          hintTxt: 'Write full name',
-                          controller: fullNameController,
+                          hintTxt: 'Write first  name',
+                          controller: firstNameController,
                           isRequired: false,
                           onChanged: (String value) {},
                           keyboardType: TextInputType.text,
+                          errorMessage: "first name",
+                        ),
+                        const Text(
+                          "Last Name",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.blue),
+                        ),
+                        //  InputTextFormField(),
+                        InputTextFormField(
+                          hintTxt: 'Write last name',
+                          controller: lastNameController,
+                          isRequired: false,
+                          onChanged: (String value) {},
+                          keyboardType: TextInputType.text,
+                          errorMessage: 'last name',
                         ),
                         const Text(
                           "Phone Number",
@@ -100,6 +116,7 @@ class _SignupPageState extends State<SignupPage> {
                           isRequired: false,
                           onChanged: (String value) {},
                           keyboardType: TextInputType.number,
+                          errorMessage: "phone number",
                         ),
                         const Text(
                           "Address",
@@ -113,45 +130,53 @@ class _SignupPageState extends State<SignupPage> {
                           isRequired: false,
                           onChanged: (String value) {},
                           keyboardType: TextInputType.number,
+                          errorMessage: "address",
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                       RolesDropDown(
-                        changeRole: (String value) {
-                                    setState(() {
-                                      role = value;
-                                    });
-                                  },
-                       ),
-                       const SizedBox(height: 15,),
-                       Center(
-                         child: SizedBox(
-                          // alignment: Alignment.center,
-                          width: 150,
-                          height: 40,
-                           child: ElevatedButton(
-                            style: ButtonStyle(
-                                  backgroundColor:MaterialStateProperty.all(Colors.blue),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),
-                                    )
-                                  )
-                                      
-                                    
-                                ),
-                            onPressed: (){
-                              Navigator.pushNamed(context, PasswordPage.routeName);
-                               print(role);
-                            }, 
-                            child: const Text("Next")
-                            ),
-                         ),
-                       )
-
-                      
-                        
-                             
+                        RolesDropDown(
+                          changeRole: (String value) {
+                            setState(() {
+                              role = value;
+                            });
+                          },
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Center(
+                          child: SizedBox(
+                            // alignment: Alignment.center,
+                            width: 150,
+                            height: 40,
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.blue),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ))),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) => PasswordPage(
+                                                firstName:
+                                                    firstNameController.text,
+                                                lastName:
+                                                    lastNameController.text,
+                                                phoneNumber:
+                                                    phoneNumberController.text,
+                                                role: rolesController.text))));
+                                    print(role);
+                                  }
+                                },
+                                child: const Text("Next")),
+                          ),
+                        )
                       ],
                     ),
                   ),

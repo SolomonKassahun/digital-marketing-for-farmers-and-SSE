@@ -1,42 +1,36 @@
 import 'package:dmfsse/src/models/user.dart';
 
 class LoginInfo {
-  final String username;
+  final String phoneNumber;
   final String password;
-  final String firstName;
-  final String lastName;
-  final String role;
-  LoginInfo(this.username, this.password, this.firstName, this.lastName, this.role);
+
+  LoginInfo(this.phoneNumber, this.password);
 
   Map<String, dynamic> toJson() => {
-    'username': username, 
-    'password': password,
-    'firstName':firstName,
-    'lastName':lastName,
-    'role': role
-    };
+        'phoneNumber': phoneNumber,
+        'password': password,
+      };
   LoginInfo.fromJson(Map<String, dynamic> json)
-  :username=json['username'],
-  password= json['password'],
-  firstName = json['firstName'],
-  lastName = json['lastName'],
-  role = json['role']
-  ;
+      : phoneNumber = json['phoneNumber'],
+        password = json['password'];
 }
 
 class LoggedInUserInfo {
-  final String access_token;
-  final String message;
-  final User user;
-  LoggedInUserInfo(this.message, this.access_token,this.user);
-  Map<String , dynamic> toJson() =>{
-    'access_token': access_token,
-    'message':message,
-    'user':user
-  };
-  LoggedInUserInfo.fromJson(Map<String, dynamic> json):
-  access_token=json['access_token'],
-  message = json['message'],
-  user = User.fromJson(json['user']);
+  final String id;
+  final String verified;
 
+  final String accessToken;
+  final User user;
+  LoggedInUserInfo(this.id, this.accessToken, this.user, this.verified);
+  Map<String, dynamic> toJson() => {
+        'accessToken': accessToken,
+        'verified': verified,
+        'user': user,
+        'id': id
+      };
+  LoggedInUserInfo.fromJson(Map<String, dynamic> json)
+      : accessToken = json['accessToken'],
+        verified = json['verified'],
+        id = json['id'],
+        user = User.fromJson(json['user']);
 }

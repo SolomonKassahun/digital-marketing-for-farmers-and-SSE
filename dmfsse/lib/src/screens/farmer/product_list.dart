@@ -1,6 +1,6 @@
-
-
 import 'package:flutter/material.dart';
+
+import '../common/widget/list_of_product.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
@@ -12,9 +12,6 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
-    return const Center
-    (
-      child: Text("No product here"),
-    );
+    return const ListOfProduct();
   }
 }
