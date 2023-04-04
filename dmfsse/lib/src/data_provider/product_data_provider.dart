@@ -5,32 +5,36 @@ import 'package:dmfsse/src/service/firebase_service.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDataProvider {
-  final baseUrl = 'http://10.5.224.86:5000/api/addproduct';
+  final baseUrl =
+      'https://my-json-server.typicode.com/SolomonKassahun/JsonServer/addproduct/';
   String? name;
-  Future<List<Product>> getAllActiveProduct() async{
+  Future<List<Product>> getAllActiveProduct() async {
     try {
       print("Sammmmmmmmmmmmmmmmmmmmmmmmmmmmmm+++++++++++++++++++++++");
-      final response = await http.get(Uri.parse(baseUrl),
+      final response = await http.get(
+        Uri.parse(baseUrl),
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            // 'Authorization': 'Bearer $token',
-          },     
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          // 'Authorization': 'Bearer $token',
+        },
       );
-       print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      print(
+          "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
       print('the status code is One ${response.statusCode}');
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         final extractedData = json.decode(response.body) as List;
+        print(extractedData);
         return extractedData.map((e) => Product.fromJson(e)).toList();
-      }else{
+      } else {
         print('the status code is ${response.statusCode}');
-         throw Exception('No Connection');
+        throw Exception('No Connection');
       }
     } catch (e) {
-      
       throw Exception('error at data provider $e');
     }
   }
+
   Future<bool> addProduct(Product product) async {
     try {
       if (product.photos == null) {

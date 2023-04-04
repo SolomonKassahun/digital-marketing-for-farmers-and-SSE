@@ -6,14 +6,16 @@ class InputTextFormField extends StatelessWidget {
   final Function onChanged;
   final bool isRequired;
   final TextInputType keyboardType;
-
-  InputTextFormField(
-      {required this.controller,
-      required this.hintTxt,
-      required this.keyboardType,
-      required this.onChanged,
-      required this.isRequired,
-      super.key});
+  final String errorMessage;
+  InputTextFormField({
+    required this.controller,
+    required this.hintTxt,
+    required this.keyboardType,
+    required this.onChanged,
+    required this.isRequired,
+    required this.errorMessage,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,43 +23,59 @@ class InputTextFormField extends StatelessWidget {
       height: 85,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
       child: TextFormField(
-          onTap: () {},
-          keyboardType: keyboardType,
-          controller: controller,
-          onEditingComplete: () => FocusScope.of(context).unfocus(),
-          style: TextStyle(fontSize: 18, color: Theme.of(context).primaryColor),
-          onChanged: (value) => this.onChanged(value.toString()),
-          decoration: InputDecoration(
-              labelText: hintTxt,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15.0),
-                borderSide: BorderSide(color: Theme.of(context).primaryColor),
-              ),
-              //fillColor: Colors.green
+        onTap: () {},
+        keyboardType: keyboardType,
+        controller: controller,
+        onEditingComplete: () => FocusScope.of(context).unfocus(),
+        style: TextStyle(fontSize: 18, color: Theme.of(context).primaryColor),
+        onChanged: (value) => onChanged(value.toString()),
+        // validator: (value) {
+        //   if (value!.isEmpty) {
+        //     return "enter $value";
+        //   } else {
+        //     return null;
+        //   }
+        // },
+        decoration: InputDecoration(
+            labelText: hintTxt,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+              borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            ),
 
-              contentPadding: const EdgeInsets.only(
-                top: 6,
-                bottom: 6,
-                left: 12,
+            //fillColor: Colors.green
+
+            contentPadding: const EdgeInsets.only(
+              top: 6,
+              bottom: 6,
+              left: 12,
+            ),
+            // border: InputBorder.none,
+            // prefixText: '${this.textFieldName}',
+            suffixIcon: SizedBox(
+              width: 2,
+              child: Center(
+                child: isRequired
+                    ? const Text(
+                        '*',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      )
+                    : const Text(''),
               ),
-              // border: InputBorder.none,
-              // prefixText: '${this.textFieldName}',
-              suffixIcon: Container(
-                width: 2,
-                child: Center(
-                  child: isRequired
-                      ? const Text(
-                          '*',
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        )
-                      : const Text(''),
-                ),
-              ))),
+            )),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "enter $errorMessage";
+          } else {
+            return null;
+          }
+        },
+      ),
     );
   }
 }

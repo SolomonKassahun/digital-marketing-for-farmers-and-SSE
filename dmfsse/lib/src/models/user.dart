@@ -1,26 +1,39 @@
-class User{
-   int? UserId; 
-   String? firstName;
-   String? lastName;
-   String? password;
-   String? role;
-   String? username;
-  User({this.UserId, this.firstName, this.lastName, this.role, this.password, this.username});
-  Map<String, dynamic> toJson() =>{
-    'UserId':UserId,
-    'firstName':firstName,
-    'lastName':lastName,
-    'password':password,
-     'role':role,
-     'username':username,
-   
-  };
-  User.fromJson(Map<String, dynamic> json): 
-   UserId=json['UserId'],
-   firstName = json['firstName'],
-   lastName=json['lastName'],
-   password=json['password'],
-    role = json['role'],
-   username=json['username'];
-  
+class User {
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? phoneNumber;
+  String? profilePicture;
+  String? identifictionPicture;
+  String? password;
+  String? role;
+
+  User(
+      {this.firstName,
+      this.lastName,
+      this.email,
+      this.phoneNumber,
+      this.profilePicture,
+      this.identifictionPicture,
+      this.role,
+      this.password});
+  Map<String, dynamic> toJson() => {
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'phoneNumber': phoneNumber,
+        'profilePicture': profilePicture,
+        'password': password,
+        'role': role,
+        'identifictionPicture': identifictionPicture,
+      };
+  User.fromJson(Map<String, dynamic> json)
+      : firstName = json['firstName'],
+        lastName = json['lastName'],
+        email = json['email'],
+        phoneNumber = json['phoneNumber'],
+        profilePicture = json['profilePicture'],
+        password = json['password'],
+        role = json['role'],
+        identifictionPicture = json['identifictionPicture'];
 }
