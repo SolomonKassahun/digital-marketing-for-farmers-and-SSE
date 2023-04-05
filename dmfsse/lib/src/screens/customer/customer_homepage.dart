@@ -2,10 +2,11 @@ import 'package:dmfsse/src/screens/customer/customer_deals.dart';
 import 'package:dmfsse/src/screens/customer/customer_message.dart';
 import 'package:flutter/material.dart';
 
+import '../common/widget/list_of_product.dart';
 import 'customer_drawer.dart';
 
 class CustomerHomepage extends StatefulWidget {
-  static const routeName = 'customerHomepage';
+  static const routeName = '/customerHomepage';
   const CustomerHomepage({Key? key}) : super(key: key);
 
   @override
@@ -17,13 +18,13 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
   getSelectedWidget(int index) {
     switch (index) {
       case 0:
-        return const CustomerHomepage();
+        return const ListOfProduct();
       case 1:
         return const CustomerDeals();
-      case 3:
+      case 2:
         return const CustomerMessage();
       default:
-        return const CustomerHomepage();
+        return const ListOfProduct();
     }
   }
 

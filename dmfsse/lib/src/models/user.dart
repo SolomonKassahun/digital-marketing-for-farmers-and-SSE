@@ -6,7 +6,7 @@ class User {
   String? profilePicture;
   String? identifictionPicture;
   String? password;
-  String? role;
+  String? roles;
 
   User(
       {this.firstName,
@@ -15,7 +15,7 @@ class User {
       this.phoneNumber,
       this.profilePicture,
       this.identifictionPicture,
-      this.role,
+      this.roles,
       this.password});
   Map<String, dynamic> toJson() => {
         'firstName': firstName,
@@ -24,7 +24,7 @@ class User {
         'phoneNumber': phoneNumber,
         'profilePicture': profilePicture,
         'password': password,
-        'role': role,
+        'roles': roles,
         'identifictionPicture': identifictionPicture,
       };
   User.fromJson(Map<String, dynamic> json)
@@ -34,6 +34,6 @@ class User {
         phoneNumber = json['phoneNumber'],
         profilePicture = json['profilePicture'],
         password = json['password'],
-        role = json['role'],
+        roles = json['roles'],
         identifictionPicture = json['identifictionPicture'];
 }

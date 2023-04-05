@@ -1,10 +1,11 @@
-
 import 'package:dmfsse/src/screens/sse/sse_message.dart';
 import 'package:flutter/material.dart';
 
 import 'sse_deals.dart';
+import 'sse_drawer.dart';
 
 class SseHomepage extends StatefulWidget {
+  static const routeName = '/sse_homepage';
   const SseHomepage({super.key});
 
   @override
@@ -13,46 +14,38 @@ class SseHomepage extends StatefulWidget {
 
 class _SseHomepageState extends State<SseHomepage> {
   int selectedIndex = 0;
-  getItemWidget(int index){
+  getItemWidget(int index) {
     switch (index) {
       case 0:
         return const SseHomepage();
       case 1:
-          return const SseDeals();
+        return const SseDeals();
       case 2:
-          return const SseMessage();
+        return const SseMessage();
       default:
-           return const SseHomepage();
+        return const SseHomepage();
     }
   }
-   void _onItemTapped(int index){
-      setState(() {
-        selectedIndex = index;
-      });
-    }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title:const  Text("Homepage"),
+        title: const Text("Homepage"),
       ),
+      drawer: const Drawer(child: SseDrawer()),
       bottomNavigationBar: BottomNavigationBar(
-        items:const  <BottomNavigationBarItem>[ 
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home"
-
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shop),
-              label: "Shop"
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.message),
-                label: "Message"
-              )
-
-        ] ,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.shop), label: "Shop"),
+          BottomNavigationBarItem(icon: Icon(Icons.message), label: "Message")
+        ],
         currentIndex: selectedIndex,
         onTap: _onItemTapped,
         selectedItemColor: Colors.blue,

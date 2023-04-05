@@ -1,16 +1,15 @@
+import 'package:dmfsse/local_storage/user_preference.dart';
 import 'package:dmfsse/src/screens/homepage_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../local_storage/user_preference.dart';
-
-class CustomerDrawer extends StatefulWidget {
-  const CustomerDrawer({super.key});
+class SseDrawer extends StatefulWidget {
+  const SseDrawer({super.key});
 
   @override
-  State<CustomerDrawer> createState() => _CustomerDrawerState();
+  State<SseDrawer> createState() => _SseDrawerState();
 }
 
-class _CustomerDrawerState extends State<CustomerDrawer> {
+class _SseDrawerState extends State<SseDrawer> {
   @override
   Widget build(BuildContext context) {
     return ListView(

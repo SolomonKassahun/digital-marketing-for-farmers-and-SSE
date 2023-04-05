@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class SseMessage extends StatefulWidget {
@@ -12,12 +10,12 @@ class SseMessage extends StatefulWidget {
 class _SseMessageState extends State<SseMessage> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text("message"),
       ),
       body: const Center(
-        child:  Text("No message"),
+        child: Text("No message"),
       ),
     );
   }

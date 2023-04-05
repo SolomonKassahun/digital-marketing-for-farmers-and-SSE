@@ -139,16 +139,14 @@ class _PasswordPageState extends State<PasswordPage> {
                               borderRadius: BorderRadius.circular(25),
                             ))),
                         onPressed: () {
-                          if (passwordController.text.toString() !=
-                              confirmPasswordController.text.toString()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        "Password and confirm password didnot match")));
-                          }
-                          if (formKey.currentState!.validate() &&
-                              passwordController.text.toString() ==
-                                  confirmPasswordController.text.toString()) {
+                          // if (passwordController.text.toString() !=
+                          //     confirmPasswordController.text.toString()) {
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //       const SnackBar(
+                          //           content: Text(
+                          //               "Password and confirm password didnot match")));
+                          // }
+                          if (formKey.currentState!.validate()) {
                             User user = User();
 
                             user.firstName = widget.firstName.toString();
@@ -156,11 +154,13 @@ class _PasswordPageState extends State<PasswordPage> {
                             user.phoneNumber = widget.phoneNumber.toString();
                             user.email = "dmfsse@gmail.com";
                             user.password = passwordController.text.toString();
-                            user.role = widget.role.toString();
+                            user.roles = widget.role.toString().toLowerCase();
                             user.profilePicture =
                                 profilePhotoController.text.toString();
                             user.identifictionPicture =
                                 identificationPhotoController.text.toString();
+                            print(
+                                'the user role is ${widget.role.toString().toLowerCase()}');
                             RegisterDetailInfo registerDetailInfo =
                                 RegisterDetailInfo(user);
                             BlocProvider.of<RegisterBloc>(context)

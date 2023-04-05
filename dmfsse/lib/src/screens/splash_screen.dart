@@ -6,6 +6,7 @@ import '../../local_storage/user_preference.dart';
 import 'customer/customer_homepage.dart';
 import 'farmer/farmer_homepage.dart';
 import 'homepage_screen.dart';
+import 'sse/sse_homepage.dart';
 
 class SplashScreen extends StatefulWidget {
   static const routeName = '/splash_screen';
@@ -26,10 +27,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
           Navigator.pushNamed(context, Homepage.routeName);
         } else {
-          if (value.user.role == "admin") {
+          if (value.roles.first == "farmer") {
             Navigator.pushNamed(context, FarmerHomepage.routeName);
-          } else if (value.user.role == "tech") {
+          } else if (value.roles.first == "customer") {
             Navigator.pushNamed(context, CustomerHomepage.routeName);
+          } else if (value.roles.first == 'sse') {
+            Navigator.pushNamed(context, SseHomepage.routeName);
           }
         }
       });

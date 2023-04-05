@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class CustomerDeals extends StatefulWidget {
@@ -12,11 +10,8 @@ class CustomerDeals extends StatefulWidget {
 class _CustomerDealsState extends State<CustomerDeals> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        title: const Text("Deals"),
-      ),
-      body: const Center(
+    return const Scaffold(
+      body: Center(
         child: Text("No Deals"),
       ),
     );
