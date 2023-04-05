@@ -55,6 +55,7 @@ class UserDataProvider {
     try {
       String? profilePicture;
       String? identificationPicture;
+      print('login click with ${user} and ${user.roles} ');
       if (user.profilePicture == null || user.identifictionPicture == null) {
         throw Exception("Profile or Identification picture is required");
       }
