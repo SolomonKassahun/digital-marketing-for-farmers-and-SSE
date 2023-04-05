@@ -10,15 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:http/http.dart' as http;
-
 import 'bloc_observer.dart';
 import 'routes/routes.dart';
 import 'src/bloc/Auth/auth_bloc.dart';
-
 import 'src/bloc/product/product_bloc.dart';
 import 'src/data_provider/product_data_provider.dart';
 import 'src/data_repository/user_data_repository.dart';
-import 'src/screens/farmer/farmer_homepage.dart';
+import 'src/screens/customer/customer_homepage.dart';
 import 'src/screens/splash_screen.dart';
 
 void main() async {
@@ -54,7 +52,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
 
           // home: Login(),
-          initialRoute: FarmerHomepage.routeName,
+          initialRoute: SplashScreen.routeName,
           onGenerateRoute: AppRoute.generateRoute
 
           // onUnknownRoute: (settings) {

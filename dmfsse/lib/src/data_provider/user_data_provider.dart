@@ -28,19 +28,25 @@ class UserDataProvider {
             // 'Authorization': 'Bearer $token',
           },
           body: jsonEncode({
-            "username": loginInfo.phoneNumber.toString(),
+            "phoneNumber": loginInfo.phoneNumber.toString(),
             "password": loginInfo.password.toString(),
           }));
-      if (response.statusCode != 200) {
+      if (response.statusCode != 201) {
+        print('the status code one is that ${response.statusCode}');
         throw const HttpException('Incorrect email / or password');
       } else {
+        print(
+            'the status code is that ${json.decode(response.body) as Map<String, dynamic>}');
         final extractedData =
             json.decode(response.body) as Map<String, dynamic>;
+
         serverResponse = LoggedInUserInfo.fromJson(extractedData);
+
         await userPreference.storeUserInformation(serverResponse);
         return serverResponse;
       }
     } catch (e) {
+      print('the error was that ${e.toString()}');
       throw throw e;
     }
   }
@@ -76,7 +82,7 @@ class UserDataProvider {
             'phoneNumber': user.phoneNumber,
             'profilePicture': profilePicture,
             'password': user.password,
-            'role': user.role as List,
+            'roles': [user.roles],
             'identifictionPicture': identificationPicture,
           }));
       if (response.statusCode == 201) {

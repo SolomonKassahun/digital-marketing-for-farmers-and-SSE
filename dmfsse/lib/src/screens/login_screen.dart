@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 import '../widget/custom_login_textfield.dart';
+import 'sse/sse_homepage.dart';
 
 class LoginScreen extends StatefulWidget {
   static String routeName = "/login";
@@ -50,17 +51,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
           if (state is LoginSucess) {
             // progress!.dismiss();
-            if (state.loggedInUserInfo.user.role == 'admin') {
+            if (state.loggedInUserInfo.roles.first == 'farmer') {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const FarmerHomepage()));
             }
-            if (state.loggedInUserInfo.user.role == 'tech') {
+            if (state.loggedInUserInfo.roles.first == 'customer') {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const CustomerHomepage()));
+            }
+            if (state.loggedInUserInfo.roles.first == 'sse') {
+              Navigator.of(context).pushReplacementNamed(SseHomepage.routeName);
             }
           }
 

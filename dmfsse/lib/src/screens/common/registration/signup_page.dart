@@ -171,7 +171,7 @@ class _SignupPageState extends State<SignupPage> {
                                                 phoneNumber:
                                                     phoneNumberController.text,
                                                 role: rolesController.text))));
-                                    print(role);
+                                    print(rolesController.text);
                                   }
                                 },
                                 child: const Text("Next")),
