@@ -29,12 +29,12 @@ class LoggedInUserInfo {
   final bool verified;
 
   final String accessToken;
-  String? firstName;
-  String? lastName;
+  String firstName;
+  String lastName;
   String? email;
-  String? phoneNumber;
-  String? profilePicture;
-  String? identifictionPicture;
+  String phoneNumber;
+  String profilePicture;
+  String identifictionPicture;
 
   List<String> roles;
   LoggedInUserInfo(

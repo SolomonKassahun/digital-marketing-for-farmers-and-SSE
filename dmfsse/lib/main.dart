@@ -3,6 +3,7 @@ import 'package:dmfsse/local_storage/user_preference.dart';
 import 'package:dmfsse/src/bloc/Register/register_bloc.dart';
 import 'package:dmfsse/src/data_provider/user_data_provider.dart';
 import 'package:dmfsse/src/data_repository/product_data_repository.dart';
+import 'package:dmfsse/src/models/user.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
@@ -14,6 +15,7 @@ import 'bloc_observer.dart';
 import 'routes/routes.dart';
 import 'src/bloc/Auth/auth_bloc.dart';
 import 'src/bloc/product/product_bloc.dart';
+import 'src/bloc/user/user_bloc.dart';
 import 'src/data_provider/product_data_provider.dart';
 import 'src/data_repository/user_data_repository.dart';
 import 'src/screens/customer/customer_homepage.dart';
@@ -46,7 +48,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<LoginBloc>(create: (_) => LoginBloc(userRepository)),
         BlocProvider<RegisterBloc>(create: (_) => RegisterBloc(userRepository)),
         BlocProvider<ProductBloc>(
-            create: (_) => ProductBloc(productDataRepository))
+            create: (_) => ProductBloc(productDataRepository)),
+        BlocProvider<UserBloc>(create: (_) => UserBloc(userRepository)),
       ],
       child: const MaterialApp(
           debugShowCheckedModeBanner: false,

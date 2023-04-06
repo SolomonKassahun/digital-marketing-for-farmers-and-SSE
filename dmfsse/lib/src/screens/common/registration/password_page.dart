@@ -34,6 +34,7 @@ class _PasswordPageState extends State<PasswordPage> {
   TextEditingController profilePhotoController = TextEditingController();
   TextEditingController identificationPhotoController = TextEditingController();
   bool isRegister = false;
+  bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +71,13 @@ class _PasswordPageState extends State<PasswordPage> {
                   onChanged: (String value) {},
                   keyboardType: TextInputType.text,
                   errorMessage: "password",
+                  obscureText: _isObscured,
+                  isPassword: true,
+                  isObscured: (value) {
+                    setState(() {
+                      _isObscured = !_isObscured;
+                    });
+                  },
                 ),
                 const SizedBox(
                   height: 10,
@@ -87,6 +95,13 @@ class _PasswordPageState extends State<PasswordPage> {
                   onChanged: (String value) {},
                   keyboardType: TextInputType.text,
                   errorMessage: "confirm new password",
+                  obscureText: _isObscured,
+                  isPassword: true,
+                  isObscured: (bool isObscured) {
+                    setState(() {
+                      _isObscured = !_isObscured;
+                    });
+                  },
                 ),
                 const SizedBox(
                   height: 20,

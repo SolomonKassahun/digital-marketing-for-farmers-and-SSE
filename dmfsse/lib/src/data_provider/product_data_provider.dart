@@ -4,6 +4,8 @@ import 'package:dmfsse/src/models/product.dart';
 import 'package:dmfsse/src/service/firebase_service.dart';
 import 'package:http/http.dart' as http;
 
+import '../../Ip/ip.dart';
+
 class ProductDataProvider {
   final baseUrl =
       'https://my-json-server.typicode.com/SolomonKassahun/JsonServer/addproduct/';

@@ -89,6 +89,7 @@ class _SignupPageState extends State<SignupPage> {
                           onChanged: (String value) {},
                           keyboardType: TextInputType.text,
                           errorMessage: "first name",
+                          obscureText: false,
                         ),
                         const Text(
                           "Last Name",
@@ -103,6 +104,7 @@ class _SignupPageState extends State<SignupPage> {
                           onChanged: (String value) {},
                           keyboardType: TextInputType.text,
                           errorMessage: 'last name',
+                          obscureText: false,
                         ),
                         const Text(
                           "Phone Number",
@@ -117,6 +119,7 @@ class _SignupPageState extends State<SignupPage> {
                           onChanged: (String value) {},
                           keyboardType: TextInputType.number,
                           errorMessage: "phone number",
+                          obscureText: false,
                         ),
                         const Text(
                           "Address",
@@ -131,6 +134,7 @@ class _SignupPageState extends State<SignupPage> {
                           onChanged: (String value) {},
                           keyboardType: TextInputType.number,
                           errorMessage: "address",
+                          obscureText: false,
                         ),
                         const SizedBox(
                           height: 15,

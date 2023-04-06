@@ -97,4 +97,17 @@ class UserDataProvider {
     }
     return false;
   }
+
+  Future<User> getUserInfo(String id) async {
+    try {
+      final response = await http.get(Uri.parse('${Ip.ip}/user/$id'));
+      if (response.statusCode == 200) {
+        return User.fromJson(json.decode(response.body));
+      } else {
+        throw Exception("failed to load");
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

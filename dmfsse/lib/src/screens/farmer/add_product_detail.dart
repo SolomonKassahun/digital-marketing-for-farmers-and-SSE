@@ -82,7 +82,7 @@ class _AddProductDetailState extends State<AddProductDetail> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FarmerHomepage()));
+                              builder: (context) => const FarmerHomepage()));
                     }
                   }, builder: (context, state) {
                     if (state is AddProductLoading) {
@@ -112,6 +112,7 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 onChanged: (String value) {},
                                 keyboardType: TextInputType.text,
                                 errorMessage: "product title",
+                                obscureText: false,
                               ),
                               const SizedBox(
                                 height: 10,
@@ -129,6 +130,7 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 onChanged: (String value) {},
                                 keyboardType: TextInputType.number,
                                 errorMessage: "product price",
+                                obscureText: false,
                               ),
                               const SizedBox(
                                 height: 10,
@@ -158,11 +160,11 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                       // borderSide: BorderSide(),
                                     ),
                                     //fillColor: Colors.green
-                                    // contentPadding: const EdgeInsets.only(
-                                    //   top: 6,
-                                    //   bottom: 6,
-                                    //   left: 12,
-                                    // ),
+                                    contentPadding: const EdgeInsets.only(
+                                      top: 6,
+                                      // bottom: 6,
+                                      // left: 12,
+                                    ),
                                   ),
                                 ),
                               ),

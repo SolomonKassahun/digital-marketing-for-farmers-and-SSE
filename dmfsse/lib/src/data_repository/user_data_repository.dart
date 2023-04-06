@@ -14,4 +14,9 @@ class UserDataRepository {
   Future<bool> createUser(User user) async {
     return (userDataProvider.createUser(user));
   }
+
+  Future<User> getUserInfo(String id) async {
+    print("Get user info at repo");
+    return userDataProvider.getUserInfo(id);
+  }
 }
