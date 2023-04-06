@@ -4,6 +4,7 @@ import '../../../bloc/Register/register_bloc.dart';
 import '../../../bloc/Register/register_event.dart';
 import '../../../bloc/Register/register_state.dart';
 import '../../../models/user.dart';
+import '../../login_screen.dart';
 import '../widget/input_field.dart';
 import '../widget/upload_image.dart';
 
@@ -32,6 +33,8 @@ class _PasswordPageState extends State<PasswordPage> {
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController profilePhotoController = TextEditingController();
   TextEditingController identificationPhotoController = TextEditingController();
+  bool isRegister = false;
+  bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +42,9 @@ class _PasswordPageState extends State<PasswordPage> {
         body: BlocConsumer<RegisterBloc, RegisterState>(
             listener: ((context, state) {
       if (state is RegisterInitial) {
-        const CircularProgressIndicator(
-          color: Colors.white,
-        );
+        isRegister = true;
       } else if (state is RegistrationSucess) {
-        Navigator.pushNamed(context, 'login');
+        Navigator.pushNamed(context, LoginScreen.routeName);
       }
     }), builder: (BuildContext context, state) {
       return SingleChildScrollView(
@@ -70,6 +71,13 @@ class _PasswordPageState extends State<PasswordPage> {
                   onChanged: (String value) {},
                   keyboardType: TextInputType.text,
                   errorMessage: "password",
+                  obscureText: _isObscured,
+                  isPassword: true,
+                  isObscured: (value) {
+                    setState(() {
+                      _isObscured = !_isObscured;
+                    });
+                  },
                 ),
                 const SizedBox(
                   height: 10,
@@ -87,6 +95,13 @@ class _PasswordPageState extends State<PasswordPage> {
                   onChanged: (String value) {},
                   keyboardType: TextInputType.text,
                   errorMessage: "confirm new password",
+                  obscureText: _isObscured,
+                  isPassword: true,
+                  isObscured: (bool isObscured) {
+                    setState(() {
+                      _isObscured = !_isObscured;
+                    });
+                  },
                 ),
                 const SizedBox(
                   height: 20,
@@ -168,7 +183,11 @@ class _PasswordPageState extends State<PasswordPage> {
                             print("clicked");
                           }
                         },
-                        child: const Text("Register")),
+                        child: isRegister
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : const Text("Register")),
                   ),
                 )
               ],

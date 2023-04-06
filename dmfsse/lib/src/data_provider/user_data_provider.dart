@@ -55,6 +55,7 @@ class UserDataProvider {
     try {
       String? profilePicture;
       String? identificationPicture;
+      print('login click with ${user} and ${user.roles} ');
       if (user.profilePicture == null || user.identifictionPicture == null) {
         throw Exception("Profile or Identification picture is required");
       }
@@ -95,5 +96,18 @@ class UserDataProvider {
       print("Exception throuwn $e");
     }
     return false;
+  }
+
+  Future<User> getUserInfo(String id) async {
+    try {
+      final response = await http.get(Uri.parse('${Ip.ip}/user/$id'));
+      if (response.statusCode == 200) {
+        return User.fromJson(json.decode(response.body));
+      } else {
+        throw Exception("failed to load");
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
-import '../widget/custom_login_textfield.dart';
+import 'common/widget/custom_login_textfield.dart';
 import 'sse/sse_homepage.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(
-                        height: 25,
+                        height: 45,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       label,
                       CustomLoginTextField(
                         // isObsecure: false,
-                        textFieldName: "enter username",
+                        textFieldName: "enter phone number",
                         controller: phoneController,
                         errorMessage: 'Phone number?',
                         icon: Icons.email,
