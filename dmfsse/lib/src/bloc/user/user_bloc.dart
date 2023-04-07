@@ -1,7 +1,8 @@
 import 'package:dmfsse/src/data_repository/user_data_repository.dart';
-import 'package:dmfsse/src/models/user.dart';
+import 'package:dmfsse/src/models/user_registeration_info.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/user.dart';
 import 'user_event.dart';
 import 'user_state.dart';
 
