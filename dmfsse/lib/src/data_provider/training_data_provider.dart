@@ -7,8 +7,7 @@ import '../models/training.dart';
 import 'package:http/http.dart' as http;
 
 class TrainingDataProvider {
-  String baseUrl =
-      "https://digital-marketing-for-farmers-and-sse.onrender.com/api/dmfsse/trainings";
+  String baseUrl = "${Ip.ip}/trainings";
 
   late String accessToken;
   void init() async {
