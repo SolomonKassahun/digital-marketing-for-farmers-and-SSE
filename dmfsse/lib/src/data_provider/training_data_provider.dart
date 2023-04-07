@@ -7,8 +7,7 @@ import '../models/training.dart';
 import 'package:http/http.dart' as http;
 
 class TrainingDataProvider {
-  String baseUrl =
-      "https://digital-marketing-for-farmers-and-sse.onrender.com/api/dmfsse/trainings";
+  String baseUrl = "${Ip.ip}/trainings";
 
   late String accessToken;
   void init() async {
@@ -23,10 +22,12 @@ class TrainingDataProvider {
       final response = await http.get(Uri.parse(baseUrl),
           headers: {'x-access-token': accessToken.toString()});
       if (response.statusCode == 200) {
+        print("the status code one is ${response.body}");
         final trainingData = json.decode(response.body) as List;
         return trainingData.map((e) => Training.fromJson(e)).toList();
         // return Training.fromJson(jsonDecode(response.body));
       } else {
+        print("the status code two is ${response.body}");
         throw Exception("No internet. Failed to load course");
       }
     } catch (e) {
