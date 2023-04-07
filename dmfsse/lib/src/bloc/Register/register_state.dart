@@ -1,11 +1,11 @@
-import '../../models/user.dart';
+import '../../models/user_registeration_info.dart';
 
 class RegisterState {}
 
 class InitialState extends RegisterState {}
 
 class RegisterUpdateSucess extends RegisterState {
-  final User? user;
+  final UserRegisterationInfo? user;
   RegisterUpdateSucess(this.user);
 }
 

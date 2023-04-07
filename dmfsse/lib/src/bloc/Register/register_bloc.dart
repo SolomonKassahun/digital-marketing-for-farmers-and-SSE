@@ -1,12 +1,12 @@
 import 'package:dmfsse/src/bloc/Register/register_event.dart';
 import 'package:dmfsse/src/bloc/Register/register_state.dart';
 import 'package:dmfsse/src/data_repository/user_data_repository.dart';
-import 'package:dmfsse/src/models/user.dart';
+import 'package:dmfsse/src/models/user_registeration_info.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final UserDataRepository userDataRepository;
-  User user = User();
+  UserRegisterationInfo user = UserRegisterationInfo();
 
   RegisterBloc(this.userDataRepository) : super(InitialState()) {
     on<AddBasicInfo>(

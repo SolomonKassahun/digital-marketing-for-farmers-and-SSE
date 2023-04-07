@@ -1,39 +1,49 @@
 class User {
-  String? firstName;
-  String? lastName;
+  String firstName;
+  String lastName;
   String? email;
-  String? phoneNumber;
-  String? profilePicture;
-  String? identifictionPicture;
-  String? password;
-  String? roles;
+  String phoneNumber;
+  List<String> roles;
+  String profilePicture;
+  String identifictionPicture;
+  bool verified;
+  String? createdAt;
+  String? updatedAt;
 
-  User(
-      {this.firstName,
-      this.lastName,
-      this.email,
-      this.phoneNumber,
-      this.profilePicture,
-      this.identifictionPicture,
-      this.roles,
-      this.password});
-  Map<String, dynamic> toJson() => {
+  User({
+    required this.firstName,
+    required this.lastName,
+    this.email,
+    required this.phoneNumber,
+    required this.roles,
+    required this.profilePicture,
+    required this.identifictionPicture,
+    required this.verified,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  Map<String, dynamic> tojson() => {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
         'phoneNumber': phoneNumber,
-        'profilePicture': profilePicture,
-        'password': password,
         'roles': roles,
+        'profilePicture': profilePicture,
         'identifictionPicture': identifictionPicture,
+        'verified': verified,
+        'createdAt': createdAt,
+        'updatedAt': updatedAt
       };
   User.fromJson(Map<String, dynamic> json)
       : firstName = json['firstName'],
         lastName = json['lastName'],
         email = json['email'],
         phoneNumber = json['phoneNumber'],
+        roles = json['roles'].map((role) => role).toList().cast<String>(),
         profilePicture = json['profilePicture'],
-        password = json['password'],
-        roles = json['roles'],
-        identifictionPicture = json['identifictionPicture'];
+        identifictionPicture = json['identifictionPicture'],
+        verified = json['verified'],
+        createdAt = json['createdAt'],
+        updatedAt = json['updatedAt'];
 }

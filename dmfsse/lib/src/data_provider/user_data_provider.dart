@@ -2,18 +2,27 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dmfsse/local_storage/user_preference.dart';
+import 'package:dmfsse/src/bloc/product/product_state.dart';
 import 'package:dmfsse/src/models/login_info.dart';
 import 'package:dmfsse/src/service/firebase_service.dart';
 import 'package:http/http.dart' as http;
 
 import '../../Ip/ip.dart';
 import '../models/user.dart';
+import '../models/user_registeration_info.dart';
 
 class UserDataProvider {
   final registrationUrl = '${Ip.ip}/signup';
   final baseUrl = '${Ip.ip}/signin';
   final UserPreference userPreference;
   UserDataProvider(this.userPreference);
+  String? accessToken;
+
+  Future<void> initState() async {
+    print("init is being called");
+    accessToken = (await userPreference.getUserToken());
+    print('the toke is $accessToken');
+  }
 
   Future<LoggedInUserInfo> login(LoginInfo loginInfo) async {
     LoggedInUserInfo serverResponse;
@@ -43,6 +52,7 @@ class UserDataProvider {
         serverResponse = LoggedInUserInfo.fromJson(extractedData);
 
         await userPreference.storeUserInformation(serverResponse);
+        await userPreference.storeToken(serverResponse.accessToken);
         return serverResponse;
       }
     } catch (e) {
@@ -51,7 +61,7 @@ class UserDataProvider {
     }
   }
 
-  Future<bool> createUser(User user) async {
+  Future<bool> createUser(UserRegisterationInfo user) async {
     try {
       String? profilePicture;
       String? identificationPicture;
@@ -99,15 +109,21 @@ class UserDataProvider {
   }
 
   Future<User> getUserInfo(String id) async {
+    initState();
+    print("the id im amba was $id");
     try {
-      final response = await http.get(Uri.parse('${Ip.ip}/user/$id'));
+      final response = await http.get(Uri.parse('${Ip.ip}/user/$id'),
+          headers: {'x-access-token': accessToken.toString()});
       if (response.statusCode == 200) {
+        print('statis code one is ${response.statusCode}');
+        print(json.decode(response.body));
         return User.fromJson(json.decode(response.body));
       } else {
+        print('statis code two is ${response.statusCode}');
         throw Exception("failed to load");
       }
     } catch (e) {
-      throw Exception(e);
+      throw Exception(e.toString());
     }
   }
 }

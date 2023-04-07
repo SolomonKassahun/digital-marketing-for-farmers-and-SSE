@@ -1,13 +1,15 @@
-import '../../models/user.dart';
+import '../../models/user_registeration_info.dart';
 
 class RegisterEvent {}
+
 class Initialization extends RegisterEvent {}
+
 class AddBasicInfo extends RegisterEvent {
-  final User user;
+  final UserRegisterationInfo user;
   AddBasicInfo(this.user);
-  
 }
+
 class RegisterDetailInfo extends RegisterEvent {
-  final User user;
+  final UserRegisterationInfo user;
   RegisterDetailInfo(this.user);
 }

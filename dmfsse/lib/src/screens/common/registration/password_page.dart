@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc/Register/register_bloc.dart';
 import '../../../bloc/Register/register_event.dart';
 import '../../../bloc/Register/register_state.dart';
-import '../../../models/user.dart';
+import '../../../models/user_registeration_info.dart';
 import '../../login_screen.dart';
 import '../widget/input_field.dart';
 import '../widget/upload_image.dart';
@@ -162,7 +162,8 @@ class _PasswordPageState extends State<PasswordPage> {
                           //               "Password and confirm password didnot match")));
                           // }
                           if (formKey.currentState!.validate()) {
-                            User user = User();
+                            UserRegisterationInfo user =
+                                UserRegisterationInfo();
 
                             user.firstName = widget.firstName.toString();
                             user.lastName = widget.lastName.toString();

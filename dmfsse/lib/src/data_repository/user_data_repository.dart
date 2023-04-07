@@ -1,6 +1,8 @@
 import 'package:dmfsse/src/data_provider/user_data_provider.dart';
 import 'package:dmfsse/src/models/login_info.dart';
-import 'package:dmfsse/src/models/user.dart';
+import 'package:dmfsse/src/models/user_registeration_info.dart';
+
+import '../models/user.dart';
 
 class UserDataRepository {
   final UserDataProvider userDataProvider;
@@ -11,7 +13,7 @@ class UserDataRepository {
     return await userDataProvider.login(loginInfo);
   }
 
-  Future<bool> createUser(User user) async {
+  Future<bool> createUser(UserRegisterationInfo user) async {
     return (userDataProvider.createUser(user));
   }
 
