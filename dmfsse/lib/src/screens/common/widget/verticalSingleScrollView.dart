@@ -129,7 +129,7 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                                                   placeholder: (context, url) =>
                                                       const Center(
                                                           child: SpinKitCircle(
-                                                    color: Colors.white,
+                                                    color: Colors.black,
                                                   )),
                                                   errorWidget: (context, url,
                                                           error) =>

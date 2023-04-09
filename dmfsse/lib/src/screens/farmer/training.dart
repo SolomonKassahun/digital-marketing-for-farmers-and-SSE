@@ -25,8 +25,14 @@ class _EducationState extends State<Education> {
             ),
           );
         } else if (state is GetTrainingSucess) {
-          return Center(
-            child: Text(state.trainings.first.title),
+          return SingleChildScrollView(
+            child: Column(
+              children: state.trainings
+                  .map((e) => Card(
+                        child: Text(e.title),
+                      ))
+                  .toList(),
+            ),
           );
         } else {
           return const Center(

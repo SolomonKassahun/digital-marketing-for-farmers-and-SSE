@@ -1,26 +1,25 @@
 import 'user.dart';
 
 class Training {
-  String id;
+  String? _id;
   String title;
   String description;
   String mediaFile;
   User postedBy;
-  Training(
-      {required this.id,
-      required this.description,
+  Training(_id,
+      {required this.description,
       required this.title,
       required this.mediaFile,
       required this.postedBy});
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "_id": _id,
         'description': description,
         'title': title,
         'mediaFile': mediaFile,
         'postedBy': postedBy
       };
   Training.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
+      : _id = json['_id'],
         description = json['description'],
         title = json['title'],
         mediaFile = json['mediaFile'],
