@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textFieldName: "enter phone number",
                         controller: phoneController,
                         errorMessage: 'Phone number?',
-                        icon: Icons.email,
+                        icon: Icons.phone,
                         isDisabled: true,
 
                         validator: (value) {

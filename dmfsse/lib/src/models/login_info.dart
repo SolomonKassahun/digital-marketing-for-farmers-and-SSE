@@ -34,7 +34,7 @@ class LoggedInUserInfo {
   String? email;
   String phoneNumber;
   String profilePicture;
-  String identifictionPicture;
+  String? identifictionPicture;
 
   List<String> roles;
   LoggedInUserInfo(

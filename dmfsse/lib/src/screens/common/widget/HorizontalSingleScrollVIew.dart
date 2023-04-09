@@ -39,14 +39,14 @@ class _HorizontalSingleScrollVIewState
             scrollDirection: Axis.horizontal,
             child: Container(
                 child: state.product.isEmpty
-                    ? const Center(child: Text("No Vehicles"))
+                    ? const Center(child: Text("No Product"))
                     : Row(
                         children: state.product
                             .map(
                               (product) => Row(
                                 children: [
                                   Stack(children: [
-                                    Container(
+                                    SizedBox(
                                       width: 80,
                                       height: 80,
                                       child: FutureBuilder(
@@ -106,7 +106,7 @@ class _HorizontalSingleScrollVIewState
                                                   placeholder: (context, url) =>
                                                       const Center(
                                                           child: SpinKitCircle(
-                                                    color: Colors.white,
+                                                    color: Colors.black,
                                                   )),
                                                   errorWidget: (context, url,
                                                           error) =>

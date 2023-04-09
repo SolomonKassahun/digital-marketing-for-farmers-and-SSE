@@ -1,5 +1,5 @@
 import 'package:dmfsse/src/screens/farmer/add_product.dart';
-import 'package:dmfsse/src/screens/farmer/education.dart';
+import 'package:dmfsse/src/screens/farmer/training.dart';
 import 'package:dmfsse/src/screens/farmer/message.dart';
 import 'package:dmfsse/src/screens/farmer/product_list.dart';
 import 'package:flutter/material.dart';

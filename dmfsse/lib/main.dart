@@ -14,11 +14,14 @@ import 'package:http/http.dart' as http;
 import 'bloc_observer.dart';
 import 'routes/routes.dart';
 import 'src/bloc/Auth/auth_bloc.dart';
+import 'src/bloc/message/message_bloc.dart';
 import 'src/bloc/product/product_bloc.dart';
 import 'src/bloc/training/training_bloc.dart';
 import 'src/bloc/user/user_bloc.dart';
+import 'src/data_provider/message_data_provider.dart';
 import 'src/data_provider/product_data_provider.dart';
 import 'src/data_provider/training_data_provider.dart';
+import 'src/data_repository/message_data_repository.dart';
 import 'src/data_repository/training_data_repository.dart';
 import 'src/data_repository/user_data_repository.dart';
 import 'src/screens/customer/customer_homepage.dart';
@@ -41,6 +44,8 @@ class MyApp extends StatelessWidget {
       ProductDataRepository(ProductDataProvider());
   TrainingDataRepository trainingDataRepository =
       TrainingDataRepository(trainingDataProiver: TrainingDataProvider());
+  MessageDataRepository messageDataRepository =
+      MessageDataRepository(messageDataProvier: MessageDataProvier());
 
   MyApp({Key? key}) : super(key: key);
 
@@ -57,7 +62,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<UserBloc>(create: (_) => UserBloc(userRepository)),
         BlocProvider<TrainingBloc>(
             create: (_) =>
-                TrainingBloc(trainingDataRepository: trainingDataRepository))
+                TrainingBloc(trainingDataRepository: trainingDataRepository)),
+        BlocProvider<MessageBloc>(
+            create: (_) =>
+                MessageBloc(messageDataRepository: messageDataRepository))
       ],
       child: const MaterialApp(
           debugShowCheckedModeBanner: false,
