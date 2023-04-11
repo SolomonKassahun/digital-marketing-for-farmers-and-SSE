@@ -4,8 +4,10 @@ class MessageState {}
 
 class MessageStateInitial extends MessageState {}
 
+class MessageSentStateSucess extends MessageState {}
+
 class MessageStateSucess extends MessageState {
-  List<Message> message;
+  List<MessageInfo> message;
   MessageStateSucess({required this.message});
 }
 

@@ -3,6 +3,7 @@ import 'package:dmfsse/src/screens/customer/customer_message.dart';
 import 'package:flutter/material.dart';
 
 import '../common/widget/list_of_product.dart';
+import '../farmer/message.dart';
 import 'customer_drawer.dart';
 
 class CustomerHomepage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
       case 1:
         return const CustomerDeals();
       case 2:
-        return const CustomerMessage();
+        return const FarmerChat();
       default:
         return const ListOfProduct();
     }
@@ -37,9 +38,7 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("customer homepage"),
-      ),
+      appBar: AppBar(),
       drawer: const Drawer(
         child: CustomerDrawer(),
       ),
