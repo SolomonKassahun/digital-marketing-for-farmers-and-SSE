@@ -33,7 +33,7 @@ class LoggedInUserInfo {
   String lastName;
   String? email;
   String phoneNumber;
-  String profilePicture;
+  String? profilePicture;
   String? identifictionPicture;
 
   List<String> roles;

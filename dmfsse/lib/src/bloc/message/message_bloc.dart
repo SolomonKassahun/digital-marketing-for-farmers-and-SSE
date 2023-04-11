@@ -15,7 +15,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
         try {
           emit(MessageStateInitial());
           print('list of message ');
-          List<Message> listOfMessage =
+          List<MessageInfo> listOfMessage =
               await messageDataRepository.getAllUserMessage();
           print('list of message $listOfMessage');
           if (listOfMessage != []) {
@@ -27,6 +27,21 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
           }
         } catch (e) {
           emit(MessageStateFailure(errorMessage: e.toString()));
+        }
+      }
+      if (event is SendMessageEvent) {
+        emit(MessageStateInitial());
+        try {
+          // bool isMessagesent = messageDataRepository.sendMessage(mess, id)
+          bool isMessageSent =
+              await messageDataRepository.sendMessage(event.message, event.id);
+          if (isMessageSent) {
+            emit(MessageSentStateSucess());
+          } else {
+            emit(MessageStateFailure(errorMessage: "Unable to send message"));
+          }
+        } catch (e) {
+          emit(MessageStateFailure(errorMessage: "Unable to send message"));
         }
       }
     });
