@@ -21,8 +21,7 @@ class _FarmerChatState extends State<FarmerChat> {
   @override
   void initState() {
     BlocProvider.of<MessageBloc>(context).add(FetchAllMessageEvent());
-    UserPreference userPreference = UserPreference();
-    id = userPreference.getUserId().toString();
+
     super.initState();
   }
 
