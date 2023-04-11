@@ -31,16 +31,6 @@ class UserPreference {
     return prefs.getString('token').toString();
   }
 
-  Future<void> storeId(String id) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('id', id);
-  }
-
-  Future<String> getUserId() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('id').toString();
-  }
-
   Future<void> removeUserInformation() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
