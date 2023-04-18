@@ -1,6 +1,7 @@
 import 'package:dmfsse/src/data_provider/message_data_provider.dart';
 
 import '../models/message.dart';
+import '../models/message_list.dart';
 
 class MessageDataRepository {
   MessageDataProvier messageDataProvier;
@@ -13,7 +14,12 @@ class MessageDataRepository {
     return listOfMesssage;
   }
 
-  Future<bool> sendMessage(String message, String id) async {
-    return messageDataProvier.sendMessage(message, id);
+  Future<bool> sendMessage(MessageBody messageBody) async {
+    print("message at provier");
+    return messageDataProvier.sendMessage(messageBody);
+  }
+
+  Future<List<ListOfMessage>> getYourMessage(String id) async {
+    return messageDataProvier.getYourMessage(id);
   }
 }

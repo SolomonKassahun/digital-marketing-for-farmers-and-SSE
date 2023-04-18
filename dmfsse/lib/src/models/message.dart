@@ -46,7 +46,10 @@ class MessageInfo {
 
 class MessageBody {
   String message;
-  MessageBody({required this.message});
-  Map<String, dynamic> toJson() => {'message': message};
-  MessageBody.fromJson(Map<String, dynamic> json) : message = json['message'];
+  String id;
+  MessageBody({required this.message, required this.id});
+  Map<String, dynamic> toJson() => {'message': message, 'id': id};
+  MessageBody.fromJson(Map<String, dynamic> json)
+      : message = json['message'],
+        id = json['id'];
 }

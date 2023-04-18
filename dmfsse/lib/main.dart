@@ -3,7 +3,6 @@ import 'package:dmfsse/local_storage/user_preference.dart';
 import 'package:dmfsse/src/bloc/Register/register_bloc.dart';
 import 'package:dmfsse/src/data_provider/user_data_provider.dart';
 import 'package:dmfsse/src/data_repository/product_data_repository.dart';
-import 'package:dmfsse/src/models/user_registeration_info.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
@@ -24,7 +23,7 @@ import 'src/data_provider/training_data_provider.dart';
 import 'src/data_repository/message_data_repository.dart';
 import 'src/data_repository/training_data_repository.dart';
 import 'src/data_repository/user_data_repository.dart';
-import 'src/screens/customer/customer_homepage.dart';
+
 import 'src/screens/splash_screen.dart';
 
 void main() async {
