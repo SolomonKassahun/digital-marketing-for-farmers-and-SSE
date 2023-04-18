@@ -1,11 +1,12 @@
+import '../../models/message.dart';
+
 class MessageEvent {}
 
 class FetchAllMessageEvent extends MessageEvent {}
 
 class SendMessageEvent extends MessageEvent {
-  String message;
-  String id;
-  SendMessageEvent({required this.id, required this.message});
+  MessageBody messagebody;
+  SendMessageEvent(this.messagebody);
 }
 
 class DeleteMessageEvent extends MessageEvent {

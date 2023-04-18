@@ -70,70 +70,39 @@ class _ProductDetailState extends State<ProductDetail> {
                           );
                         }
                       }
-                      // if (snapshot.connectionState == ConnectionState.waiting) {
-                      //   return Column(
-                      //     children: const [
-                      //       Text("Loading ..."),
-                      //       Expanded(
-                      //           child: SpinKitCircle(
-                      //         color: Colors.black,
-                      //       )),
-                      //     ],
-                      //   );
-                      // }
 
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
                     })),
+
                 Container(
                   padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(
-                        Icons.title,
-                        size: 25,
+                      Row(
+                        children: [
+                          Text(
+                            "ET Birr ${widget.product.price}",
+                            style: const TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text("50% off")
+                        ],
                       ),
                       const SizedBox(
-                        width: 20,
+                        height: 15.0,
                       ),
-                      Text(widget.product.title.toString())
+                      SizedBox(
+                        child: Text(widget.product.description.toString()),
+                      ),
                     ],
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Icon(
-                        Icons.price_change,
-                        size: 25,
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Text(widget.product.price.toString())
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Icon(
-                        Icons.description,
-                        size: 25,
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Text(widget.product.description.toString())
-                    ],
-                  ),
-                )
               ],
             ),
           ),

@@ -92,131 +92,128 @@ class _FarmerChatState extends State<FarmerChat> {
                                                       message: e,
                                                     ))));
                                       },
-                                      child: Expanded(
-                                        child: Card(
-                                          child: SizedBox(
-                                            height: 80.0,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    (e.profilePicture == null)
-                                                        ? const Icon(
-                                                            Icons.person)
-                                                        : FutureBuilder(
-                                                            future: FirebaseTaskManager.getImage(
-                                                                e.profilePicture
-                                                                    .toString(),
-                                                                '/ProfilePictures',
-                                                                15),
-                                                            builder: ((context,
-                                                                snapshot) {
+                                      child: Card(
+                                        child: SizedBox(
+                                          height: 80.0,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  (e.profilePicture == null)
+                                                      ? const Icon(Icons.person)
+                                                      : FutureBuilder(
+                                                          future: FirebaseTaskManager
+                                                              .getImage(
+                                                                  e.profilePicture
+                                                                      .toString(),
+                                                                  '/ProfilePictures',
+                                                                  15),
+                                                          builder: ((context,
+                                                              snapshot) {
+                                                            if (snapshot
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .done) {
                                                               if (snapshot
-                                                                      .connectionState ==
-                                                                  ConnectionState
-                                                                      .done) {
-                                                                if (snapshot
-                                                                    .hasError) {
-                                                                  return const Icon(
-                                                                    Icons
-                                                                        .person,
-                                                                    size: 40,
-                                                                  );
-                                                                }
-                                                                if (snapshot
-                                                                    .hasData) {
-                                                                  imageUrl = snapshot
-                                                                          .data
-                                                                      as String;
-                                                                  return CachedNetworkImage(
-                                                                    fit: BoxFit
-                                                                        .fill,
-                                                                    height:
-                                                                        40.0,
-
-                                                                    width: 40,
-
-                                                                    imageUrl:
-                                                                        snapshot
-                                                                            .data
-                                                                            .toString(),
-                                                                    // imageUrl: snapshot.data,
-                                                                    imageBuilder:
-                                                                        (context,
-                                                                                imageProvider) =>
-                                                                            Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          4,
-                                                                      height:
-                                                                          MediaQuery.of(context).size.height *
-                                                                              4,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        shape: BoxShape
-                                                                            .circle,
-                                                                        image: DecorationImage(
-                                                                            image:
-                                                                                imageProvider,
-                                                                            fit:
-                                                                                BoxFit.cover),
-                                                                      ),
-                                                                    ),
-                                                                    placeholder: (context,
-                                                                            url) =>
-                                                                        const Center(
-                                                                            child:
-                                                                                SpinKitCircle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                    )),
-                                                                    errorWidget: (context,
-                                                                            url,
-                                                                            error) =>
-                                                                        const Icon(
-                                                                            Icons.person),
-                                                                  );
-                                                                }
+                                                                  .hasError) {
+                                                                return const Icon(
+                                                                  Icons.person,
+                                                                  size: 40,
+                                                                );
                                                               }
-                                                              return const SpinKitCircle(
-                                                                color:
-                                                                    Colors.blue,
-                                                              );
-                                                            })),
-                                                    const SizedBox(
-                                                      width: 20,
-                                                    ),
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        const SizedBox(
-                                                          height: 15,
-                                                        ),
-                                                        Text(
-                                                            '${e.firstName}  ${e.lastName}'),
-                                                        const SizedBox(
-                                                          height: 15,
-                                                        ),
-                                                        const Divider(
-                                                          color: Colors.black,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Text(e.updatedAt
-                                                    .toString()
-                                                    .substring(0, 10))
-                                              ],
-                                            ),
+                                                              if (snapshot
+                                                                  .hasData) {
+                                                                imageUrl =
+                                                                    snapshot.data
+                                                                        as String;
+                                                                return CachedNetworkImage(
+                                                                  fit: BoxFit
+                                                                      .fill,
+                                                                  height: 40.0,
+
+                                                                  width: 40,
+
+                                                                  imageUrl: snapshot
+                                                                      .data
+                                                                      .toString(),
+                                                                  // imageUrl: snapshot.data,
+                                                                  imageBuilder:
+                                                                      (context,
+                                                                              imageProvider) =>
+                                                                          Container(
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        4,
+                                                                    height: MediaQuery.of(context)
+                                                                            .size
+                                                                            .height *
+                                                                        4,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      image: DecorationImage(
+                                                                          image:
+                                                                              imageProvider,
+                                                                          fit: BoxFit
+                                                                              .cover),
+                                                                    ),
+                                                                  ),
+                                                                  placeholder: (context,
+                                                                          url) =>
+                                                                      const Center(
+                                                                          child:
+                                                                              SpinKitCircle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                  )),
+                                                                  errorWidget: (context,
+                                                                          url,
+                                                                          error) =>
+                                                                      const Icon(
+                                                                          Icons
+                                                                              .person),
+                                                                );
+                                                              }
+                                                            }
+                                                            return const SpinKitCircle(
+                                                              color:
+                                                                  Colors.blue,
+                                                            );
+                                                          })),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const SizedBox(
+                                                        height: 15,
+                                                      ),
+                                                      Text(
+                                                          '${e.firstName}  ${e.lastName}'),
+                                                      const SizedBox(
+                                                        height: 15,
+                                                      ),
+                                                      const Divider(
+                                                        color: Colors.black,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                width: 20,
+                                              ),
+                                              Text(e.updatedAt
+                                                  .toString()
+                                                  .substring(0, 10))
+                                            ],
                                           ),
                                         ),
                                       ),
