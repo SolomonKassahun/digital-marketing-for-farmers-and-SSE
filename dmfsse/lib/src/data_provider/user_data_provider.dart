@@ -53,6 +53,7 @@ class UserDataProvider {
 
         await userPreference.storeUserInformation(serverResponse);
         await userPreference.storeToken(serverResponse.accessToken);
+        await userPreference.storeUserId(serverResponse.id);
 
         return serverResponse;
       }

@@ -23,12 +23,22 @@ class UserPreference {
 
   Future<void> storeToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
+    await prefs.setString('accessToken', token);
   }
 
   Future<String> getUserToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token').toString();
+    return prefs.getString('accessToken').toString();
+  }
+
+  Future<void> storeUserId(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('id', token);
+  }
+
+  Future<String> getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('id').toString();
   }
 
   Future<void> removeUserInformation() async {

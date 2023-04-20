@@ -29,7 +29,6 @@ class _FarmerChatState extends State<FarmerChat> {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<MessageBloc>(context).add(FetchAllMessageEvent());
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -168,7 +167,7 @@ class _FarmerChatState extends State<FarmerChat> {
                                                                           child:
                                                                               SpinKitCircle(
                                                                     color: Colors
-                                                                        .black,
+                                                                        .blue,
                                                                   )),
                                                                   errorWidget: (context,
                                                                           url,

@@ -44,6 +44,20 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
           emit(MessageStateFailure(errorMessage: e.toString()));
         }
       }
+      if (event is GetYourMessage) {
+        emit(MessageStateInitial());
+        try {
+          final listOfMessage =
+              await messageDataRepository.getYourMessage(event.id);
+          if (listOfMessage != []) {
+            emit(MessageStateGetSucess(listOfMessage: listOfMessage));
+          } else {
+            emit(MessageStateFailure(errorMessage: "Unable to load message"));
+          }
+        } catch (e) {
+          throw Exception("Failed to load Message");
+        }
+      }
     });
   }
 }
