@@ -23,9 +23,11 @@ class TrainingDataProvider {
           headers: {'x-access-token': accessToken.toString()});
       if (response.statusCode == 200) {
         final trainingData = json.decode(response.body) as List;
+        print('status code: ${response.body}');
         return trainingData.map((e) => Training.fromJson(e)).toList();
         // return Training.fromJson(jsonDecode(response.body));
       } else {
+        print('status code: ${response.body}');
         throw Exception("No internet. Failed to load course");
       }
     } catch (e) {

@@ -9,7 +9,7 @@ class ListOfMessage {
       {'id': id, 'message': message, 'sender': sender, 'reciever': reciever};
   ListOfMessage.fromJson(Map<String, dynamic> json)
       : id = json['_id'],
-        message = json['reciever'],
+        message = json['message'],
         sender = Sender.fromJson(json['sender']),
         reciever = Reciever.fromJson(json['reciever']);
 }
@@ -23,7 +23,7 @@ class Sender {
   Map<String, dynamic> toJson() =>
       {'_id': id, 'firstName': firstName, 'lastName': lastName, 'roles': roles};
   Sender.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
+      : id = json['_id'],
         firstName = json['firstName'],
         lastName = json['lastName'],
         roles = json['roles'];

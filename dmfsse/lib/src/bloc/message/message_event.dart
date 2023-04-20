@@ -9,6 +9,11 @@ class SendMessageEvent extends MessageEvent {
   SendMessageEvent(this.messagebody);
 }
 
+class GetYourMessage extends MessageEvent {
+  String id;
+  GetYourMessage({required this.id});
+}
+
 class DeleteMessageEvent extends MessageEvent {
   String id;
   DeleteMessageEvent({required this.id});

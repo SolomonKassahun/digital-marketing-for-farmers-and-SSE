@@ -61,15 +61,25 @@ class MessageDataProvier {
   }
 
   Future<List<ListOfMessage>> getYourMessage(String id) async {
+    init();
     try {
-      final response = await http.get(Uri.parse("${Ip.ip}/getYourMessage/$id"));
+      final response = await http.get(
+        Uri.parse("${Ip.ip}/getYourMessage/$id"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'x-access-token': accessToken
+        },
+      );
       if (response.statusCode == 200) {
         final extractedData = jsonDecode(response.body) as List;
+        print('status code: ${response.statusCode} body: $extractedData');
         return extractedData.map((e) => ListOfMessage.fromJson(e)).toList();
       }
+      print('status code: ${response.statusCode} body: ');
       throw Exception('No Connection');
     } catch (e) {
-      throw Exception("No internet. Failed to load message");
+      throw Exception(e.toString());
     }
   }
 }
