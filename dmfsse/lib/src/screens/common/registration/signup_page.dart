@@ -81,7 +81,9 @@ class _SignupPageState extends State<SignupPage> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.blue),
                         ),
-                        //  InputTextFormField(),
+                        const SizedBox(
+                          height: 5,
+                        ),
                         InputTextFormField(
                           hintTxt: 'Write first  name',
                           controller: firstNameController,
@@ -90,11 +92,21 @@ class _SignupPageState extends State<SignupPage> {
                           keyboardType: TextInputType.text,
                           errorMessage: "first name",
                           obscureText: false,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter first name";
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
                         const Text(
                           "Last Name",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.blue),
+                        ),
+                        const SizedBox(
+                          height: 5,
                         ),
                         //  InputTextFormField(),
                         InputTextFormField(
@@ -105,11 +117,21 @@ class _SignupPageState extends State<SignupPage> {
                           keyboardType: TextInputType.text,
                           errorMessage: 'last name',
                           obscureText: false,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter last name";
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
                         const Text(
                           "Phone Number",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.blue),
+                        ),
+                        const SizedBox(
+                          height: 5,
                         ),
                         //  InputTextFormField(),
                         InputTextFormField(
@@ -120,11 +142,23 @@ class _SignupPageState extends State<SignupPage> {
                           keyboardType: TextInputType.number,
                           errorMessage: "phone number",
                           obscureText: false,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter Phone number";
+                            } else if (value.toString().length < 10) {
+                              return "phone number must be 10 digit";
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
                         const Text(
                           "Address",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.blue),
+                        ),
+                        const SizedBox(
+                          height: 5,
                         ),
                         //  InputTextFormField(),
                         InputTextFormField(
@@ -135,6 +169,13 @@ class _SignupPageState extends State<SignupPage> {
                           keyboardType: TextInputType.number,
                           errorMessage: "address",
                           obscureText: false,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter address";
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
                         const SizedBox(
                           height: 15,

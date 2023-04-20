@@ -113,6 +113,13 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 keyboardType: TextInputType.text,
                                 errorMessage: "product title",
                                 obscureText: false,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter product title";
+                                  } else {
+                                    return null;
+                                  }
+                                },
                               ),
                               const SizedBox(
                                 height: 10,
@@ -130,6 +137,13 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 onChanged: (String value) {},
                                 keyboardType: TextInputType.number,
                                 errorMessage: "product price",
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter product price";
+                                  } else {
+                                    return null;
+                                  }
+                                },
                                 obscureText: false,
                               ),
                               const SizedBox(
