@@ -73,6 +73,15 @@ class _PasswordPageState extends State<PasswordPage> {
                   errorMessage: "password",
                   obscureText: _isObscured,
                   isPassword: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Enter new passowrd";
+                    } else if (value.toString().length < 6) {
+                      return "password must greater than 6 ";
+                    } else {
+                      return null;
+                    }
+                  },
                   isObscured: (value) {
                     setState(() {
                       _isObscured = !_isObscured;
@@ -90,13 +99,20 @@ class _PasswordPageState extends State<PasswordPage> {
                 //  InputTextFormField(),
                 InputTextFormField(
                   hintTxt: 'Confirm New Password',
-                  controller: passwordController,
+                  controller: confirmPasswordController,
                   isRequired: false,
                   onChanged: (String value) {},
                   keyboardType: TextInputType.text,
                   errorMessage: "confirm new password",
                   obscureText: _isObscured,
                   isPassword: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "confirm new password";
+                    } else if (passwordController.text.isNotEmpty != value) {
+                      return "password  didn't  match";
+                    }
+                  },
                   isObscured: (bool isObscured) {
                     setState(() {
                       _isObscured = !_isObscured;
@@ -161,7 +177,9 @@ class _PasswordPageState extends State<PasswordPage> {
                           //           content: Text(
                           //               "Password and confirm password didnot match")));
                           // }
-                          if (formKey.currentState!.validate()) {
+                          if ((formKey.currentState!.validate()) &&
+                              (passwordController.text.toString() ==
+                                  confirmPasswordController.text.toString())) {
                             UserRegisterationInfo user =
                                 UserRegisterationInfo();
 
