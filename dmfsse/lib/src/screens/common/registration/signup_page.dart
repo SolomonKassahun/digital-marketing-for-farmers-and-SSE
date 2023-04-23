@@ -15,6 +15,7 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
   String role = 'Customer';
+  RegExp regExp = RegExp(r'^[0-9]+$');
 
   FocusNode focusNode = FocusNode();
   TextEditingController firstNameController = TextEditingController();
@@ -145,8 +146,10 @@ class _SignupPageState extends State<SignupPage> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter Phone number";
-                            } else if (value.toString().length < 10) {
+                            } else if (value.toString().length != 10) {
                               return "phone number must be 10 digit";
+                            } else if (regExp.hasMatch(value)) {
+                              return "phone number must number";
                             } else {
                               return null;
                             }
