@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class RolesDropDown extends StatefulWidget {
   final ValueChanged<String> changeRole;
-  RolesDropDown({required this.changeRole, super.key});
+  const RolesDropDown({required this.changeRole, super.key});
 
   @override
   State<RolesDropDown> createState() => _RolesDropDownState();
@@ -33,7 +33,7 @@ class _RolesDropDownState extends State<RolesDropDown> {
           widget.changeRole(value.toString());
         });
       },
-      items: <String>['Customer', 'Farmer', 'Small Sized Enterprise']
+      items: <String>['Customer', 'Farmer', 'SSE']
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,

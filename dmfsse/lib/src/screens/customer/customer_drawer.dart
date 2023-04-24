@@ -107,7 +107,10 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
               onTap: () {
                 UserPreference userPreference = UserPreference();
                 userPreference.removeUserInformation();
-                Navigator.pushNamed(context, Homepage.routeName);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Homepage()),
+                    (route) => false);
               },
             ),
           )

@@ -28,10 +28,23 @@ class _SplashScreenState extends State<SplashScreen> {
           Navigator.pushNamed(context, Homepage.routeName);
         } else {
           if (value.roles.first == "farmer") {
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => const FarmerHomepage()),
+            //     (route) => false);
             Navigator.pushNamed(context, FarmerHomepage.routeName);
           } else if (value.roles.first == "customer") {
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => const CustomerHomepage()),
+            //     (route) => false);
             Navigator.pushNamed(context, CustomerHomepage.routeName);
           } else if (value.roles.first == 'sse') {
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => const SseHomepage()),
+            //     (route) => false);
             Navigator.pushNamed(context, SseHomepage.routeName);
           }
         }
