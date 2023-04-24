@@ -148,8 +148,6 @@ class _SignupPageState extends State<SignupPage> {
                               return "Enter Phone number";
                             } else if (value.toString().length != 10) {
                               return "phone number must be 10 digit";
-                            } else if (regExp.hasMatch(value)) {
-                              return "phone number must number";
                             } else {
                               return null;
                             }
@@ -169,7 +167,7 @@ class _SignupPageState extends State<SignupPage> {
                           controller: addressController,
                           isRequired: false,
                           onChanged: (String value) {},
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                           errorMessage: "address",
                           obscureText: false,
                           validator: (value) {
