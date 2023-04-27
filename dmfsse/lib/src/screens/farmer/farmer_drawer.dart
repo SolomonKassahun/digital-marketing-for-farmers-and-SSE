@@ -19,7 +19,7 @@ class FarmerDrawer extends StatefulWidget {
 }
 
 class _FarmerDrawerState extends State<FarmerDrawer> {
-  late LoggedInUserInfo loggedInUserInfo;
+  LoggedInUserInfo? loggedInUserInfo;
   String? imageUrl;
 
   getUsers() {
@@ -41,7 +41,7 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<UserBloc>(context)
-        .add(GetUserInfoEvent(id: loggedInUserInfo.id.toString()));
+        .add(GetUserInfoEvent(id: loggedInUserInfo!.id.toString()));
     // BlocProvider.of<UserBloc>(context)
     //     .add(GetUserInfoEvent(id: loggedInUserInfo!.id.toString()));
     return BlocBuilder<UserBloc, UserState>(builder: (context, state) {
@@ -55,18 +55,18 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
             accountName: Text(
               // ignore: unnecessary_null_comparison
               (loggedInUserInfo != null)
-                  ? "${loggedInUserInfo.firstName.toString()} ${loggedInUserInfo.firstName.toString()}"
+                  ? "${loggedInUserInfo!.firstName.toString()} ${loggedInUserInfo!.firstName.toString()}"
                   : "",
               style: const TextStyle(color: Colors.white),
             ),
             accountEmail: Text(
                 (loggedInUserInfo != null)
-                    ? "+251${loggedInUserInfo.phoneNumber.toString().substring(1)}"
+                    ? "+251${loggedInUserInfo!.phoneNumber.toString().substring(1)}"
                     : "+251",
                 style: const TextStyle(color: Colors.white)),
             currentAccountPicture: FutureBuilder(
                 future: FirebaseTaskManager.getImage(
-                    loggedInUserInfo.profilePicture.toString(),
+                    loggedInUserInfo!.profilePicture.toString(),
                     'ProfilePictures',
                     15),
                 builder: ((context, snapshot) {

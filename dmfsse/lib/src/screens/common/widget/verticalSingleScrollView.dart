@@ -25,10 +25,10 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
   void initState() {
     listOfProduct = widget.products
         .where((element) =>
-            element.title!
+            element.name
                 .toLowerCase()
                 .contains(widget.searchTerm.toLowerCase().toString()) ||
-            element.price!
+            element.price
                 .toInt()
                 .toString()
                 .contains(widget.searchTerm.toLowerCase().toString()))
@@ -77,7 +77,7 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                                       ),
                                       FutureBuilder(
                                           future: FirebaseTaskManager.getImage(
-                                              product.photos.toString(),
+                                              product.photo.toString(),
                                               'product',
                                               7),
                                           builder: (BuildContext context,
@@ -146,7 +146,7 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                                         children: [
                                           SizedBox(
                                             child: Text(
-                                              '${product.title}',
+                                              product.name,
                                               style: const TextStyle(
                                                   color: Colors.black),
                                             ),

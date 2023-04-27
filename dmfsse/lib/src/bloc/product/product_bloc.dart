@@ -15,7 +15,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
               await productDataRepository.addProduct(event.product);
 
           if (isProductCreated) {
-            emit(AddProductLoading());
+            emit(AddProductSucess());
           } else {
             // ignore: invalid_use_of_visible_for_testing_member
             emit(AddProductFailure());

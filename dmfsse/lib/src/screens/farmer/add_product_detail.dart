@@ -25,6 +25,8 @@ class _AddProductDetailState extends State<AddProductDetail> {
   TextEditingController priceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController productPhotos = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+
   Widget _title() {
     return RichText(
       textAlign: TextAlign.center,
@@ -99,14 +101,14 @@ class _AddProductDetailState extends State<AddProductDetail> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                "Title",
+                                "Name",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.blue),
                               ),
                               //  InputTextFormField(),
                               InputTextFormField(
-                                hintTxt: 'Title',
+                                hintTxt: 'name',
                                 controller: titleController,
                                 isRequired: false,
                                 onChanged: (String value) {},
@@ -140,6 +142,32 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Enter product price";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                obscureText: false,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+
+                              const Text(
+                                "Amount",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue),
+                              ),
+                              InputTextFormField(
+                                hintTxt: 'amount',
+                                controller: amountController,
+                                isRequired: false,
+                                onChanged: (String value) {},
+                                keyboardType: TextInputType.number,
+                                errorMessage: "product price",
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter product amount";
                                   } else {
                                     return null;
                                   }
@@ -210,24 +238,36 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 ),
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      print("add product clicked");
+                                      if (_formKey.currentState!.validate()) {
+                                        print("add product clicked");
 
-                                      Product product = Product();
-                                      product.title =
-                                          titleController.text.toString();
-                                      product.description =
-                                          descriptionController.text.toString();
-                                      product.price =
-                                          int.parse(priceController.text);
-                                      product.photos =
-                                          productPhotos.text.toString();
-                                      print("======================");
-                                      print(
-                                          '${productPhotos.text},${titleController.text}');
-                                      AddProduct addProduct =
-                                          AddProduct(product);
-                                      BlocProvider.of<ProductBloc>(context)
-                                          .add(addProduct);
+                                        Product product = Product(
+                                          amount:
+                                              int.parse(amountController.text),
+                                          name: titleController.text.toString(),
+                                          price:
+                                              int.parse(priceController.text),
+                                          description: descriptionController
+                                              .text
+                                              .toString(),
+                                          photo: productPhotos.text.toString(),
+                                        );
+                                        // product.name =
+                                        //     titleController.text.toString();
+                                        // product.description =
+                                        //     descriptionController.text.toString();
+                                        // product.price =
+                                        //     int.parse(priceController.text);
+                                        product.photo =
+                                            productPhotos.text.toString();
+                                        print("======================");
+                                        print(
+                                            '${productPhotos.text},${titleController.text}');
+                                        AddProduct addProduct =
+                                            AddProduct(product);
+                                        BlocProvider.of<ProductBloc>(context)
+                                            .add(addProduct);
+                                      }
                                     },
                                     style: ButtonStyle(
                                         backgroundColor:
@@ -246,20 +286,6 @@ class _AddProductDetailState extends State<AddProductDetail> {
                               ),
                             ],
                           )),
-
-                      // children: [
-                      // Center(
-                      //   child: UploadImage(pickImage: (image) {
-                      //     setState(() {
-                      //       // photoController.text = image.path;
-                      //     });
-                      //   }),
-                      // ),
-                      //   TextFormField(),
-                      //   TextFormField(),
-                      //   TextFormField(),
-                      //   TextFormField(),
-                      // ],
                     );
                   }),
                 ),
