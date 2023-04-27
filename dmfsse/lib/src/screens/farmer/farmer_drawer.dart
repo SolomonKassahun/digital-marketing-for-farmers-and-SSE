@@ -40,8 +40,8 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserBloc>(context)
-        .add(GetUserInfoEvent(id: loggedInUserInfo!.id.toString()));
+    BlocProvider.of<UserBloc>(context).add(GetUserInfoEvent(
+        id: (loggedInUserInfo != null) ? loggedInUserInfo!.id.toString() : ""));
     // BlocProvider.of<UserBloc>(context)
     //     .add(GetUserInfoEvent(id: loggedInUserInfo!.id.toString()));
     return BlocBuilder<UserBloc, UserState>(builder: (context, state) {
