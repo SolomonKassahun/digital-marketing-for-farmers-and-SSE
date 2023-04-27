@@ -24,28 +24,27 @@ class _SplashScreenState extends State<SplashScreen> {
       Timer(const Duration(milliseconds: 1000), () {
         if (value == null) {
           print("User is not logged in");
-
-          Navigator.pushNamed(context, Homepage.routeName);
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Homepage()),
+              (route) => false);
         } else {
           if (value.roles.first == "farmer") {
-            // Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const FarmerHomepage()),
-            //     (route) => false);
-            Navigator.pushNamed(context, FarmerHomepage.routeName);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const FarmerHomepage()),
+                (route) => false);
           } else if (value.roles.first == "customer") {
-            // Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => const CustomerHomepage()),
-            //     (route) => false);
-            Navigator.pushNamed(context, CustomerHomepage.routeName);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CustomerHomepage()),
+                (route) => false);
           } else if (value.roles.first == 'sse') {
-            // Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const SseHomepage()),
-            //     (route) => false);
-            Navigator.pushNamed(context, SseHomepage.routeName);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const SseHomepage()),
+                (route) => false);
           }
         }
       });

@@ -34,7 +34,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 // ),
                 FutureBuilder(
                     future: FirebaseTaskManager.getImage(
-                        widget.product.photos.toString(), 'product', 7),
+                        widget.product.photo.toString(), 'product', 7),
                     builder: ((context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasError) {

@@ -51,7 +51,7 @@ class _HorizontalSingleScrollVIewState
                                       height: 80,
                                       child: FutureBuilder(
                                           future: FirebaseTaskManager.getImage(
-                                              product.photos.toString(),
+                                              product.photo.toString(),
                                               'product',
                                               7),
                                           builder: (BuildContext context,
@@ -131,7 +131,7 @@ class _HorizontalSingleScrollVIewState
                                         left: 25,
                                         top: 30,
                                         child: Text(
-                                          product.title.toString(),
+                                          product.name.toString(),
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ))

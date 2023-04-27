@@ -5,11 +5,18 @@ import 'package:dmfsse/src/service/firebase_service.dart';
 import 'package:http/http.dart' as http;
 
 import '../../Ip/ip.dart';
+import '../../local_storage/user_preference.dart';
 
 class ProductDataProvider {
-  final baseUrl =
-      'https://my-json-server.typicode.com/SolomonKassahun/JsonServer/addproduct/';
-  String? name;
+  final baseUrl = '${Ip.ip}/products';
+  final addProductUrl = '${Ip.ip}/addProduct';
+  String? productPhoto;
+  late String accessToken;
+  void init() async {
+    UserPreference userPreference = UserPreference();
+    accessToken = await userPreference.getUserToken();
+  }
+
   Future<List<Product>> getAllActiveProduct() async {
     try {
       print("Sammmmmmmmmmmmmmmmmmmmmmmmmmmmmm+++++++++++++++++++++++");
@@ -38,37 +45,43 @@ class ProductDataProvider {
   }
 
   Future<bool> addProduct(Product product) async {
+    init();
+
     try {
-      if (product.photos == null) {
+      if (product.photo == null) {
         throw Exception("Product picture is required");
       }
       await FirebaseTaskManager.uploadImage(
-              product.photos.toString(), '/product')
+              product.photo.toString(), '/product')
           .then((productPicturePath) {
-        name = productPicturePath;
+        productPhoto = productPicturePath;
       });
+      print("product picture path is productPhoto: $productPhoto");
       //  async{
-      final response = await http.post(Uri.parse(baseUrl),
+      final response = await http.post(Uri.parse(addProductUrl),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            // 'Authorization': 'Bearer $token',
+            'x-access-token': accessToken,
           },
           body: jsonEncode({
-            'title': product.title.toString(),
+            'photo': productPhoto,
             'price': product.price,
             'description': product.description,
-            'photos': name
+            'name': product.name,
+            'amount': product.amount,
           }));
 
       if (response.statusCode == 201) {
+        print('the status code is ${response.statusCode}');
         return true;
       } else {
+        print('the status code is ${response.statusCode}');
         return false;
       }
       ;
     } catch (e) {
-      throw Exception(e);
+      throw Exception(e.toString());
     }
   }
 }
