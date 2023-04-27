@@ -34,7 +34,7 @@ class Product {
         photo = json['photo'],
         amount = json['amount'],
         soldout = json['soldout'],
-        postedBy = json['postedBy'];
+        postedBy = PostedBy.fromJson(json['postedBy']);
 }
 
 class PostedBy {
