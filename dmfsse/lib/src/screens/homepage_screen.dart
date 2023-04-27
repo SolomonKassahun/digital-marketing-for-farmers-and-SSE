@@ -65,6 +65,7 @@ class _HomepageState extends State<Homepage> {
                   if (state is FetchAllProductSucess) {
                     // searcheProduct = listOfProduct.where((element) => searchController.text == ).toList
                     return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const HorizontalSingleScrollVIew(),
                         const SizedBox(

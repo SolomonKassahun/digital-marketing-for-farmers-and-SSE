@@ -39,13 +39,14 @@ class _HorizontalSingleScrollVIewState
             scrollDirection: Axis.horizontal,
             child: Container(
                 child: state.product.isEmpty
-                    ? const Center(child: Text("No Product"))
+                    ? const SizedBox.shrink()
                     : Row(
                         children: state.product
                             .map(
                               (product) => Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Stack(children: [
+                                  Column(children: [
                                     SizedBox(
                                       width: 80,
                                       height: 80,
@@ -127,14 +128,11 @@ class _HorizontalSingleScrollVIewState
                                       //   ],
                                       // ),
                                     ),
-                                    Positioned(
-                                        left: 25,
-                                        top: 30,
-                                        child: Text(
-                                          product.name.toString(),
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        ))
+                                    Text(
+                                      product.name.toString(),
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                    )
                                   ]),
                                   const SizedBox(
                                     width: 10,
