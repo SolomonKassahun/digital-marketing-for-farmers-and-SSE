@@ -1,7 +1,9 @@
 import 'package:dmfsse/local_storage/user_preference.dart';
 
 import 'package:dmfsse/src/bloc/Register/register_bloc.dart';
+import 'package:dmfsse/src/bloc/order/order_bloc.dart';
 import 'package:dmfsse/src/data_provider/user_data_provider.dart';
+import 'package:dmfsse/src/data_repository/order_data_repository.dart';
 import 'package:dmfsse/src/data_repository/product_data_repository.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +20,7 @@ import 'src/bloc/product/product_bloc.dart';
 import 'src/bloc/training/training_bloc.dart';
 import 'src/bloc/user/user_bloc.dart';
 import 'src/data_provider/message_data_provider.dart';
+import 'src/data_provider/order_data_provider.dart';
 import 'src/data_provider/product_data_provider.dart';
 import 'src/data_provider/training_data_provider.dart';
 import 'src/data_repository/message_data_repository.dart';
@@ -45,6 +48,8 @@ class MyApp extends StatelessWidget {
       TrainingDataRepository(trainingDataProiver: TrainingDataProvider());
   MessageDataRepository messageDataRepository =
       MessageDataRepository(messageDataProvier: MessageDataProvier());
+  OrderDataRepostory orderDataRepostory =
+      OrderDataRepostory(orderDataProvider: OrderDataProvider());
 
   MyApp({Key? key}) : super(key: key);
 
@@ -64,7 +69,9 @@ class MyApp extends StatelessWidget {
                 TrainingBloc(trainingDataRepository: trainingDataRepository)),
         BlocProvider<MessageBloc>(
             create: (_) =>
-                MessageBloc(messageDataRepository: messageDataRepository))
+                MessageBloc(messageDataRepository: messageDataRepository)),
+        BlocProvider<OrderBloc>(
+            create: (_) => OrderBloc(orderDataRepostory: orderDataRepostory))
       ],
       child: const MaterialApp(
           debugShowCheckedModeBanner: false,
