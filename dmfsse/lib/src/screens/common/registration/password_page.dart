@@ -109,7 +109,7 @@ class _PasswordPageState extends State<PasswordPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "confirm new password";
-                    } else if (passwordController.text.isNotEmpty != value) {
+                    } else if (passwordController.text != value) {
                       return "password  didn't  match";
                     }
                   },
