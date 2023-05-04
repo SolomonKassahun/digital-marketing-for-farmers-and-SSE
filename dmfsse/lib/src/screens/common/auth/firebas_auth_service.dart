@@ -12,6 +12,7 @@ class _FirebaseAuthServiceState extends State<FirebaseAuthService> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      body: Container(),
     );
   }
 }
