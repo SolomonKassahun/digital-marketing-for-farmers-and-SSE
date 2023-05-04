@@ -66,7 +66,9 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
                 style: const TextStyle(color: Colors.white)),
             currentAccountPicture: FutureBuilder(
                 future: FirebaseTaskManager.getImage(
-                    loggedInUserInfo!.profilePicture.toString(),
+                    (loggedInUserInfo != null)
+                        ? loggedInUserInfo!.profilePicture.toString()
+                        : "ProfilePictures/Screenshot_20230421-071626_Lite.jpg",
                     'ProfilePictures',
                     15),
                 builder: ((context, snapshot) {

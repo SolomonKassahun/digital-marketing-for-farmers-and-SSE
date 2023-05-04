@@ -5,9 +5,9 @@ import 'package:dmfsse/src/bloc/product/product_state.dart';
 import 'package:dmfsse/src/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'common/widget/HorizontalSingleScrollVIew.dart';
+import 'common/widget/horizontal_single_scroll_view.dart';
 import 'common/widget/search_filter_button.dart';
-import 'common/widget/verticalSingleScrollView.dart';
+import 'common/widget/vertical_single_scroll_view.dart';
 
 class Homepage extends StatefulWidget {
   static const routeName = "/homepage";
@@ -67,7 +67,7 @@ class _HomepageState extends State<Homepage> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const HorizontalSingleScrollVIew(),
+                        const HorizontalSingleScrollView(),
                         const SizedBox(
                           height: 20,
                         ),

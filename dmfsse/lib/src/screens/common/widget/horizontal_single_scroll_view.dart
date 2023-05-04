@@ -7,16 +7,16 @@ import '../../../bloc/product/product_bloc.dart';
 import '../../../bloc/product/product_state.dart';
 import '../../../service/firebase_service.dart';
 
-class HorizontalSingleScrollVIew extends StatefulWidget {
-  const HorizontalSingleScrollVIew({super.key});
+class HorizontalSingleScrollView extends StatefulWidget {
+  const HorizontalSingleScrollView({super.key});
 
   @override
-  State<HorizontalSingleScrollVIew> createState() =>
-      _HorizontalSingleScrollVIewState();
+  State<HorizontalSingleScrollView> createState() =>
+      _HorizontalSingleScrollViewState();
 }
 
-class _HorizontalSingleScrollVIewState
-    extends State<HorizontalSingleScrollVIew> {
+class _HorizontalSingleScrollViewState
+    extends State<HorizontalSingleScrollView> {
   String? imageUrl;
   @override
   Widget build(BuildContext context) {

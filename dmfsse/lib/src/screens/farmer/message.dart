@@ -29,6 +29,7 @@ class _FarmerChatState extends State<FarmerChat> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<MessageBloc>(context).add(FetchAllMessageEvent());
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -89,7 +90,10 @@ class _FarmerChatState extends State<FarmerChat> {
                                             MaterialPageRoute(
                                                 builder: ((context) => ChatRoom(
                                                       message: e,
-                                                    ))));
+                                                    )))).then((value) {
+                                          BlocProvider.of<MessageBloc>(context)
+                                              .add(FetchAllMessageEvent());
+                                        });
                                       },
                                       child: Card(
                                         child: SizedBox(
@@ -223,7 +227,7 @@ class _FarmerChatState extends State<FarmerChat> {
                       ));
               }
               return const Center(
-                child: Text("No Message"),
+                child: Text("No Message Here"),
               );
             },
           ),

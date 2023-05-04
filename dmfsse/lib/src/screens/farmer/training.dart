@@ -17,6 +17,12 @@ class Education extends StatefulWidget {
 
 class _EducationState extends State<Education> {
   @override
+  void initState() {
+    BlocProvider.of<TrainingBloc>(context).add(GetTrainingEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     BlocProvider.of<TrainingBloc>(context).add(GetTrainingEvent());
     return BlocBuilder<TrainingBloc, TrainingState>(
