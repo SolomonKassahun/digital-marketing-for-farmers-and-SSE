@@ -44,7 +44,7 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
           UserAccountsDrawerHeader(
             accountName: Text(
               (loggedInUserInfo != null)
-                  ? "${loggedInUserInfo!.firstName.toString()} ${loggedInUserInfo!.firstName.toString()}"
+                  ? "${loggedInUserInfo!.firstName.toString()} ${loggedInUserInfo!.lastName.toString()}"
                   : "",
               style: const TextStyle(color: Colors.white),
             ),

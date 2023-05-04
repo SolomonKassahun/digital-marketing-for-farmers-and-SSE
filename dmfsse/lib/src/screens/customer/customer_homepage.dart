@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../common/widget/list_of_product.dart';
 import '../farmer/message.dart';
+import '../farmer/product_list.dart';
+import 'customer_dashboard.dart';
 import 'customer_drawer.dart';
 
 class CustomerHomepage extends StatefulWidget {
@@ -19,7 +21,7 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
   getSelectedWidget(int index) {
     switch (index) {
       case 0:
-        return const ListOfProduct();
+        return const CustomerDashboard();
       case 1:
         return const CustomerDeals();
       case 2:

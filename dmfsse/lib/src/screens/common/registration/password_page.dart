@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc/Register/register_bloc.dart';
@@ -43,8 +44,24 @@ class _PasswordPageState extends State<PasswordPage> {
             listener: ((context, state) {
       if (state is RegisterInitial) {
         isRegister = true;
-      } else if (state is RegistrationSucess) {
+      }
+      if (state is RegistrationSucess) {
         Navigator.pushNamed(context, LoginScreen.routeName);
+      }
+      if (state is RegistraionFailure) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.bottomSlide,
+          title: 'Failed to create register',
+          desc: 'Fill all the information carefully!',
+          btnCancelOnPress: () {
+            Navigator.pop(context);
+          },
+          btnOkOnPress: () {
+            Navigator.pop(context);
+          },
+        ).show();
       }
     }), builder: (BuildContext context, state) {
       return SingleChildScrollView(

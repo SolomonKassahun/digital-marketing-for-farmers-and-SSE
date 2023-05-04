@@ -1,21 +1,22 @@
-import 'package:dmfsse/src/screens/common/widget/search_filter_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../bloc/product/product_bloc.dart';
-import '../../../bloc/product/product_state.dart';
+import '../../bloc/product/product_bloc.dart';
+import '../../bloc/product/product_state.dart';
 
-import 'horizontal_single_scroll_view.dart';
-import 'vertical_single_scroll_view.dart';
+import '../common/widget/horizontal_single_scroll_view.dart';
+import '../common/widget/search_filter_button.dart';
+import '../common/widget/vertical_single_scroll_view.dart';
+import 'customr_product_list.dart';
 
-class ListOfProduct extends StatefulWidget {
-  const ListOfProduct({super.key});
+class CustomerDashboard extends StatefulWidget {
+  const CustomerDashboard({super.key});
 
   @override
-  State<ListOfProduct> createState() => _ListOfProductState();
+  State<CustomerDashboard> createState() => _CustomerDashboardState();
 }
 
-class _ListOfProductState extends State<ListOfProduct> {
+class _CustomerDashboardState extends State<CustomerDashboard> {
   TextEditingController searchController = TextEditingController();
   String searchTerm = "";
   @override
@@ -63,7 +64,7 @@ class _ListOfProductState extends State<ListOfProduct> {
                       const SizedBox(
                         height: 20,
                       ),
-                      VerticalScrollerProduct(
+                      CustomerProductList(
                           products: state.product, searchTerm: searchTerm),
                     ],
                   );

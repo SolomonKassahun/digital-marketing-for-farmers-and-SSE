@@ -1,17 +1,12 @@
 import 'package:dmfsse/local_storage/user_preference.dart';
-
 import 'package:dmfsse/src/bloc/Register/register_bloc.dart';
 import 'package:dmfsse/src/bloc/order/order_bloc.dart';
 import 'package:dmfsse/src/data_provider/user_data_provider.dart';
 import 'package:dmfsse/src/data_repository/order_data_repository.dart';
 import 'package:dmfsse/src/data_repository/product_data_repository.dart';
-
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:http/http.dart' as http;
 import 'bloc_observer.dart';
 import 'routes/routes.dart';
 import 'src/bloc/Auth/auth_bloc.dart';
@@ -26,7 +21,6 @@ import 'src/data_provider/training_data_provider.dart';
 import 'src/data_repository/message_data_repository.dart';
 import 'src/data_repository/training_data_repository.dart';
 import 'src/data_repository/user_data_repository.dart';
-
 import 'src/screens/splash_screen.dart';
 
 void main() async {
@@ -36,19 +30,16 @@ void main() async {
   runApp(MyApp());
 }
 
-// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  http.Client httpClient = http.Client();
-
-  UserDataRepository userRepository =
+  final UserDataRepository userRepository =
       UserDataRepository(UserDataProvider(UserPreference()));
-  ProductDataRepository productDataRepository =
+  final ProductDataRepository productDataRepository =
       ProductDataRepository(ProductDataProvider());
-  TrainingDataRepository trainingDataRepository =
+  final TrainingDataRepository trainingDataRepository =
       TrainingDataRepository(trainingDataProiver: TrainingDataProvider());
-  MessageDataRepository messageDataRepository =
+  final MessageDataRepository messageDataRepository =
       MessageDataRepository(messageDataProvier: MessageDataProvier());
-  OrderDataRepostory orderDataRepostory =
+  final OrderDataRepostory orderDataRepostory =
       OrderDataRepostory(orderDataProvider: OrderDataProvider());
 
   MyApp({Key? key}) : super(key: key);
@@ -56,7 +47,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
     return MultiBlocProvider(
       providers: [
         BlocProvider<LoginBloc>(create: (_) => LoginBloc(userRepository)),
