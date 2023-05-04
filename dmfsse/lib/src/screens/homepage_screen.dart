@@ -1,13 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dmfsse/src/bloc/product/product_bloc.dart';
 import 'package:dmfsse/src/bloc/product/product_event.dart';
 import 'package:dmfsse/src/bloc/product/product_state.dart';
 import 'package:dmfsse/src/screens/login_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'common/widget/horizontal_single_scroll_view.dart';
 import 'common/widget/search_filter_button.dart';
 import 'common/widget/vertical_single_scroll_view.dart';
+import 'package:dmfsse/generated/locale_keys.g.dart';
 
 class Homepage extends StatefulWidget {
   static const routeName = "/homepage";
@@ -22,6 +23,8 @@ class _HomepageState extends State<Homepage> {
   TextEditingController searchController = TextEditingController();
   String? imageUrl;
   String searchTerm = "";
+  String _initialValue = "en";
+
   @override
   Widget build(BuildContext context) {
     // fetchBloc = BlocProvider.of<ProductBloc>(context);
@@ -37,13 +40,52 @@ class _HomepageState extends State<Homepage> {
               const SizedBox(
                 height: 35,
               ),
-              SearchFilterButton(
-                searchController: searchController,
-                onChanged: (value) {
-                  setState(() {
-                    searchTerm = value;
-                  });
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SearchFilterButton(
+                    searchController: searchController,
+                    onChanged: (value) {
+                      setState(() {
+                        searchTerm = value;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    width: 50,
+                    child: DropdownButtonFormField<String>(
+                      items: const [
+                        DropdownMenuItem(
+                          value: 'am',
+                          child: Text(
+                            'አማ',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                        DropdownMenuItem(
+                            value: 'en',
+                            child: Text(
+                              "EN",
+                              style: TextStyle(color: Colors.blue),
+                            )),
+                        DropdownMenuItem(
+                          value: "oro",
+                          child: Text(
+                            "Oro",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        )
+                      ],
+                      value: _initialValue,
+                      onChanged: (value) async {
+                        setState(() {
+                          _initialValue = value.toString();
+                        });
+                        await context.setLocale(Locale(value.toString()));
+                      },
+                    ),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 35,
@@ -102,7 +144,7 @@ class _HomepageState extends State<Homepage> {
             },
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25.0))),
-            child: const Text("Log in"),
+            child: Text(LocaleKeys.appNameText.tr()),
           )),
     );
   }

@@ -4,6 +4,7 @@ import 'package:dmfsse/src/bloc/order/order_bloc.dart';
 import 'package:dmfsse/src/data_provider/user_data_provider.dart';
 import 'package:dmfsse/src/data_repository/order_data_repository.dart';
 import 'package:dmfsse/src/data_repository/product_data_repository.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,8 +27,15 @@ import 'src/screens/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await EasyLocalization.ensureInitialized();
   Bloc.observer = AppBlocObserver();
-  runApp(MyApp());
+  runApp(EasyLocalization(
+      path: 'assets/translations',
+      supportedLocales: const [Locale('am'), Locale('en'), Locale('oro')],
+      fallbackLocale: const Locale('en'),
+      startLocale: const Locale('am'),
+      saveLocale: true,
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -63,9 +71,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<OrderBloc>(
             create: (_) => OrderBloc(orderDataRepostory: orderDataRepostory))
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
           debugShowCheckedModeBanner: false,
-
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          localizationsDelegates: context.localizationDelegates,
           // home: Login(),
           initialRoute: SplashScreen.routeName,
           onGenerateRoute: AppRoute.generateRoute
