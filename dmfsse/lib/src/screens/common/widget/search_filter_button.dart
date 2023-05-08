@@ -12,7 +12,7 @@ class SearchFilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width - 50,
+      width: MediaQuery.of(context).size.width - 70,
       child: TextFormField(
         controller: searchController,
         onChanged: onChanged,

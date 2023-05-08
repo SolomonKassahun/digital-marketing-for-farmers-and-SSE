@@ -50,6 +50,8 @@ dependencies:
   awesome_dialog: ^3.0.2
   easy_localization: ^3.0.1
   pin_code_fields: ^7.4.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
