@@ -156,9 +156,19 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                                               style: const TextStyle(
                                                   color: Colors.black),
                                             ),
-                                          )
+                                          ),
+                                          
                                         ],
-                                      )
+                                      ),
+                                      const SizedBox(width: 55,),
+                                       SizedBox(
+                                         child: Row(
+                                                                 children: const  [
+                                                                    Text("4.9",style: TextStyle(color: Colors.black),),
+                                                                    Icon(Icons.favorite_outline,color: Colors.red,)
+                                                                 ],
+                                                               ),
+                                       )
                                     ],
                                   )),
                                 ),

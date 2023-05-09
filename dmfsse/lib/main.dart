@@ -74,17 +74,19 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          supportedLocales: const [
-    Locale('am'), // Amharic
-    Locale('en'), // ENglihs
-    Locale('oro') // Afan Oromo
-  ],
+          supportedLocales: context.supportedLocales,
+  //         const [
+  //   Locale('am'), // Amharic
+  //   Locale('en'), // ENglihs
+  //   Locale('oro') // Afan Oromo
+  // ],
           locale: context.locale,
-          localizationsDelegates: const [
-    GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-  ],
+          localizationsDelegates:context.localizationDelegates,
+  //          const [
+  //   GlobalMaterialLocalizations.delegate,
+  //   GlobalWidgetsLocalizations.delegate,
+  //   GlobalCupertinoLocalizations.delegate,
+  // ],
           // home: Login(),
           initialRoute: SplashScreen.routeName,
           onGenerateRoute: AppRoute.generateRoute
