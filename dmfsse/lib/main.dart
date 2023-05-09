@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'bloc_observer.dart';
 import 'routes/routes.dart';
 import 'src/bloc/Auth/auth_bloc.dart';
@@ -74,8 +75,18 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           supportedLocales: context.supportedLocales,
+  //         const [
+  //   Locale('am'), // Amharic
+  //   Locale('en'), // ENglihs
+  //   Locale('oro') // Afan Oromo
+  // ],
           locale: context.locale,
-          localizationsDelegates: context.localizationDelegates,
+          localizationsDelegates:context.localizationDelegates,
+  //          const [
+  //   GlobalMaterialLocalizations.delegate,
+  //   GlobalWidgetsLocalizations.delegate,
+  //   GlobalCupertinoLocalizations.delegate,
+  // ],
           // home: Login(),
           initialRoute: SplashScreen.routeName,
           onGenerateRoute: AppRoute.generateRoute

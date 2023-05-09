@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dmfsse/generated/locale_keys.g.dart';
 
 class SearchFilterButton extends StatelessWidget {
-  final TextEditingController searchController;
+  final TextEditingController  searchController;
   final void Function(String)? onChanged;
 
   const SearchFilterButton(
@@ -12,7 +12,7 @@ class SearchFilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width - 50,
+      width: MediaQuery.of(context).size.width - 150,
       child: TextFormField(
         controller: searchController,
         onChanged: onChanged,

@@ -115,6 +115,7 @@ class _HomepageState extends State<Homepage> {
                         ),
                         VerticalScrollerProduct(
                             products: state.product, searchTerm: searchTerm),
+                       
                       ],
                     );
                   }
