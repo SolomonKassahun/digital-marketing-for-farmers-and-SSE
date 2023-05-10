@@ -1,13 +1,16 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dmfsse/src/bloc/Auth/auth_bloc.dart';
 import 'package:dmfsse/src/bloc/Auth/auth_event.dart';
 import 'package:dmfsse/src/bloc/Auth/auth_state.dart';
 import 'package:dmfsse/src/models/login_info.dart';
 import 'package:dmfsse/src/screens/customer/customer_homepage.dart';
 import 'package:dmfsse/src/screens/farmer/farmer_homepage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
+import 'auth/fireabase_verification_screen.dart';
 import 'common/widget/custom_login_textfield.dart';
 import 'sse/sse_homepage.dart';
 
@@ -24,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+   LoggedInUserInfo? loggedInUserInfo;
   void loginHandler() {
     LoginInfo loginInfo = LoginInfo(
         phoneController.text.toString(), passwordController.text.toString());
@@ -41,6 +45,53 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
     super.dispose();
   }
+  void verifyPhoneNumber() async{
+      FirebaseAuth auth = FirebaseAuth.instance;
+
+      try {
+        await  auth.verifyPhoneNumber(
+          phoneNumber: "+251${phoneController.text.toString()}",
+        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async{
+           await auth.signInWithCredential(phoneAuthCredential);
+        },
+         verificationFailed: (FirebaseAuthException firebaseAuthException){
+        
+            AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.bottomSlide,
+        title: "Phone number verification failed.",
+        desc: firebaseAuthException.message,
+        btnOkOnPress: () {
+          Navigator.pop(context);
+        },
+      ).show();
+    
+         }, 
+         codeSent: (String verificationId, int? forceResendingToken) async {
+           ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("Please check your phone for the verification code")));
+        Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) =>  FirebaseAuthScreen(id: loggedInUserInfo!.id,loggedInUserInfo: loggedInUserInfo as LoggedInUserInfo,token: loggedInUserInfo!.accessToken,verificationID: verificationId,)),
+              (route) => false);
+         },
+          codeAutoRetrievalTimeout: (String verificationId) {
+            
+          }
+          );
+      } catch (e) {
+        AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.bottomSlide,
+        title: "Failed to Verify Phone Number",
+        desc: e.toString(),
+        btnOkOnPress: () {},
+      ).show();
+      }
+      
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -50,22 +101,28 @@ class _LoginScreenState extends State<LoginScreen> {
           //  final progress = ProgressHUD.of(context);
 
           if (state is LoginSucess) {
+            loggedInUserInfo = state.loggedInUserInfo;
+            verifyPhoneNumber();
+            //  Navigator.pushAndRemoveUntil(
+            //   context,
+            //   MaterialPageRoute(builder: (context) =>  FirebaseAuthScreen(id: state.loggedInUserInfo.id.toString(), loggedInUserInfo: state.loggedInUserInfo, token: state.loggedInUserInfo.accessToken.toString(),)),
+            //   (route) => false);
             // progress!.dismiss();
-            if (state.loggedInUserInfo.roles.first == 'farmer') {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const FarmerHomepage()));
-            }
-            if (state.loggedInUserInfo.roles.first == 'customer') {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CustomerHomepage()));
-            }
-            if (state.loggedInUserInfo.roles.first == 'sse') {
-              Navigator.of(context).pushReplacementNamed(SseHomepage.routeName);
-            }
+            // if (state.loggedInUserInfo.roles.first == 'farmer') {
+            //   Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => const FarmerHomepage()));
+            // }
+            // if (state.loggedInUserInfo.roles.first == 'customer') {
+            //   Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => const CustomerHomepage()));
+            // }
+            // if (state.loggedInUserInfo.roles.first == 'sse') {
+            //   Navigator.of(context).pushReplacementNamed(SseHomepage.routeName);
+            // }
           }
 
           if (state is LoginingState) {

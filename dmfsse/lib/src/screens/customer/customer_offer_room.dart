@@ -53,13 +53,16 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                             topRight: Radius.circular(50))),
                   child:  BlocConsumer<OrderBloc,OrderState>(
                     listener: ((context, state) {
-                      
-                    }),
-                    builder: ((context, state) {
-                      if(state is OrderStateInitial){
+                       if(state is OrderStateInitial){
                                                 isInOrder = true;
 
                       }
+                      if(state is OrderStateFailure){
+                        isInOrder = false;
+                      }
+                    }),
+                    builder: ((context, state) {
+                     
                    
                       return SingleChildScrollView(
                         scrollDirection: Axis.vertical,
@@ -73,6 +76,9 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.blue),
+                              ),
+                                const SizedBox(
+                                height: 10.0,
                               ),
                                  InputTextFormField(
                                 hintTxt: 'quantity',
@@ -100,6 +106,9 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.blue),
                               ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
                                InputTextFormField(
                                 hintTxt: 'Price',
                                 controller: priceController,
@@ -119,17 +128,23 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                                 const SizedBox(
                                 height: 10,
                               ),
-                             ElevatedButton(
-                              onPressed: (){
-                                print("send order button clicked");
-                                if(_formKey.currentState!.validate()){
-                                  Order order = Order(quantity: quantityController.text, offerPrice: priceController.text, id: widget.product.id.toString());
-                                  SendOrderEvent sendOrderEvent = SendOrderEvent(order: order);
-                                  BlocProvider.of<OrderBloc>(context).add(sendOrderEvent);
-                                }
-                              }, 
-                              child: isInOrder ? const   CircularProgressIndicator(color: Colors.white,): const Text("Send Order",style: TextStyle(color: Colors.white),)
-                              )
+                             Center(
+                               child: ElevatedButton(
+                                onPressed: (){
+                                  print("send order button clicked");
+                                  
+                                  if(_formKey.currentState!.validate()){
+                                    // Order order = Order(quantity: quantityController.text, offerPrice: priceController.text, id: widget.product.id.toString());
+                                    // SendOrderEvent sendOrderEvent = SendOrderEvent(order: order);
+                                    // BlocProvider.of<OrderBloc>(context).add(sendOrderEvent);
+                                  }
+                                }, 
+                                child: isInOrder ?    const CircularProgressIndicator(
+                                              color: Colors.white,
+                                            )
+                                          : const Text("Send Offer")),
+                             ),
+                              
                             ],
                         
                           ),
