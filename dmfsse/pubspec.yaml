@@ -52,6 +52,7 @@ dependencies:
   pin_code_fields: ^7.4.0
   flutter_localizations:
     sdk: flutter
+  firebase_auth: ^4.5.0
 
 dev_dependencies:
   flutter_test:

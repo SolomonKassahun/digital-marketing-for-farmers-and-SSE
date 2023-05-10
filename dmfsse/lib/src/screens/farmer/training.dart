@@ -100,7 +100,6 @@ class _EducationState extends State<Education> {
             child: Text("No Internet"),
           );
         }
-        return const SizedBox();
       },
     );
   }

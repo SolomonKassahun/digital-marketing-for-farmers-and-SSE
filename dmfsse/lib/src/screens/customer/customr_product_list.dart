@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../models/product.dart';
 import '../../service/firebase_service.dart';
+import '../auth/fireabase_verification_screen.dart';
 import 'customer_offer_room.dart';
 import 'customer_product_detail.dart';
 
@@ -189,6 +190,7 @@ class _CustomerProductListState extends State<CustomerProductList> {
                                         ),
                                         ElevatedButton(
                                           onPressed: () {
+                                           
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(

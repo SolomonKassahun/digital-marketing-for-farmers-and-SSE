@@ -145,7 +145,7 @@ class _HomepageState extends State<Homepage> {
             },
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25.0))),
-            child: Text(LocaleKeys.appNameText.tr()),
+            child: Text(LocaleKeys.loginText.tr()),
           )),
     );
   }

@@ -51,9 +51,9 @@ class UserDataProvider {
 
         serverResponse = LoggedInUserInfo.fromJson(extractedData);
 
-        await userPreference.storeUserInformation(serverResponse);
-        await userPreference.storeToken(serverResponse.accessToken);
-        await userPreference.storeUserId(serverResponse.id);
+        // await userPreference.storeUserInformation(serverResponse);
+        // await userPreference.storeToken(serverResponse.accessToken);
+        // await userPreference.storeUserId(serverResponse.id);
 
         return serverResponse;
       }

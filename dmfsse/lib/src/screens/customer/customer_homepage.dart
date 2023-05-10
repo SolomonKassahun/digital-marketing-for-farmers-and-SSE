@@ -1,7 +1,10 @@
 import 'package:dmfsse/src/screens/customer/customer_deals.dart';
 import 'package:dmfsse/src/screens/customer/customer_message.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/product/product_bloc.dart';
+import '../../bloc/product/product_event.dart';
 import '../common/widget/list_of_product.dart';
 import '../farmer/message.dart';
 import '../farmer/product_list.dart';
@@ -39,7 +42,9 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
 
   @override
   Widget build(BuildContext context) {
+     BlocProvider.of<ProductBloc>(context).add(FetchAllProduct());
     return Scaffold(
+      
       appBar: AppBar(),
       drawer: const Drawer(
         child: CustomerDrawer(),
