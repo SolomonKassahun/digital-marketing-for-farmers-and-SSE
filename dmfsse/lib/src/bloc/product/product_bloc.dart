@@ -29,12 +29,29 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         try {
           final List<Product> productDetail =
               await productDataRepository.getAllActiveProduct();
-          print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+        
           if (productDetail != []) {
-            print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+           
             emit(FetchAllProductSucess(product: productDetail));
           } else {
-            print("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+           
+            emit(FetchAllProductFailure(message: "No connection"));
+          }
+        } catch (e) {
+          throw Exception("z e iiss $e");
+        }
+      }
+      if(event is FetchMyProduct){
+          emit(FetchAllProductLoading());
+        try {
+          final List<Product> myProduct =
+              await productDataRepository.getMyProduct();
+        
+          if (myProduct != []) {
+           
+            emit(FetchAllProductSucess(product: myProduct));
+          } else {
+           
             emit(FetchAllProductFailure(message: "No connection"));
           }
         } catch (e) {

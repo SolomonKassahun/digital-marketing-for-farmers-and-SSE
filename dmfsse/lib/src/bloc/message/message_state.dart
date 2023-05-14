@@ -5,6 +5,7 @@ import '../../models/message_list.dart';
 class MessageState {}
 
 class MessageStateInitial extends MessageState {}
+class SendMessageStateInitial extends MessageState {}
 
 class MessageStateSentInitial extends MessageState {}
 

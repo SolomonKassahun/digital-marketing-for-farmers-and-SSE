@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dmfsse/src/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../models/product.dart';
 import '../../service/firebase_service.dart';
+import '../common/widget/chat_room.dart';
+import '../farmer/message.dart';
+import 'customer_offer_room.dart';
 
 class CustomrProductDetail extends StatefulWidget {
   final Product product;
@@ -159,8 +163,10 @@ class _CustomrProductDetailState extends State<CustomrProductDetail> {
                             ],
                           ),
                           ElevatedButton(
-                              onPressed: () {},
-                              child: const Text("Buy product"))
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => ChatRoom(message: MessageInfo(id: widget.product.postedBy!.id, profilePicture: widget.product.postedBy!.profilePicture, firstName: widget.product.postedBy!.firstName, lastName: widget.product.postedBy!.lastName),)));
+                              },
+                              child: const Text("Send Message"))
                         ],
                       )
                     ],

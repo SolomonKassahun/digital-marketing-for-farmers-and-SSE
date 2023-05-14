@@ -30,7 +30,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
         }
       }
       if (event is SendMessageEvent) {
-        emit(MessageStateInitial());
+        emit(SendMessageStateInitial());
         try {
           // bool isMessagesent = messageDataRepository.sendMessage(mess, id)
           bool isMessageSent =

@@ -3,7 +3,10 @@ import 'package:dmfsse/src/screens/farmer/training.dart';
 import 'package:dmfsse/src/screens/farmer/message.dart';
 import 'package:dmfsse/src/screens/farmer/product_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/product/product_bloc.dart';
+import '../../bloc/product/product_event.dart';
 import 'farmer_drawer.dart';
 
 class FarmerHomepage extends StatefulWidget {
@@ -39,6 +42,7 @@ class _FarmerHomepageState extends State<FarmerHomepage> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<ProductBloc>(context).add(FetchAllProduct());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
