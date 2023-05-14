@@ -8,13 +8,16 @@ class FetchAllProductSucess extends ProductState {
   FetchAllProductSucess({required this.product});
 
 }
+
 class FetchAllProductFailure extends ProductState {
   final String message;
   FetchAllProductFailure({required this.message});
 
 }
 class AddProductLoading extends ProductState {}
-class AddProductSucess extends ProductState {}
+class AddProductSucess extends ProductState {
+  
+}
 class AddProductFailure extends ProductState {}
 class UpdateProductLoading extends ProductState {}
 class UpdateProductSucess extends ProductState {}

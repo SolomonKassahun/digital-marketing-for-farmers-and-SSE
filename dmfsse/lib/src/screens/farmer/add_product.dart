@@ -17,9 +17,24 @@ class AddProductPage extends StatelessWidget {
             color: Colors.black,
           );
         }
-        if (state is AddProductSucess) {
-          return const Center(
-            child: Text("Product Added Successfully"),
+        if (state is FetchAllProductSucess) {
+          return SingleChildScrollView(
+            child: Container(
+              child: state.product.isEmpty ? const Center(child: Text("You didn't have any product"),):
+             Column(
+              children: state.product.map((e) => Container(
+                  padding: const EdgeInsets.all(10),
+                  height: 40,
+                  child: Row(
+                    children: [
+                      Text(e.name),
+                      const Icon(Icons.edit),
+                     const  Icon(Icons.delete)
+                    ],
+                  ),
+              )).toList()
+             )
+            ),
           );
         }
         if (state is AddProductFailure) {

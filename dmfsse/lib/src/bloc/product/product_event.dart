@@ -11,6 +11,9 @@ class UpdateProduct extends ProductEvent {
   int  ProductId;
   UpdateProduct(this.ProductId);
 }
+class FetchMyProduct extends ProductEvent{
+  
+}
 class DeleteProduct extends ProductEvent {
   int ProductId;
   DeleteProduct(this.ProductId);

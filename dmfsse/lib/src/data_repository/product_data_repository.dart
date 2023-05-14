@@ -11,10 +11,14 @@ Future<bool> addProduct(Product product) async{
   return r;
 }
 Future<List<Product>> getAllActiveProduct() async{
-  print("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+ 
   List<Product> listOfProduct= await productDataProvider.getAllActiveProduct();
-  print(listOfProduct);
-  print("RRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+  return listOfProduct;
+
+}
+Future<List<Product>> getMyProduct() async{
+ 
+  List<Product> listOfProduct= await productDataProvider.getMyProduct();
   return listOfProduct;
 
 }

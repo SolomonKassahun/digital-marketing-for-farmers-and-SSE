@@ -81,6 +81,7 @@ class _AddProductDetailState extends State<AddProductDetail> {
                     //   isRegister = true;
                     // }
                     if (state is AddProductSucess) {
+                      
                       Navigator.push(
                           context,
                           MaterialPageRoute(
