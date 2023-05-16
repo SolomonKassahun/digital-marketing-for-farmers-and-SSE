@@ -36,7 +36,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
           bool isMessageSent =
               await messageDataRepository.sendMessage(event.messagebody);
           if (isMessageSent) {
-            emit(MessageSentStateSucess());
+            emit(MessageSentStateSucess(message:event.messagebody.message.toString()));
           } else {
             emit(MessageStateFailure(errorMessage: "Unable to send message"));
           }

@@ -2,6 +2,7 @@ import 'package:dmfsse/src/bloc/product/product_event.dart';
 import 'package:dmfsse/src/bloc/product/product_state.dart';
 import 'package:dmfsse/src/data_repository/product_data_repository.dart';
 import 'package:dmfsse/src/models/product.dart';
+import 'package:dmfsse/src/screens/common/widget/list_of_product.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
@@ -52,10 +53,40 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             emit(FetchAllProductSucess(product: myProduct));
           } else {
            
-            emit(FetchAllProductFailure(message: "No connection"));
+            emit(FetchAllProductFailure(message: "Failed to load Product."));
           }
         } catch (e) {
           throw Exception("z e iiss $e");
+        }
+      }
+      if(event is UpdateProduct){
+        emit (InitialState());
+        try {
+          Product product = await productDataRepository.updateProduct(event.productId);
+          List<Product> listOfProduct = await productDataRepository.getAllActiveProduct();
+          // ignore: unnecessary_type_check
+          if(product is Product && listOfProduct is List<Product>){
+             emit (FetchAllProductSucess(product: listOfProduct));
+          } else{
+            emit(FetchAllProductFailure(message: "Failed to update product"));
+          }
+          
+        } catch (e) {
+          emit(FetchAllProductFailure(message: "Failed to update a product"));
+        }
+      }
+      if(event is DeleteProduct){
+        emit (InitialState());
+        try {
+          final product  = await productDataRepository.deleteProduct(event.productId);
+          final listOfProduct = await productDataRepository.getAllActiveProduct();
+          if(product){
+             emit (FetchAllProductSucess(product: listOfProduct));
+          } else{
+            emit(FetchAllProductFailure(message: "Failed to delete a product"));
+          }
+        } catch (e) {
+          emit(FetchAllProductFailure(message: "Failed to delete a product"));
         }
       }
     });

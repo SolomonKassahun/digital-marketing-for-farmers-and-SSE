@@ -1,13 +1,12 @@
 import 'package:dmfsse/src/screens/customer/customer_deals.dart';
-import 'package:dmfsse/src/screens/customer/customer_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/product/product_bloc.dart';
 import '../../bloc/product/product_event.dart';
 import '../common/widget/list_of_product.dart';
-import '../farmer/message.dart';
-import '../farmer/product_list.dart';
+import '../common/widget/message.dart';
+
 import 'customer_dashboard.dart';
 import 'customer_drawer.dart';
 
@@ -28,7 +27,7 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
       case 1:
         return const CustomerDeals();
       case 2:
-        return const FarmerChat();
+        return const MessageRoom();
       default:
         return const ListOfProduct();
     }

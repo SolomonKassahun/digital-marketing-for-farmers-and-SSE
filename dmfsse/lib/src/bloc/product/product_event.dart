@@ -8,13 +8,13 @@ class AddProduct extends ProductEvent{
 }
 class FetchAllProduct extends ProductEvent {}
 class UpdateProduct extends ProductEvent {
-  int  ProductId;
-  UpdateProduct(this.ProductId);
+  String  productId;
+  UpdateProduct(this.productId);
 }
 class FetchMyProduct extends ProductEvent{
   
 }
 class DeleteProduct extends ProductEvent {
-  int ProductId;
-  DeleteProduct(this.ProductId);
+  String productId;
+  DeleteProduct(this.productId);
 }

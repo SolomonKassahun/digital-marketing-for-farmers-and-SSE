@@ -1,6 +1,6 @@
 import 'package:dmfsse/src/screens/farmer/add_product.dart';
 import 'package:dmfsse/src/screens/farmer/training.dart';
-import 'package:dmfsse/src/screens/farmer/message.dart';
+import 'package:dmfsse/src/screens/common/widget/message.dart';
 import 'package:dmfsse/src/screens/farmer/product_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +32,7 @@ class _FarmerHomepageState extends State<FarmerHomepage> {
       case 1:
         return const AddProductPage();
       case 2:
-        return const FarmerChat();
+        return const MessageRoom();
       case 3:
         return const Education();
       default:

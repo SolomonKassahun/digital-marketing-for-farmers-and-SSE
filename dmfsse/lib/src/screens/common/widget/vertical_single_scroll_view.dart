@@ -74,37 +74,11 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                                       const SizedBox(
                                         width: 10,
                                       ),
-                                      FutureBuilder(
-                                          future: FirebaseTaskManager.getImage(
-                                              product.photo.toString(),
-                                              'product',
-                                              7),
-                                          builder: (BuildContext context,
-                                              AsyncSnapshot<dynamic> snapshot) {
-                                            switch (snapshot.connectionState) {
-                                              case ConnectionState.none:
-                                                return const Text('none');
-                                              case ConnectionState.waiting:
-                                                return Center(
-                                                    child: Column(
-                                                  children: const [
-                                                    Text("Loading ..."),
-                                                    Expanded(
-                                                        child: SpinKitCircle(
-                                                      color: Colors.black,
-                                                    )),
-                                                  ],
-                                                ));
-                                              case ConnectionState.active:
-                                                return const Text('Loading...');
-                                              case ConnectionState.done:
-                                                imageUrl = snapshot.data;
-
-                                                return CachedNetworkImage(
+                                       CachedNetworkImage(
                                                   fit: BoxFit.fill,
                                                   height: 75.0,
                                                   width: 75.0,
-                                                  imageUrl: snapshot.data,
+                                                  imageUrl: product.photo.toString(),
                                                   imageBuilder: (context,
                                                           imageProvider) =>
                                                       Container(
@@ -133,9 +107,69 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                                                   errorWidget: (context, url,
                                                           error) =>
                                                       const Icon(Icons.error),
-                                                );
-                                            }
-                                          }),
+                                                ),
+                                      // FutureBuilder(
+                                      //     future: FirebaseTaskManager.getImage(
+                                      //         product.photo.toString(),
+                                      //         'product',
+                                      //         7),
+                                      //     builder: (BuildContext context,
+                                      //         AsyncSnapshot<dynamic> snapshot) {
+                                      //       switch (snapshot.connectionState) {
+                                      //         case ConnectionState.none:
+                                      //           return const Text('none');
+                                      //         case ConnectionState.waiting:
+                                      //           return Center(
+                                      //               child: Column(
+                                      //             children: const [
+                                      //               Text("Loading ..."),
+                                      //               Expanded(
+                                      //                   child: SpinKitCircle(
+                                      //                 color: Colors.black,
+                                      //               )),
+                                      //             ],
+                                      //           ));
+                                      //         case ConnectionState.active:
+                                      //           return const Text('Loading...');
+                                      //         case ConnectionState.done:
+                                      //           imageUrl = snapshot.data;
+
+                                      //           return CachedNetworkImage(
+                                      //             fit: BoxFit.fill,
+                                      //             height: 75.0,
+                                      //             width: 75.0,
+                                      //             imageUrl: snapshot.data,
+                                      //             imageBuilder: (context,
+                                      //                     imageProvider) =>
+                                      //                 Container(
+                                      //               width:
+                                      //                   MediaQuery.of(context)
+                                      //                           .size
+                                      //                           .width *
+                                      //                       4,
+                                      //               height:
+                                      //                   MediaQuery.of(context)
+                                      //                           .size
+                                      //                           .height *
+                                      //                       4,
+                                      //               decoration: BoxDecoration(
+                                      //                 shape: BoxShape.rectangle,
+                                      //                 image: DecorationImage(
+                                      //                     image: imageProvider,
+                                      //                     fit: BoxFit.cover),
+                                      //               ),
+                                      //             ),
+                                      //             placeholder: (context, url) =>
+                                      //                 const Center(
+                                      //                     child: SpinKitCircle(
+                                      //               color: Colors.black,
+                                      //             )),
+                                      //             errorWidget: (context, url,
+                                      //                     error) =>
+                                      //                 const Icon(Icons.error),
+                                      //           );
+                                      //       }
+                                      //     }),
                                       const SizedBox(
                                         width: 50,
                                       ),
