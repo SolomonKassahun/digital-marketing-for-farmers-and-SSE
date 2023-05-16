@@ -3,6 +3,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dmfsse/local_storage/user_preference.dart';
 import 'package:dmfsse/src/screens/homepage_screen.dart';
+import 'package:dmfsse/src/screens/sse/sse_homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -35,7 +36,7 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
 
       try {
         await  auth.verifyPhoneNumber(
-          phoneNumber: "+251986557047",
+          phoneNumber: "+251${widget.loggedInUserInfo.phoneNumber.toString().substring(1)}",
         verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async{
            await auth.signInWithCredential(phoneAuthCredential);
         },
@@ -55,13 +56,17 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
       ).show();
     
          }, 
-         codeSent: (String verificationId, int? forceResendingToken) async {
+         codeSent: (String verificationId, int? resendToken) async {
+          String sms = pinCodeController.text.toString();
            ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text("Please check your phone for the verification code")));
+
         Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const Homepage()),
               (route) => false);
+          PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: sms);
+          await auth.signInWithCredential(phoneAuthCredential);
          },
           codeAutoRetrievalTimeout: (String verificationId) {
             
@@ -108,6 +113,13 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const FarmerHomepage()));
+        }
+            if(widget.loggedInUserInfo.roles.first == 'sse'){
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SseHomepage()));
         }
     }
 

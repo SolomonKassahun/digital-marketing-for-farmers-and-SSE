@@ -1,4 +1,4 @@
-import 'package:dmfsse/src/screens/sse/sse_message.dart';
+import 'package:dmfsse/src/screens/common/widget/message.dart';
 import 'package:flutter/material.dart';
 
 import 'sse_deals.dart';
@@ -21,7 +21,7 @@ class _SseHomepageState extends State<SseHomepage> {
       case 1:
         return const SseDeals();
       case 2:
-        return const SseMessage();
+        return const MessageRoom();
       default:
         return const SseHomepage();
     }

@@ -83,6 +83,8 @@ class ProductDataProvider {
           .then((productPicturePath) {
         productPhoto = productPicturePath;
       });
+      String productImgUrl =  await  FirebaseTaskManager.getImage(productPhoto.toString(), 'product',
+                                              7);
       print("product picture path is productPhoto: $productPhoto");
       //  async{
       final response = await http.post(Uri.parse(addProductUrl),
@@ -92,7 +94,7 @@ class ProductDataProvider {
             'x-access-token': accessToken,
           },
           body: jsonEncode({
-            'photo': productPhoto,
+            'photo': productImgUrl,
             'price': product.price,
             'description': product.description,
             'name': product.name,
@@ -125,5 +127,17 @@ class ProductDataProvider {
     } catch (e) {
       throw Exception(e.toString());
     }
+  }
+  Future<bool> deleteProduct(String id) async {
+    try {
+      final response = await http.delete(Uri.parse("${baseUrl}/$id"));
+      if(response.statusCode == 200){
+        return true;
+      }
+      return false;
+    } catch (s) {
+      throw Exception(e.toString());
+    }
+
   }
 }

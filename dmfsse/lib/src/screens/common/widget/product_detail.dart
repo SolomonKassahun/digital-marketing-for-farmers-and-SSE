@@ -33,25 +33,11 @@ class _ProductDetailState extends State<ProductDetail> {
                 // const SizedBox(
                 //   height: 15.0,
                 // ),
-                FutureBuilder(
-                    future: FirebaseTaskManager.getImage(
-                        widget.product.photo.toString(), 'product', 7),
-                    builder: ((context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Text(
-                              '${snapshot.error} occurred',
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          );
-                        } else if (snapshot.hasData) {
-                          imageUrl = snapshot.data as String;
-                          return CachedNetworkImage(
+                 CachedNetworkImage(
                             fit: BoxFit.fill,
                             height: 200.0,
                             width: MediaQuery.of(context).size.width,
-                            imageUrl: snapshot.data.toString(),
+                            imageUrl: widget.product.photo.toString(),
                             // imageUrl: snapshot.data,
                             imageBuilder: (context, imageProvider) => Container(
                               width: MediaQuery.of(context).size.width * 4,
@@ -68,14 +54,50 @@ class _ProductDetailState extends State<ProductDetail> {
                             )),
                             errorWidget: (context, url, error) =>
                                 const Icon(Icons.error),
-                          );
-                        }
-                      }
+                          ),
+                // FutureBuilder(
+                //     future: FirebaseTaskManager.getImage(
+                //         widget.product.photo.toString(), 'product', 7),
+                //     builder: ((context, snapshot) {
+                //       if (snapshot.connectionState == ConnectionState.done) {
+                //         if (snapshot.hasError) {
+                //           return Center(
+                //             child: Text(
+                //               '${snapshot.error} occurred',
+                //               style: const TextStyle(fontSize: 18),
+                //             ),
+                //           );
+                //         } else if (snapshot.hasData) {
+                //           imageUrl = snapshot.data as String;
+                //           return CachedNetworkImage(
+                //             fit: BoxFit.fill,
+                //             height: 200.0,
+                //             width: MediaQuery.of(context).size.width,
+                //             imageUrl: snapshot.data.toString(),
+                //             // imageUrl: snapshot.data,
+                //             imageBuilder: (context, imageProvider) => Container(
+                //               width: MediaQuery.of(context).size.width * 4,
+                //               height: MediaQuery.of(context).size.height * 4,
+                //               decoration: BoxDecoration(
+                //                 // shape: BoxShape.circle,
+                //                 image: DecorationImage(
+                //                     image: imageProvider, fit: BoxFit.cover),
+                //               ),
+                //             ),
+                //             placeholder: (context, url) => const Center(
+                //                 child: SpinKitCircle(
+                //               color: Colors.black,
+                //             )),
+                //             errorWidget: (context, url, error) =>
+                //                 const Icon(Icons.error),
+                //           );
+                //         }
+                //       }
 
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    })),
+                //       return const Center(
+                //         child: CircularProgressIndicator(),
+                //       );
+                //     })),
 
                 Container(
                   padding: const EdgeInsets.all(20.0),
@@ -109,21 +131,13 @@ class _ProductDetailState extends State<ProductDetail> {
                         children: [
                           Row(
                             children: [
-                              FutureBuilder(builder: ((context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.done) {
-                                  if (snapshot.hasError) {
-                                    return const SizedBox.shrink();
-                                  }
-                                  if (snapshot.hasData) {
-                                    imageUrl = snapshot.data as String;
-                                    return CachedNetworkImage(
+                               CachedNetworkImage(
                                       fit: BoxFit.fill,
                                       height: 40.0,
 
                                       width: 40,
 
-                                      imageUrl: snapshot.data.toString(),
+                                      imageUrl: widget.product.photo.toString(),
                                       // imageUrl: snapshot.data,
                                       imageBuilder: (context, imageProvider) =>
                                           Container(
@@ -147,13 +161,52 @@ class _ProductDetailState extends State<ProductDetail> {
                                       )),
                                       errorWidget: (context, url, error) =>
                                           const Icon(Icons.person),
-                                    );
-                                  }
-                                }
-                                return const SpinKitCircle(
-                                  color: Colors.blue,
-                                );
-                              })),
+                                    ),
+                              // FutureBuilder(builder: ((context, snapshot) {
+                              //   if (snapshot.connectionState ==
+                              //       ConnectionState.done) {
+                              //     if (snapshot.hasError) {
+                              //       return const SizedBox.shrink();
+                              //     }
+                              //     if (snapshot.hasData) {
+                              //       imageUrl = snapshot.data as String;
+                              //       return CachedNetworkImage(
+                              //         fit: BoxFit.fill,
+                              //         height: 40.0,
+
+                              //         width: 40,
+
+                              //         imageUrl: snapshot.data.toString(),
+                              //         // imageUrl: snapshot.data,
+                              //         imageBuilder: (context, imageProvider) =>
+                              //             Container(
+                              //           width:
+                              //               MediaQuery.of(context).size.width *
+                              //                   4,
+                              //           height:
+                              //               MediaQuery.of(context).size.height *
+                              //                   4,
+                              //           decoration: BoxDecoration(
+                              //             shape: BoxShape.circle,
+                              //             image: DecorationImage(
+                              //                 image: imageProvider,
+                              //                 fit: BoxFit.cover),
+                              //           ),
+                              //         ),
+                              //         placeholder: (context, url) =>
+                              //             const Center(
+                              //                 child: SpinKitCircle(
+                              //           color: Colors.blue,
+                              //         )),
+                              //         errorWidget: (context, url, error) =>
+                              //             const Icon(Icons.person),
+                              //       );
+                              //     }
+                              //   }
+                              //   return const SpinKitCircle(
+                              //     color: Colors.blue,
+                              //   );
+                              // })),
                               Text(
                                 '${widget.product.postedBy!.firstName} ${widget.product.postedBy!.lastName}',
                                 style: const TextStyle(

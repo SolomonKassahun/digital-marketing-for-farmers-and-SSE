@@ -1,7 +1,9 @@
 import 'package:dmfsse/src/bloc/product/product_bloc.dart';
+import 'package:dmfsse/src/bloc/product/product_event.dart';
 import 'package:dmfsse/src/bloc/product/product_state.dart';
 import 'package:dmfsse/src/models/product.dart';
 import 'package:dmfsse/src/screens/farmer/add_product_detail.dart';
+import 'package:dmfsse/src/screens/farmer/product_update.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,9 +12,10 @@ class AddProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<ProductBloc>(context).add(FetchMyProduct());
     return Scaffold(
       body: BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
-        if (state is AddProductLoading) {
+        if (state is FetchAllProductLoading) {
           return const CircularProgressIndicator(
             color: Colors.black,
           );
@@ -22,16 +25,29 @@ class AddProductPage extends StatelessWidget {
             child: Container(
               child: state.product.isEmpty ? const Center(child: Text("You didn't have any product"),):
              Column(
-              children: state.product.map((e) => Container(
-                  padding: const EdgeInsets.all(10),
-                  height: 40,
-                  child: Row(
-                    children: [
-                      Text(e.name),
-                      const Icon(Icons.edit),
-                     const  Icon(Icons.delete)
-                    ],
-                  ),
+              children: state.product.map((e) => Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child:ListTile(
+                    leading:const  Icon(Icons.production_quantity_limits),
+                    title: Text(e.name),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: ((context) => ProductUpdate(product: e,))));
+                          }, 
+                          icon: const Icon(Icons.edit)
+                          ),
+                          IconButton(
+                          onPressed: (){}, 
+                          icon: const Icon(Icons.delete)
+                          ),
+                      ],
+                    ),
+                  )
+                ),
               )).toList()
              )
             ),

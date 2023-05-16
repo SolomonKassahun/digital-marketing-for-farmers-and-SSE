@@ -10,6 +10,7 @@ import '../../bloc/user/user_bloc.dart';
 import '../../bloc/user/user_event.dart';
 import '../../models/login_info.dart';
 import '../../service/firebase_service.dart';
+import '../common/widget/user_profile.dart';
 
 class FarmerDrawer extends StatefulWidget {
   const FarmerDrawer({super.key});
@@ -64,29 +65,11 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
                     ? "+251${loggedInUserInfo!.phoneNumber.toString().substring(1)}"
                     : "+251",
                 style: const TextStyle(color: Colors.white)),
-            currentAccountPicture: FutureBuilder(
-                future: FirebaseTaskManager.getImage(
-                    (loggedInUserInfo != null)
-                        ? loggedInUserInfo!.profilePicture.toString()
-                        : "ProfilePictures/Screenshot_20230421-071626_Lite.jpg",
-                    'ProfilePictures',
-                    15),
-                builder: ((context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasError) {
-                      return Center(
-                        child: Text(
-                          '${snapshot.error} occurred',
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                      );
-                    } else if (snapshot.hasData) {
-                      imageUrl = snapshot.data as String;
-                      return CachedNetworkImage(
+                currentAccountPicture:  CachedNetworkImage(
                         fit: BoxFit.fill,
                         height: 200.0,
                         width: MediaQuery.of(context).size.width,
-                        imageUrl: snapshot.data.toString(),
+                        imageUrl: loggedInUserInfo!.profilePicture.toString(),
                         // imageUrl: snapshot.data,
                         imageBuilder: (context, imageProvider) => Container(
                           width: MediaQuery.of(context).size.width * 4,
@@ -103,26 +86,66 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
                         )),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
-                      );
-                    }
-                  }
-                  // if (snapshot.connectionState == ConnectionState.waiting) {
-                  //   return Column(
-                  //     children: const [
-                  //       Text("Loading ..."),
-                  //       Expanded(
-                  //           child: SpinKitCircle(
-                  //         color: Colors.black,
-                  //       )),
-                  //     ],
-                  //   );
-                  // }
+                      ),
+            // currentAccountPicture: FutureBuilder(
+            //     future: FirebaseTaskManager.getImage(
+            //         (loggedInUserInfo != null)
+            //             ? loggedInUserInfo!.profilePicture.toString()
+            //             : "ProfilePictures/Screenshot_20230421-071626_Lite.jpg",
+            //         'ProfilePictures',
+            //         15),
+            //     builder: ((context, snapshot) {
+            //       if (snapshot.connectionState == ConnectionState.done) {
+            //         if (snapshot.hasError) {
+            //           return Center(
+            //             child: Text(
+            //               '${snapshot.error} occurred',
+            //               style: const TextStyle(fontSize: 18),
+            //             ),
+            //           );
+            //         } else if (snapshot.hasData) {
+            //           imageUrl = snapshot.data as String;
+            //           return CachedNetworkImage(
+            //             fit: BoxFit.fill,
+            //             height: 200.0,
+            //             width: MediaQuery.of(context).size.width,
+            //             imageUrl: snapshot.data.toString(),
+            //             // imageUrl: snapshot.data,
+            //             imageBuilder: (context, imageProvider) => Container(
+            //               width: MediaQuery.of(context).size.width * 4,
+            //               height: MediaQuery.of(context).size.height * 4,
+            //               decoration: BoxDecoration(
+            //                 shape: BoxShape.circle,
+            //                 image: DecorationImage(
+            //                     image: imageProvider, fit: BoxFit.cover),
+            //               ),
+            //             ),
+            //             placeholder: (context, url) => const Center(
+            //                 child: SpinKitCircle(
+            //               color: Colors.white,
+            //             )),
+            //             errorWidget: (context, url, error) =>
+            //                 const Icon(Icons.error),
+            //           );
+            //         }
+            //       }
+            //       // if (snapshot.connectionState == ConnectionState.waiting) {
+            //       //   return Column(
+            //       //     children: const [
+            //       //       Text("Loading ..."),
+            //       //       Expanded(
+            //       //           child: SpinKitCircle(
+            //       //         color: Colors.black,
+            //       //       )),
+            //       //     ],
+            //       //   );
+            //       // }
 
-                  return const Center(
-                      child: SpinKitCircle(
-                    color: Colors.white,
-                  ));
-                })),
+            //       return const Center(
+            //           child: SpinKitCircle(
+            //         color: Colors.white,
+            //       ));
+            //     })),
             decoration: const BoxDecoration(
               color: Colors.blueAccent,
             ),
@@ -139,7 +162,7 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
             title: const Text('Profile'),
             leading: const Icon(Icons.person),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: ((context) =>   UserProfile(loggedInUserInfo: loggedInUserInfo as LoggedInUserInfo,))));
             },
           ),
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),

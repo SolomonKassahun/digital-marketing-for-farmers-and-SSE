@@ -9,7 +9,10 @@ class SendMessageStateInitial extends MessageState {}
 
 class MessageStateSentInitial extends MessageState {}
 
-class MessageSentStateSucess extends MessageState {}
+class MessageSentStateSucess extends MessageState {
+  String message;
+  MessageSentStateSucess({required this.message});
+}
 
 class MessageStateSucess extends MessageState {
   List<MessageInfo> message;

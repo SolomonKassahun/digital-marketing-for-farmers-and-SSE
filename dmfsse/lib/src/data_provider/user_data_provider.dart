@@ -5,6 +5,7 @@ import 'package:dmfsse/local_storage/user_preference.dart';
 import 'package:dmfsse/src/bloc/product/product_state.dart';
 import 'package:dmfsse/src/models/login_info.dart';
 import 'package:dmfsse/src/service/firebase_service.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
 
 import '../../Ip/ip.dart';
@@ -75,12 +76,17 @@ class UserDataProvider {
               user.profilePicture.toString(), '/ProfilePictures')
           .then((value) {
         profilePicture = value.toString();
+
       });
+
       await FirebaseTaskManager.uploadImage(
               user.identifictionPicture.toString(), "IdentificationPictures")
           .then((value) {
         identificationPicture = value.toString();
       });
+            final profileImgUrl = await FirebaseTaskManager.getImage(profilePicture.toString(),  'ProfilePictures',
+                    15);
+      final identificationImgUrl = await FirebaseTaskManager.getImage(identificationPicture.toString(), '/IdentificationPictures', 22);
       final url = Uri.parse(registrationUrl);
       final response = await http.post(url,
           headers: {
@@ -93,10 +99,10 @@ class UserDataProvider {
             'lastName': user.lastName,
             'email': user.email,
             'phoneNumber': user.phoneNumber,
-            'profilePicture': profilePicture,
+            'profilePicture': profileImgUrl,
             'password': user.password,
             'roles': [user.roles],
-            'identifictionPicture': identificationPicture,
+            'identifictionPicture': identificationImgUrl,
           }));
       if (response.statusCode == 201) {
         return true;

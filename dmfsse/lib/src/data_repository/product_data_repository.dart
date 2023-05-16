@@ -22,4 +22,10 @@ Future<List<Product>> getMyProduct() async{
   return listOfProduct;
 
 }
+Future<Product> updateProduct(String id) async {
+  return productDataProvider.updateProducct(id);
+}
+Future<bool> deleteProduct(String id) async {
+  return productDataProvider.deleteProduct(id);
+}
 }

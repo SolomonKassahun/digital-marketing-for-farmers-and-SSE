@@ -4,19 +4,18 @@ import 'package:dmfsse/src/bloc/message/message_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../../bloc/message/message_bloc.dart';
-import '../../bloc/message/message_event.dart';
-import '../../service/firebase_service.dart';
-import '../common/widget/chat_room.dart';
+import '../../../bloc/message/message_bloc.dart';
+import '../../../bloc/message/message_event.dart';
+import 'chat_room.dart';
 
-class FarmerChat extends StatefulWidget {
-  const FarmerChat({super.key});
+class MessageRoom extends StatefulWidget {
+  const MessageRoom({super.key});
 
   @override
-  State<FarmerChat> createState() => _FarmerChatState();
+  State<MessageRoom> createState() => _MessageRoomState();
 }
 
-class _FarmerChatState extends State<FarmerChat> {
+class _MessageRoomState extends State<MessageRoom> {
   late String id;
   @override
   void initState() {
@@ -49,7 +48,7 @@ class _FarmerChatState extends State<FarmerChat> {
               }
               if (state is MessageStateSucess) {
                 return state.message.isEmpty
-                    ? const Text("No message")
+                    ? const  Center(child:  Text("No message"))
                     : SingleChildScrollView(
                         child: Column(
                         children: [
@@ -84,7 +83,7 @@ class _FarmerChatState extends State<FarmerChat> {
                             children: state.message
                                 .map((e) => GestureDetector(
                                       onTap: () {
-                                        print(("the id was ${e.id}"));
+                                      
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -106,41 +105,14 @@ class _FarmerChatState extends State<FarmerChat> {
                                                 children: [
                                                   (e.profilePicture == null)
                                                       ? const Icon(Icons.person)
-                                                      : FutureBuilder(
-                                                          future: FirebaseTaskManager
-                                                              .getImage(
-                                                                  e.profilePicture
-                                                                      .toString(),
-                                                                  '/ProfilePictures',
-                                                                  15),
-                                                          builder: ((context,
-                                                              snapshot) {
-                                                            if (snapshot
-                                                                    .connectionState ==
-                                                                ConnectionState
-                                                                    .done) {
-                                                              if (snapshot
-                                                                  .hasError) {
-                                                                return const Icon(
-                                                                  Icons.person,
-                                                                  size: 40,
-                                                                );
-                                                              }
-                                                              if (snapshot
-                                                                  .hasData) {
-                                                                imageUrl =
-                                                                    snapshot.data
-                                                                        as String;
-                                                                return CachedNetworkImage(
+                                                      : CachedNetworkImage(
                                                                   fit: BoxFit
                                                                       .fill,
                                                                   height: 40.0,
 
                                                                   width: 40,
 
-                                                                  imageUrl: snapshot
-                                                                      .data
-                                                                      .toString(),
+                                                                  imageUrl:e.profilePicture.toString(),
                                                                   // imageUrl: snapshot.data,
                                                                   imageBuilder:
                                                                       (context,
@@ -179,14 +151,8 @@ class _FarmerChatState extends State<FarmerChat> {
                                                                       const Icon(
                                                                           Icons
                                                                               .person),
-                                                                );
-                                                              }
-                                                            }
-                                                            return const SpinKitCircle(
-                                                              color:
-                                                                  Colors.blue,
-                                                            );
-                                                          })),
+                                                                ),
+                                                 
                                                   const SizedBox(
                                                     width: 20,
                                                   ),
