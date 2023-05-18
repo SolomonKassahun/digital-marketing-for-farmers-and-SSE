@@ -3,20 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../models/product.dart';
-import 'customer_offer_room.dart';
-import 'customer_product_detail.dart';
+import '../customer/customer_offer_room.dart';
+import '../customer/customer_product_detail.dart';
 
-class CustomerProductList extends StatefulWidget {
+
+class FarmerProductList extends StatefulWidget {
   final List<Product> products;
   final String searchTerm;
-  const CustomerProductList(
+  const FarmerProductList(
       {required this.products, required this.searchTerm, super.key});
 
   @override
-  State<CustomerProductList> createState() => _CustomerProductListState();
+  State<FarmerProductList> createState() => _FarmerProductListState();
 }
 
-class _CustomerProductListState extends State<CustomerProductList> {
+class _FarmerProductListState extends State<FarmerProductList> {
   String? imageUrl;
   List<Product> listOfProduct = [];
 
@@ -155,13 +156,7 @@ class _CustomerProductListState extends State<CustomerProductList> {
                                         ElevatedButton(
                                           onPressed: () {
                                            
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        CustomerOfferRoom(
-                                                          product: product,
-                                                        )));
+                                           
                                           },
                                           child: const Text("Buy product"),
                                         ),

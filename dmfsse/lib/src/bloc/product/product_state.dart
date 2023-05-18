@@ -8,6 +8,13 @@ class FetchAllProductSucess extends ProductState {
   FetchAllProductSucess({required this.product});
 
 }
+class FetchMyProductLoading extends ProductState{}
+
+class FetchMyProductSucess extends ProductState {
+  final List<Product> product;
+  FetchMyProductSucess({required this.product});
+
+}
 
 class FetchAllProductFailure extends ProductState {
   final String message;

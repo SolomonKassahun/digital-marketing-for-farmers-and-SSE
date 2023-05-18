@@ -16,14 +16,12 @@ Future<List<Product>> getAllActiveProduct() async{
   return listOfProduct;
 
 }
-Future<List<Product>> getMyProduct() async{
- 
-  List<Product> listOfProduct= await productDataProvider.getMyProduct();
-  return listOfProduct;
+Future<List<Product>> getMyProduct(){
+  return productDataProvider.getMyProduct();
 
 }
-Future<Product> updateProduct(String id) async {
-  return productDataProvider.updateProducct(id);
+Future<Product> updateProduct(Product product) async {
+  return productDataProvider.updateProducct(product);
 }
 Future<bool> deleteProduct(String id) async {
   return productDataProvider.deleteProduct(id);

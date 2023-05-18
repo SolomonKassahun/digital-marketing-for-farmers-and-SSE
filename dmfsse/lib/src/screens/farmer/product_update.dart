@@ -5,6 +5,7 @@ import 'package:dmfsse/src/bloc/product/product_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/product/product_event.dart';
 import '../../models/product.dart';
 import '../common/widget/input_field.dart';
 import '../common/widget/product_form.dart';
@@ -21,7 +22,7 @@ class _ProductUpdateState extends State<ProductUpdate> {
   final formKey = GlobalKey<FormState>();
   bool isUpdate = false;
 
-Map<String, dynamic> _productBody = {};
+Map<String, dynamic> productBody = {};
     
 
   @override
@@ -53,12 +54,26 @@ Map<String, dynamic> _productBody = {};
                           topRight: Radius.circular(50))),
                   child: BlocConsumer<ProductBloc,ProductState>(
                     listener: ((context, state) {
-                      
+                     if (state is FetchAllProductSucess){
+                      Navigator.pop(context);
+                     }
+                     if(state is FetchAllProductFailure){
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content:
+                    Text("Failed to update product")));
+                     }
                     }),
                     builder: ((context, state) {
+                       if(state is InitialState){
+                        isUpdate = true;
+                      }
+                      if(state is FetchAllProductFailure){
+                        isUpdate = false;
+                      }
                       return SingleChildScrollView(
                              scrollDirection: Axis.vertical,
                              child: Form(
+                              key: formKey,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -75,17 +90,17 @@ Map<String, dynamic> _productBody = {};
                               ProductTextFormField(
                                 
                                 onSaved: (value){
-                                  _productBody['name'] = value;
+                                  productBody['name'] = value;
                                 },
                                 initialValue: widget.product.name,
                                 
                                 onChanged: (String value) {},
                                 keyboardType: TextInputType.text,
-                                errorMessage: "product title",
+                                errorMessage: "product name",
                                 obscureText: false,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "Enter product title";
+                                    return "Enter product name";
                                   } else {
                                     return null;
                                   }
@@ -107,7 +122,7 @@ Map<String, dynamic> _productBody = {};
                               ProductTextFormField(
                                 
                                 onSaved: (value){
-                                  _productBody['price'] = value;
+                                  productBody['price'] = value;
                                 },
                                 initialValue: widget.product.price.toString(),
                                 
@@ -136,7 +151,7 @@ Map<String, dynamic> _productBody = {};
                               ProductTextFormField(
                                 
                                 onSaved: (value){
-                                  _productBody['amount'] = value;
+                                  productBody['amount'] = value;
                                 },
                                 initialValue: widget.product.amount.toString(),
                                 
@@ -171,7 +186,7 @@ Map<String, dynamic> _productBody = {};
                                    
                                   },
                                   onSaved: (value){
-                                    _productBody['description'] = value;
+                                    productBody['description'] = value;
                                   },
                                   initialValue: widget.product.description,
                                   decoration: InputDecoration(
@@ -202,11 +217,27 @@ Map<String, dynamic> _productBody = {};
                                 ),
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      if (formKey.currentState!.validate()) {
-                                        print("add product clicked");
+                                      formKey.currentState!.save();
+                                      if(formKey.currentState!.validate()){
+                                        print(widget.product.id);
+                                         Product product = Product(
+                                          id: widget.product.id,
+                                          name: productBody['name'],
+                                           price: int.parse(productBody['price']), 
+                                           description: productBody['description'], 
+                                           amount: int.parse(productBody['amount']),
+                                           photo: widget.product.photo,
+                                           soldout: widget.product.soldout,
+                                           
+                                           );
+                                        UpdateProduct updateProduct = UpdateProduct(product);
+                                         BlocProvider.of<ProductBloc>(context)
+                                            .add(updateProduct);
+                                      }
+                                       
+
 
                                     
-                                      }
                                     },
                                     style: ButtonStyle(
                                         backgroundColor:

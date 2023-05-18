@@ -43,14 +43,14 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         }
       }
       if(event is FetchMyProduct){
-          emit(FetchAllProductLoading());
+          emit(FetchMyProductLoading());
         try {
           final List<Product> myProduct =
               await productDataRepository.getMyProduct();
         
           if (myProduct != []) {
            
-            emit(FetchAllProductSucess(product: myProduct));
+            emit(FetchMyProductSucess(product: myProduct));
           } else {
            
             emit(FetchAllProductFailure(message: "Failed to load Product."));
@@ -62,7 +62,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       if(event is UpdateProduct){
         emit (InitialState());
         try {
-          Product product = await productDataRepository.updateProduct(event.productId);
+          Product product = await productDataRepository.updateProduct(event.product);
           List<Product> listOfProduct = await productDataRepository.getAllActiveProduct();
           // ignore: unnecessary_type_check
           if(product is Product && listOfProduct is List<Product>){
