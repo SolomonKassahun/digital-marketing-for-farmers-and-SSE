@@ -12,14 +12,17 @@ import 'bloc_observer.dart';
 import 'routes/routes.dart';
 import 'src/bloc/Auth/auth_bloc.dart';
 import 'src/bloc/message/message_bloc.dart';
+import 'src/bloc/offer/offer_bloc.dart';
 import 'src/bloc/product/product_bloc.dart';
 import 'src/bloc/training/training_bloc.dart';
 import 'src/bloc/user/user_bloc.dart';
 import 'src/data_provider/message_data_provider.dart';
+import 'src/data_provider/offer_data_provider.dart';
 import 'src/data_provider/order_data_provider.dart';
 import 'src/data_provider/product_data_provider.dart';
 import 'src/data_provider/training_data_provider.dart';
 import 'src/data_repository/message_data_repository.dart';
+import 'src/data_repository/offer_data_repository.dart';
 import 'src/data_repository/training_data_repository.dart';
 import 'src/data_repository/user_data_repository.dart';
 import 'src/screens/splash_screen.dart';
@@ -49,6 +52,7 @@ class MyApp extends StatelessWidget {
       MessageDataRepository(messageDataProvier: MessageDataProvier());
   final OrderDataRepostory orderDataRepostory =
       OrderDataRepostory(orderDataProvider: OrderDataProvider());
+  final OfferDataRepository  offerDataRepository = OfferDataRepository(offerDataProvider: OfferDataProvider());
 
   MyApp({Key? key}) : super(key: key);
 
@@ -69,7 +73,8 @@ class MyApp extends StatelessWidget {
             create: (_) =>
                 MessageBloc(messageDataRepository: messageDataRepository)),
         BlocProvider<OrderBloc>(
-            create: (_) => OrderBloc(orderDataRepostory: orderDataRepostory))
+            create: (_) => OrderBloc(orderDataRepostory: orderDataRepostory)),
+        BlocProvider<OfferBloc>(create: (_) => OfferBloc(offerDataRepository: offerDataRepository))
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

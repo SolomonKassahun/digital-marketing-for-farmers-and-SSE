@@ -31,6 +31,7 @@ class _MessageRoomState extends State<MessageRoom> {
     BlocProvider.of<MessageBloc>(context).add(FetchAllMessageEvent());
     return SingleChildScrollView(
       child: Column(
+        
         children: [
           BlocBuilder<MessageBloc, MessageState>(
             builder: (context, state) {
@@ -48,7 +49,7 @@ class _MessageRoomState extends State<MessageRoom> {
               }
               if (state is MessageStateSucess) {
                 return state.message.isEmpty
-                    ? const  Center(child:  Text("No message"))
+                    ? const   Center(child:  Text("No message!"))
                     : SingleChildScrollView(
                         child: Column(
                         children: [

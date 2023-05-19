@@ -17,10 +17,11 @@ class ProductDataProvider {
   late String accessToken;
   void init() async {
     UserPreference userPreference = UserPreference();
-    accessToken = await userPreference.getUserToken();
+    accessToken = (await userPreference.getUserToken());
+    print("the toke is $accessToken");
   }
-
   Future<List<Product>> getAllActiveProduct() async {
+     init();
     try {
      
       final response = await http.get(
@@ -46,28 +47,30 @@ class ProductDataProvider {
   }
   Future<List<Product>> getMyProduct() async {
     init();
+    print("the access token of my product is $accessToken");
     try {
      
       final response = await http.get(
         Uri.parse("${Ip.ip}/myProduct/"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
           'x-access-token':accessToken.toString()
         
         },
       );
       
       if (response.statusCode == 200) {
+        print('status code one is ${response.statusCode}');
         final extractedData = json.decode(response.body) as List;
+        print('status code one is ${extractedData}');
       
         return extractedData.map((e) => Product.fromJson(e)).toList();
       } else {
+        print('status code one is ${response.statusCode}');
        
         throw Exception('No Connection');
       }
     } catch (e) {
-      throw Exception('error at data provider $e');
+      throw Exception('error at data provider ${e.toString()}');
     }
   }
 
@@ -114,13 +117,33 @@ class ProductDataProvider {
     }
   }
 
-  Future<Product> updateProducct(String id) async{
+  Future<Product> updateProducct(Product product) async{
+    init();
+     print('product is ${product.id}');
     try {
-      final response = await http.put(Uri.parse('${Ip.ip}/product/$id'));
+      final response = await http.patch(Uri.parse('${Ip.ip}/product/${product.id}'),
+         headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'x-access-token': accessToken,
+          },
+          body: jsonEncode({
+             'photo': product.photo,
+            'price': product.price,
+            'description': product.description,
+            'name': product.name,
+            'amount': product.amount,
+            '_id':product.id,
+            'soldout':product.soldout
+            
+          })
+          );
       if(response.statusCode != 201){
+        print("staus code is ${response.statusCode}");
         throw const HttpException('Failed to update product');
        
       }
+       print("staus code is ${response.body}");
       final extractedData= jsonDecode(response.body);
         return extractedData;
       

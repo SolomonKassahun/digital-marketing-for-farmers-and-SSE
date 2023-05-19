@@ -7,6 +7,8 @@ class Product {
   int amount;
   bool? soldout;
   PostedBy? postedBy;
+  String? createdAt;
+  String? updatedAt;
   Product(
       {this.id,
       required this.name,
@@ -15,6 +17,8 @@ class Product {
       required this.description,
       required this.amount,
       this.soldout,
+      this.createdAt,
+      this.updatedAt,
       this.postedBy});
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -24,7 +28,10 @@ class Product {
         'photo': photo,
         'amount': amount,
         'soldout': soldout,
-        'postedBy': postedBy
+        'postedBy': postedBy,
+        'createdAt':createdAt,
+        'updatedAt':updatedAt
+        
       };
   Product.fromJson(Map<String, dynamic> json)
       : id = json['_id'],
@@ -34,6 +41,8 @@ class Product {
         photo = json['photo'],
         amount = json['amount'],
         soldout = json['soldout'],
+        createdAt = json['createdAt'],
+        updatedAt = json['updatedAt'],
         postedBy = PostedBy.fromJson(json['postedBy']);
 }
 
@@ -42,13 +51,13 @@ class PostedBy {
   String firstName;
   String lastName;
   String roles;
-  String profilePicture;
+  String? profilePicture;
   PostedBy(
       {required this.id,
       required this.firstName,
       required this.lastName,
       required this.roles,
-      required this.profilePicture});
+       this.profilePicture});
   Map<String, dynamic> toJson() => {
         'id': id,
         'fistName': firstName,

@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../models/product.dart';
 import '../../../service/firebase_service.dart';
+import '../../login_screen.dart';
 import 'product_detail.dart';
 
 class VerticalScrollerProduct extends StatefulWidget {
@@ -53,159 +54,93 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                                       builder: (context) =>
                                           ProductDetail(product: product)));
                             },
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.outline,
-                                  ),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(12)),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color:
+                                      Theme.of(context).colorScheme.outline,
                                 ),
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 90.0,
-                                  child: Center(
-                                      child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(
-                                        width: 10,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(12)),
+                              ),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: 100.0,
+                                child: Center(
+                                    child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    CachedNetworkImage(
+                                      fit: BoxFit.fill,
+                                      height: 75.0,
+                                      width: 75.0,
+                                      imageUrl: product.photo.toString(),
+                                      imageBuilder:
+                                          (context, imageProvider) =>
+                                              Container(
+                                        width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                            4,
+                                        height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                            4,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover),
+                                        ),
                                       ),
-                                       CachedNetworkImage(
-                                                  fit: BoxFit.fill,
-                                                  height: 75.0,
-                                                  width: 75.0,
-                                                  imageUrl: product.photo.toString(),
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
-                                                      Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            4,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            4,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.rectangle,
-                                                      image: DecorationImage(
-                                                          image: imageProvider,
-                                                          fit: BoxFit.cover),
-                                                    ),
-                                                  ),
-                                                  placeholder: (context, url) =>
-                                                      const Center(
-                                                          child: SpinKitCircle(
-                                                    color: Colors.black,
-                                                  )),
-                                                  errorWidget: (context, url,
-                                                          error) =>
-                                                      const Icon(Icons.error),
-                                                ),
-                                      // FutureBuilder(
-                                      //     future: FirebaseTaskManager.getImage(
-                                      //         product.photo.toString(),
-                                      //         'product',
-                                      //         7),
-                                      //     builder: (BuildContext context,
-                                      //         AsyncSnapshot<dynamic> snapshot) {
-                                      //       switch (snapshot.connectionState) {
-                                      //         case ConnectionState.none:
-                                      //           return const Text('none');
-                                      //         case ConnectionState.waiting:
-                                      //           return Center(
-                                      //               child: Column(
-                                      //             children: const [
-                                      //               Text("Loading ..."),
-                                      //               Expanded(
-                                      //                   child: SpinKitCircle(
-                                      //                 color: Colors.black,
-                                      //               )),
-                                      //             ],
-                                      //           ));
-                                      //         case ConnectionState.active:
-                                      //           return const Text('Loading...');
-                                      //         case ConnectionState.done:
-                                      //           imageUrl = snapshot.data;
+                                      placeholder: (context, url) =>
+                                          const Center(
+                                              child: SpinKitCircle(
+                                        color: Colors.black,
+                                      )),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    ),
 
-                                      //           return CachedNetworkImage(
-                                      //             fit: BoxFit.fill,
-                                      //             height: 75.0,
-                                      //             width: 75.0,
-                                      //             imageUrl: snapshot.data,
-                                      //             imageBuilder: (context,
-                                      //                     imageProvider) =>
-                                      //                 Container(
-                                      //               width:
-                                      //                   MediaQuery.of(context)
-                                      //                           .size
-                                      //                           .width *
-                                      //                       4,
-                                      //               height:
-                                      //                   MediaQuery.of(context)
-                                      //                           .size
-                                      //                           .height *
-                                      //                       4,
-                                      //               decoration: BoxDecoration(
-                                      //                 shape: BoxShape.rectangle,
-                                      //                 image: DecorationImage(
-                                      //                     image: imageProvider,
-                                      //                     fit: BoxFit.cover),
-                                      //               ),
-                                      //             ),
-                                      //             placeholder: (context, url) =>
-                                      //                 const Center(
-                                      //                     child: SpinKitCircle(
-                                      //               color: Colors.black,
-                                      //             )),
-                                      //             errorWidget: (context, url,
-                                      //                     error) =>
-                                      //                 const Icon(Icons.error),
-                                      //           );
-                                      //       }
-                                      //     }),
-                                      const SizedBox(
-                                        width: 50,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          SizedBox(
-                                            child: Text(
-                                              product.name,
-                                              style: const TextStyle(
-                                                  color: Colors.black),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                     Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                       children: [
+                                      const  SizedBox(height: 20,),
+                                         SizedBox(
+                                              child: Text(
+                                                product.name,
+                                                style: const TextStyle(
+                                                    color: Colors.black),
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            child: Text(
-                                              "${product.price} Birr",
-                                              style: const TextStyle(
-                                                  color: Colors.black),
+                                            SizedBox(
+                                              child: Text(
+                                                "${product.price.toString()} ETB",
+                                                style: const TextStyle(
+                                                    color: Colors.black),
+                                              ),
                                             ),
-                                          ),
-                                          
-                                        ],
-                                      ),
-                                      const SizedBox(width: 55,),
-                                       SizedBox(
-                                         child: Row(
-                                                                 children: const  [
-                                                                    Text("4.9",style: TextStyle(color: Colors.black),),
-                                                                    Icon(Icons.favorite_outline,color: Colors.red,)
-                                                                 ],
-                                                               ),
-                                       )
-                                    ],
-                                  )),
-                                ),
+                                            Row(
+                                              children: [
+                                               
+                                                 ElevatedButton(onPressed: (){
+                                                  Navigator.pushNamed(context, LoginScreen.routeName);
+                                                 }, child: const  Text("Add To Cart"))
+                                              ],
+                                            )
+                                       ],
+                                     ),
+                                    
+                                  
+                                  ],
+                                )),
                               ),
                             ),
                           ))

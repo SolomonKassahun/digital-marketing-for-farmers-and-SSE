@@ -8,8 +8,8 @@ class AddProduct extends ProductEvent{
 }
 class FetchAllProduct extends ProductEvent {}
 class UpdateProduct extends ProductEvent {
-  String  productId;
-  UpdateProduct(this.productId);
+  Product  product;
+  UpdateProduct(this.product);
 }
 class FetchMyProduct extends ProductEvent{
   

@@ -81,46 +81,52 @@ class UserProfile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
                     height: 20,
                   ),
                   const Text(
                     'Full Name',
-                    style: TextStyle(color: Colors.white60),
+                    style: TextStyle(color: Colors.black26),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(loggedInUserInfo.firstName),
+                  Text("${loggedInUserInfo.firstName} ${loggedInUserInfo.lastName}"),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   const Divider(
                     height: 5,
+                    color: Colors.black,
+                  ),
+                   const SizedBox(
+                    height: 10,
                   ),
                   const Text(
                     'Phone',
-                    style: TextStyle(color: Colors.white60),
+                     style: TextStyle(color: Colors.black26),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(loggedInUserInfo.phoneNumber),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   const Divider(
-                    height: 5,
+                    height: 10,
+                    color: Colors.black,
                   ),
                   const Text(
-                    'Full Name',
-                    style: TextStyle(color: Colors.white60),
+                    'Roles ',
+                    style: TextStyle(color: Colors.black26),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(loggedInUserInfo.firstName),
+                  Text(loggedInUserInfo.roles.first),
                   const SizedBox(
                     height: 10,
                   ),

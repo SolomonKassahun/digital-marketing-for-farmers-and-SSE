@@ -1,5 +1,3 @@
-
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dmfsse/local_storage/user_preference.dart';
 import 'package:dmfsse/src/screens/homepage_screen.dart';
@@ -14,11 +12,16 @@ import '../farmer/farmer_homepage.dart';
 
 class FirebaseAuthScreen extends StatefulWidget {
   final LoggedInUserInfo loggedInUserInfo;
- final String token;
-final  String id;
-final String verificationID;
-  
- const   FirebaseAuthScreen({required this.loggedInUserInfo, required this.token, required this.id,required this.verificationID, super.key});
+  final String token;
+  final String id;
+  final String verificationID;
+
+  const FirebaseAuthScreen(
+      {required this.loggedInUserInfo,
+      required this.token,
+      required this.id,
+      required this.verificationID,
+      super.key});
 
   @override
   State<FirebaseAuthScreen> createState() => _FirebaseAuthScreenState();
@@ -27,53 +30,52 @@ final String verificationID;
 class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
   final formKey = GlobalKey<FormState>();
   TextEditingController pinCodeController = TextEditingController();
-    bool hasError = false;
-    bool isVerify = false;
-     FirebaseAuth auth = FirebaseAuth.instance;
+  bool hasError = false;
+  bool isVerify = false;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
-    void verifyPhoneNumber() async{
-     
-
-      try {
-        await  auth.verifyPhoneNumber(
-          phoneNumber: "+251${widget.loggedInUserInfo.phoneNumber.toString().substring(1)}",
-        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async{
-           await auth.signInWithCredential(phoneAuthCredential);
-        },
-         verificationFailed: (FirebaseAuthException firebaseAuthException){
-          setState(() {
-            isVerify = false;
-          });
+  void verifyPhoneNumber() async {
+    try {
+      await auth.verifyPhoneNumber(
+          phoneNumber:
+              "+251${widget.loggedInUserInfo.phoneNumber.toString().substring(1)}",
+          verificationCompleted:
+              (PhoneAuthCredential phoneAuthCredential) async {
+            await auth.signInWithCredential(phoneAuthCredential);
+          },
+          verificationFailed: (FirebaseAuthException firebaseAuthException) {
+            setState(() {
+              isVerify = false;
+            });
             AwesomeDialog(
-        context: context,
-        dialogType: DialogType.error,
-        animType: AnimType.bottomSlide,
-        title: "Phone number verification failed.",
-        desc: firebaseAuthException.message,
-        btnOkOnPress: () {
-          Navigator.pop(context);
-        },
-      ).show();
-    
-         }, 
-         codeSent: (String verificationId, int? resendToken) async {
-          String sms = pinCodeController.text.toString();
-           ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Please check your phone for the verification code")));
+              context: context,
+              dialogType: DialogType.error,
+              animType: AnimType.bottomSlide,
+              title: "Phone number verification failed.",
+              desc: firebaseAuthException.message,
+              btnOkOnPress: () {
+                Navigator.pop(context);
+              },
+            ).show();
+          },
+          codeSent: (String verificationId, int? resendToken) async {
+            String sms = pinCodeController.text.toString();
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content:
+                    Text("Please check your phone for the verification code")));
 
-        Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const Homepage()),
-              (route) => false);
-          PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: sms);
-          await auth.signInWithCredential(phoneAuthCredential);
-         },
-          codeAutoRetrievalTimeout: (String verificationId) {
-            
-          }
-          );
-      } catch (e) {
-        AwesomeDialog(
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const Homepage()),
+                (route) => false);
+            PhoneAuthCredential phoneAuthCredential =
+                PhoneAuthProvider.credential(
+                    verificationId: verificationId, smsCode: sms);
+            await auth.signInWithCredential(phoneAuthCredential);
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {});
+    } catch (e) {
+      AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.bottomSlide,
@@ -81,71 +83,62 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
         desc: e.toString(),
         btnOkOnPress: () {},
       ).show();
-      }
-      
     }
-    void signInWIthPhoneNumber() async{
-     setState(() {
-       isVerify = true;
-     });
-      final AuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: widget.verificationID.toString(),
-        smsCode: pinCodeController.text,
-        
-      );
-      final UserCredential user =
-          (await auth.signInWithCredential(credential));
-          UserPreference userPreference = UserPreference();
-             await userPreference.storeUserInformation(widget.loggedInUserInfo);
-        await userPreference.storeToken(widget.token);
-        await userPreference.storeUserId(widget.id);
-        if(widget.loggedInUserInfo.roles.first == 'customer'){
-          // ignore: use_build_context_synchronously
-             Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CustomerHomepage()));
-           
-        }
-        if(widget.loggedInUserInfo.roles.first == 'farmer'){
-          // ignore: use_build_context_synchronously
-          Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const FarmerHomepage()));
-        }
-            if(widget.loggedInUserInfo.roles.first == 'sse'){
-          // ignore: use_build_context_synchronously
-          Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SseHomepage()));
-        }
+  }
+
+  void signInWIthPhoneNumber() async {
+    setState(() {
+      isVerify = true;
+    });
+    final AuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: widget.verificationID.toString(),
+      smsCode: pinCodeController.text,
+    );
+    final UserCredential user = (await auth.signInWithCredential(credential));
+    UserPreference userPreference = UserPreference();
+    await userPreference.storeUserInformation(widget.loggedInUserInfo);
+    await userPreference.storeToken(widget.token);
+    await userPreference.storeUserId(widget.id);
+    if (widget.loggedInUserInfo.roles.first == 'customer') {
+      // ignore: use_build_context_synchronously
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const CustomerHomepage()));
     }
+    if (widget.loggedInUserInfo.roles.first == 'farmer') {
+      // ignore: use_build_context_synchronously
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const FarmerHomepage()));
+    }
+    if (widget.loggedInUserInfo.roles.first == 'sse') {
+      // ignore: use_build_context_synchronously
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const SseHomepage()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white10,
       ),
       backgroundColor: Colors.white,
       body: GestureDetector(
-        onTap: (){},
+        onTap: () {},
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: ListView(
             children: [
               const SizedBox(height: 30),
-               SizedBox(
+              SizedBox(
                 height: MediaQuery.of(context).size.height / 3,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
                   child: Image.asset('assets/images/phoneVerification.png'),
                 ),
               ),
-                const SizedBox(height: 8),
+              const SizedBox(height: 8),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
@@ -162,7 +155,8 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                       text: "Enter the code sent to ",
                       children: [
                         TextSpan(
-                            text:'+251${widget.loggedInUserInfo.phoneNumber.toString()}',
+                            text:
+                                '+251${widget.loggedInUserInfo.phoneNumber.toString()}',
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -179,23 +173,22 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
               Form(
                 key: formKey,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 30),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
                   child: PinCodeTextField(
-                  
-                    appContext: context, 
-                     pastedTextStyle: const  TextStyle(
-                        color:  Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      obscureText: false,
-                    length: 6, 
-                    onChanged: (String value) {  },
+                    appContext: context,
+                    pastedTextStyle: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    obscureText: false,
+                    length: 6,
+                    onChanged: (String value) {},
                     keyboardType: TextInputType.number,
-                    validator: (value){
-                          if(value!.length < 6){
-                            return "Verification Code must be 6 digit";
-                          }
+                    validator: (value) {
+                      if (value!.length < 6) {
+                        return "Verification Code must be 6 digit";
+                      }
                     },
                     pinTheme: PinTheme(
                         shape: PinCodeFieldShape.box,
@@ -204,20 +197,15 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                         fieldWidth: 40,
                         activeFillColor: Colors.white,
                         inactiveFillColor: Colors.white,
-                        selectedFillColor: Colors.blue
-
-                        
-                      ),
-                       cursorColor: Colors.black,
-                      animationDuration: const Duration(milliseconds: 300),
-                      enableActiveFill: true,
-                      controller: pinCodeController,
-                    ),
+                        selectedFillColor: Colors.blue),
+                    cursorColor: Colors.black,
+                    animationDuration: const Duration(milliseconds: 300),
+                    enableActiveFill: true,
+                    controller: pinCodeController,
                   ),
-                  
-                  
                 ),
-                 Padding(
+              ),
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text(
                   hasError ? "Please fill up all the cells properly" : "",
@@ -230,7 +218,6 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
               const SizedBox(
                 height: 20,
               ),
-            
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -239,7 +226,7 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                     style: TextStyle(color: Colors.black54, fontSize: 15),
                   ),
                   TextButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     child: const Text(
                       "RESEND",
                       style: TextStyle(
@@ -254,33 +241,31 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                 height: 14,
               ),
               Container(
-                margin: const EdgeInsets.only(left: 50,right: 50),
+                margin: const EdgeInsets.only(left: 50, right: 50),
                 width: 60,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                ),
                 child: ElevatedButton(
-                  onPressed: (){
-              signInWIthPhoneNumber();
+                  onPressed: () {
+                    signInWIthPhoneNumber();
                   },
                   style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.blue),
-                                        shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        ))), 
-                  child: isVerify ? const  CircularProgressIndicator(color: Colors.white,) : const  Text("Verify Number"),
-                  ),
-                  
+                      backgroundColor: MaterialStateProperty.all(Colors.blue),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ))),
+                  child: isVerify
+                      ? const CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : const Text("Verify Number"),
+                ),
               )
             ],
           ),
         ),
-
       ),
     );
   }
