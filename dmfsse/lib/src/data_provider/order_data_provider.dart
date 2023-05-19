@@ -4,6 +4,7 @@ import 'package:dmfsse/local_storage/user_preference.dart';
 import 'package:http/http.dart' as http;
 
 import '../../Ip/ip.dart';
+import '../models/offer.dart';
 import '../models/order.dart';
 
 class OrderDataProvider {
@@ -32,4 +33,5 @@ class OrderDataProvider {
       throw Exception(e.toString());
     }
   }
+
 }

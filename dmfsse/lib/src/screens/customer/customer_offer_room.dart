@@ -1,5 +1,3 @@
-
-
 import 'package:dmfsse/src/bloc/order/order_bloc.dart';
 import 'package:dmfsse/src/bloc/order/order_event.dart';
 import 'package:dmfsse/src/bloc/order/order_state.dart';
@@ -11,8 +9,8 @@ import '../../models/product.dart';
 import '../common/widget/input_field.dart';
 
 class CustomerOfferRoom extends StatefulWidget {
- final Product product;
-  const  CustomerOfferRoom({required this.product, super.key});
+  final Product product;
+  const CustomerOfferRoom({required this.product, super.key});
 
   @override
   State<CustomerOfferRoom> createState() => _CustomerOfferRoomState();
@@ -25,62 +23,58 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
   TextEditingController priceController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(widget.product.name),
-        
       ),
       body: Container(
-         width: double.infinity,
-          height: double.infinity,
+        width: double.infinity,
+        height: double.infinity,
         color: Colors.blue,
         child: Column(
-           mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-          children:  [
-   const SizedBox(
-                height: 35,
-              ),
-              Expanded(
-                child: Container(
-                   width: double.infinity,
-                    height: double.infinity,
-                    padding: const EdgeInsets.all(20),
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50),
-                            topRight: Radius.circular(50))),
-                  child:  BlocConsumer<OrderBloc,OrderState>(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 35,
+            ),
+            Expanded(
+              child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50))),
+                  child: BlocConsumer<OrderBloc, OrderState>(
                     listener: ((context, state) {
-                       if(state is OrderStateInitial){
-                                                isInOrder = true;
-
+                      if (state is OrderStateInitial) {
+                        isInOrder = true;
                       }
-                      if(state is OrderStateFailure){
+                      if (state is OrderStateFailure) {
                         isInOrder = false;
                       }
                     }),
                     builder: ((context, state) {
-                     
-                   
                       return SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Form(
                           key: _formKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children:  [
-                               const  Text(
+                            children: [
+                              const Text(
                                 "Quantity",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.blue),
                               ),
-                                const SizedBox(
+                              const SizedBox(
                                 height: 10.0,
                               ),
-                                 InputTextFormField(
+                              InputTextFormField(
                                 hintTxt: 'quantity',
                                 controller: quantityController,
                                 isRequired: false,
@@ -96,7 +90,6 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                                   }
                                 },
                               ),
-                                
                               const SizedBox(
                                 height: 10,
                               ),
@@ -109,7 +102,7 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                               const SizedBox(
                                 height: 10.0,
                               ),
-                               InputTextFormField(
+                              InputTextFormField(
                                 hintTxt: 'Price',
                                 controller: priceController,
                                 isRequired: false,
@@ -125,40 +118,36 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                                 },
                                 obscureText: false,
                               ),
-                                const SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
-                             Center(
-                               child: ElevatedButton(
-                                onPressed: (){
-                                  print("send order button clicked");
-                                  
-                                  if(_formKey.currentState!.validate()){
-                                    // Order order = Order(quantity: quantityController.text, offerPrice: priceController.text, id: widget.product.id.toString());
-                                    // SendOrderEvent sendOrderEvent = SendOrderEvent(order: order);
-                                    // BlocProvider.of<OrderBloc>(context).add(sendOrderEvent);
-                                  }
-                                }, 
-                                child: isInOrder ?    const CircularProgressIndicator(
-                                              color: Colors.white,
-                                            )
-                                          : const Text("Send Offer")),
-                             ),
-                              
+                              Center(
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      print("send order button clicked");
+
+                                      if (_formKey.currentState!.validate()) {
+                                        // Order order = Order(quantity: quantityController.text, offerPrice: priceController.text, id: widget.product.id.toString());
+                                        // SendOrderEvent sendOrderEvent = SendOrderEvent(order: order);
+                                        // BlocProvider.of<OrderBloc>(context).add(sendOrderEvent);
+                                      }
+                                    },
+                                    child: isInOrder
+                                        ? const CircularProgressIndicator(
+                                            color: Colors.white,
+                                          )
+                                        : const Text("Send Offer")),
+                              ),
                             ],
-                        
                           ),
                         ),
                       );
                     }),
-                  )
-              
-                ),
-              )
+                  )),
+            )
           ],
         ),
       ),
-
     );
   }
 }

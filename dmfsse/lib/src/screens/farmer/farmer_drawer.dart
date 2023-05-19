@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dmfsse/src/bloc/user/user_state.dart';
+import 'package:dmfsse/src/screens/farmer/training.dart';
 import 'package:dmfsse/src/screens/homepage_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,10 @@ import '../../bloc/user/user_bloc.dart';
 import '../../bloc/user/user_event.dart';
 import '../../models/login_info.dart';
 import '../../service/firebase_service.dart';
+import '../common/widget/help.dart';
 import '../common/widget/user_profile.dart';
+import 'add_product.dart';
+import 'farmer_offer.dart';
 
 class FarmerDrawer extends StatefulWidget {
   const FarmerDrawer({super.key});
@@ -56,7 +60,7 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
             accountName: Text(
               // ignore: unnecessary_null_comparison
               (loggedInUserInfo != null)
-                  ? "${loggedInUserInfo!.firstName.toString()} ${loggedInUserInfo!.firstName.toString()}"
+                  ? "${loggedInUserInfo!.firstName.toString()} ${loggedInUserInfo!.lastName.toString()}"
                   : "",
               style: const TextStyle(color: Colors.white),
             ),
@@ -109,23 +113,37 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
           ),
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text('Homepage'),
-            leading: const Icon(Icons.home),
+            title: const Text('Help'),
+            leading: const Icon(Icons.help),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
+             
+              Navigator.push(context, MaterialPageRoute(builder: ((context) =>  const  Help())));
             },
           ),
+          //   Divider(height: 10, color: Colors.white.withOpacity(0.6)),
+          // ListTile(
+          //   title: const Text('Offer'),
+          //   leading: const Icon(Icons.local_offer),
+          //   onTap: () {
+             
+          //     Navigator.push(context, MaterialPageRoute(builder: ((context) =>  const  FarmerOffer())));
+          //   },
+          // ),
+          //    Divider(height: 10, color: Colors.white.withOpacity(0.6)),
+          // ListTile(
+          //   title: const Text('Trainings'),
+          //   leading: const Icon(Icons.train),
+          //   onTap: () {
+             
+          //     Navigator.push(context, MaterialPageRoute(builder: ((context) =>  const  Education())));
+          //   },
+          // ),
           Divider(height: 20, color: Colors.white.withOpacity(0.6)),
           ListTile(
             title: const Text('Settings'),
             leading: const Icon(Icons.settings),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
+
               Navigator.pop(context);
             },
           ),

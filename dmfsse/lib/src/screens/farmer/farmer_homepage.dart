@@ -48,7 +48,6 @@ class _FarmerHomepageState extends State<FarmerHomepage> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<ProductBloc>(context).add(FetchAllProduct());
-    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,

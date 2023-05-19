@@ -9,6 +9,7 @@ import '../common/widget/message.dart';
 
 import 'customer_dashboard.dart';
 import 'customer_drawer.dart';
+import 'customer_offer.dart';
 
 class CustomerHomepage extends StatefulWidget {
   static const routeName = '/customerHomepage';
@@ -25,7 +26,7 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
       case 0:
         return const CustomerDashboard();
       case 1:
-        return const CustomerDeals();
+        return const CustomerOffer();
       case 2:
         return const MessageRoom();
       default:

@@ -1,8 +1,7 @@
-
 class Offer {
   String id;
-  String quantity;
-  String offerPrice;
+  int quantity;
+  int offerPrice;
   bool accepted;
   bool canRate;
   OrderBy orderBy;
@@ -19,37 +18,34 @@ class Offer {
       required this.offeredProduct,
       this.createdAt,
       this.updatedAt});
-    Map<String,dynamic> toJson () =>{
-        'id':id,
-        'quantity':quantity,
-        'offerPrice':offerPrice,
-        'accepted':accepted,
-        'canRate':canRate,
-        'orderBy':orderBy,
-        'offeredProduct':offeredProduct,
-        'createdAt':createdAt,
-        'updatedAt':updatedAt
-        
-    };
-    Offer.fromJson(Map<String,dynamic> json):
-    id = json['_id'],
-    quantity = json['quantity'],
-    offerPrice = json['offerPrice'],
-    accepted = json['accepted'],
-    canRate = json['canRate'],
-    createdAt = json['createdAt'],
-    updatedAt = json['updatedAt'],
-    orderBy = OrderBy.fromJson(json['orderBy']),
-    offeredProduct = OfferedProduct.fromJson(json['product']);
-   
-  
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'quantity': quantity,
+        'offerPrice': offerPrice,
+        'accepted': accepted,
+        'canRate': canRate,
+        'orderBy': orderBy,
+        'offeredProduct': offeredProduct,
+        'createdAt': createdAt,
+        'updatedAt': updatedAt
+      };
+  Offer.fromJson(Map<String, dynamic> json)
+      : id = json['_id'],
+        quantity = json['quantity'],
+        offerPrice = json['offerPrice'],
+        accepted = json['accepted'],
+        canRate = json['canRate'],
+        createdAt = json['createdAt'],
+        updatedAt = json['updatedAt'],
+        orderBy = OrderBy.fromJson(json['orderBy']),
+        offeredProduct = OfferedProduct.fromJson(json['product']);
 }
 
 class OrderBy {
   String id;
   String firstName;
   String lastName;
-  String roles;
+  List<String> roles;
   OrderBy(
       {required this.id,
       required this.firstName,
@@ -61,7 +57,7 @@ class OrderBy {
       : id = json['_id'],
         firstName = json['firstName'],
         lastName = json['lastName'],
-        roles = json['roles'];
+        roles = json['roles'].map((role) => role).toList().cast<String>();
 }
 
 class OfferedProduct {
@@ -89,4 +85,16 @@ class OfferedProduct {
         price = json['price'],
         description = json['description'],
         userId = json['postedBy'];
+}
+
+class OfferUpdateData {
+  bool accepted;
+  bool canRate;
+  int quantity;
+  int offerPrice;
+  OfferUpdateData(
+      {required this.accepted,
+      required this.canRate,
+      required this.quantity,
+      required this.offerPrice});
 }

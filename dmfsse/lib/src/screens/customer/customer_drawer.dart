@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../local_storage/user_preference.dart';
 import '../../bloc/user/user_bloc.dart';
 import '../../models/login_info.dart';
+import '../common/widget/help.dart';
+import '../common/widget/user_profile.dart';
 
 class CustomerDrawer extends StatefulWidget {
   const CustomerDrawer({super.key});
@@ -72,18 +74,24 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
             title: const Text('Profile'),
             leading: const Icon(Icons.person),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => UserProfile(
+                            loggedInUserInfo:
+                                loggedInUserInfo as LoggedInUserInfo,
+                          ))));
             },
           ),
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text('Homepage'),
-            leading: const Icon(Icons.home),
+            title: const Text('Help'),
+            leading: const Icon(Icons.help),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => const Help())));
+
+             
             },
           ),
           Divider(height: 20, color: Colors.white.withOpacity(0.6)),
