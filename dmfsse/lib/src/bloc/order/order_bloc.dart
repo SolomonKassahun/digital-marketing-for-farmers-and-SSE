@@ -9,8 +9,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   OrderBloc({required this.orderDataRepostory}) : super(OrderStateInitial()) {
     on<OrderEvent>((event, emit) async {
       if (event is SendOrderEvent) {
+         emit(OrderStateInitial());
         try {
-          emit(OrderStateInitial());
+         
           final isOfferSent = await orderDataRepostory.sendOffer(event.order);
           if (isOfferSent) {
             emit(OrderStateSucess(order: event.order));

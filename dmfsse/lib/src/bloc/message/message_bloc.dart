@@ -12,8 +12,9 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
       : super(MessageStateInitial()) {
     on<MessageEvent>((event, emit) async {
       if (event is FetchAllMessageEvent) {
+        emit(MessageStateInitial());
         try {
-          emit(MessageStateInitial());
+          
           print('list of message ');
           List<MessageInfo> listOfMessage =
               await messageDataRepository.getAllUserMessage();

@@ -7,11 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductDataRepository productDataRepository;
-  ProductBloc(this.productDataRepository) : super(InitialState()) {
+  ProductBloc(this.productDataRepository) : super(FetchAllProductLoading()) {
     on<ProductEvent>((event, emit) async {
       if (event is AddProduct) {
+        emit(AddProductLoading());
         try {
-          emit(AddProductLoading());
+          
           bool isProductCreated =
               await productDataRepository.addProduct(event.product);
 
@@ -43,7 +44,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         }
       }
       if(event is FetchMyProduct){
-          emit(FetchMyProductLoading());
+          // emit(FetchMyProductLoading());
         try {
           final List<Product> myProduct =
               await productDataRepository.getMyProduct();

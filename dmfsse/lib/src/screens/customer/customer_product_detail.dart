@@ -120,12 +120,14 @@ class _CustomrProductDetailState extends State<CustomrProductDetail> {
                                       errorWidget: (context, url, error) =>
                                           const Icon(Icons.person),
                                     ),
-                             
+                             const  SizedBox(width: 5,),
                               Text(
-                                '${widget.product.postedBy!.firstName} ${widget.product.postedBy!.lastName}',
+                                '${widget.product.postedBy!.firstName} ${widget.product.postedBy!.lastName.toString()[0]}',
+                              
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
+                             
                             ],
                           ),
                           ElevatedButton(
