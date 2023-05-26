@@ -8,13 +8,10 @@ import '../../../../local_storage/user_preference.dart';
 import '../../../bloc/message/message_bloc.dart';
 import '../../../bloc/message/message_event.dart';
 import '../../../models/message.dart';
-import '../../../models/message_list.dart';
-import '../../../service/firebase_service.dart';
 
-// ignore: must_be_immutable
 class ChatRoom extends StatefulWidget {
-  MessageInfo message;
-  ChatRoom({required this.message, super.key});
+  final MessageInfo message;
+ const ChatRoom({required this.message, super.key});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -85,6 +82,7 @@ class _ChatRoomState extends State<ChatRoom> {
       ),
       body: Stack(children: [
         BlocConsumer<MessageBloc, MessageState>(
+         
           listener: (context, state) {},
           builder: (BuildContext context, state) {
             if (state is MessageStateInitial) {
@@ -102,9 +100,9 @@ class _ChatRoomState extends State<ChatRoom> {
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: state.listOfMessage.reversed
+                  children: state.listOfMessage
                       .map(
-                        (e) => (e.sender!.id == id)
+                        (e) => (e.sender.id == id)
                             ?
                             //  Column(
                             // crossAxisAlignment: CrossAxisAlignment.end,

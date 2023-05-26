@@ -2,8 +2,8 @@ class Offer {
   String id;
   int quantity;
   int offerPrice;
-  bool accepted;
-  bool canRate;
+  String accepted;
+  String canRate;
   OrderBy orderBy;
   OfferedProduct offeredProduct;
   String? createdAt;
@@ -88,12 +88,16 @@ class OfferedProduct {
 }
 
 class OfferUpdateData {
-  bool accepted;
-  bool canRate;
+  String offerId;
+  String accepted;
+  String canRate;
   int quantity;
   int offerPrice;
   OfferUpdateData(
-      {required this.accepted,
+
+      {
+        required this.offerId,
+        required this.accepted,
       required this.canRate,
       required this.quantity,
       required this.offerPrice});

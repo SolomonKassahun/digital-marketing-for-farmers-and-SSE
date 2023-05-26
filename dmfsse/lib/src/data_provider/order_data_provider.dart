@@ -12,6 +12,7 @@ class OrderDataProvider {
   void init() async {
     UserPreference userPreference = UserPreference();
     accessToken = await userPreference.getUserToken();
+    
   }
 
   Future<bool> sendOffer(Order order) async {
@@ -26,8 +27,10 @@ class OrderDataProvider {
           body: jsonEncode(
               {'quantity': order.quantity, 'offerPrice': order.offerPrice}));
       if (response.statusCode == 201) {
+        print('stauc code ${response.statusCode}');
         return true;
       }
+      print('stauc code ${response.statusCode}');
       return false;
     } catch (e) {
       throw Exception(e.toString());

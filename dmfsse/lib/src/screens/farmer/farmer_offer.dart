@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../bloc/offer/offer_event.dart';
 import '../../bloc/offer/offer_state.dart';
+import '../../models/payment_model.dart';
 import 'farmer_offer_detail.dart';
 
 class FarmerOffer extends StatefulWidget {
@@ -14,18 +15,21 @@ class FarmerOffer extends StatefulWidget {
   State<FarmerOffer> createState() => _FarmerOfferState();
 }
 
-
 class _FarmerOfferState extends State<FarmerOffer> {
   @override
   void initState() {
+    BlocProvider.of<OfferBloc>(context).add(GetMyOfferEvent());
+
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<OfferBloc>(context).add(GetMyOfferEvent());
-    return Column(
-      children: [
-         const SizedBox(
+    return Scaffold(
+      body: Column(
+        children: [
+          const SizedBox(
             height: 20,
           ),
           const Padding(
@@ -38,54 +42,72 @@ class _FarmerOfferState extends State<FarmerOffer> {
           const SizedBox(
             height: 20,
           ),
-        BlocBuilder<OfferBloc, OfferState>(
-          builder: (context, state) {
-            if (state is OfferStateLoading) {
-              return const Center(
-                child:  CircularProgressIndicator(
-                  color: Colors.black,
-                ),
-              );
-            }
-            if(state is OfferStateFailure){
-             return const Center(
-                      child: SpinKitCircle(
-                        color: Colors.black,
-                      ),
-                    );
-            }
-            if (state is OfferStateSucess) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: state.offer
-                      .map((e) => GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => FarmerOfferDetail(offer: e,)));
-                        },
-                        child: Card(
-                          
-                          child: SizedBox(
-                            height: 70.0,
-                            child: ListTile(
-                                  leading: const Icon(Icons.local_offer),
-                                  title: Text(e.offeredProduct.name),
-                                  trailing: ElevatedButton(onPressed: (){
-                                     Navigator.push(context, MaterialPageRoute(builder: (context) => FarmerOfferDetail(offer: e,)));
-                                  }, child: const Text("View Detail"))
-                                 
-                                ),
-                          ),
-                        ),
-                      ))
-                      .toList(),
-                ),
-              );
-            }
+          BlocBuilder<OfferBloc, OfferState>(
+            builder: (context, state) {
+              if (state is OfferStateLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
+                );
+              }
+              if (state is OfferStateFailure) {
+                return const Center(
+                  child: SpinKitCircle(
+                    color: Colors.black,
+                  ),
+                );
+              }
+              if (state is OfferStateSucess) {
+                return SingleChildScrollView(
+                  child: Column(
+                    children: state.offer
+                        .map((e) => GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FarmerOfferDetail(
+                                              offer: e,
+                                            )));
+                              },
+                              child: Card(
+                                child: SizedBox(
+                                  height: 70.0,
+                                  child: ListTile(
+                                      leading: const Icon(Icons.local_offer),
+                                      title: Text(e.offeredProduct.name),
+                                      trailing: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        FarmerOfferDetail(
+                                                          offer: e,
+                                                        )));
 
-            return const Text("Failed to load offer");
-          },
-        ),
-      ],
+                                            // if(e.accepted == 'accepted'){
+                                            //  PaymentModel offerModel = PaymentModel(amount: e.quantity.toString(), currency: 'ETB', email: 'gg@gmail.com', firstName: e.orderBy.firstName, lastName: e.orderBy.lastName, phoneNumber:"0986557047", txtRef: 'chewatatest', callbackUrl: "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60", customization: ['teff','Thank you']);
+
+                                            // } else{
+                                            //    Navigator.push(context, MaterialPageRoute(builder: (context) => FarmerOfferDetail(offer: e,)));
+                                            // }
+                                          },
+                                          child: const Text("View Detail"))),
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                );
+              }
+
+              return const Text("Failed to load offer");
+            },
+          ),
+        ],
+      ),
     );
   }
 }

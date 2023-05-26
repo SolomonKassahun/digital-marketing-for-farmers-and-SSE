@@ -1,5 +1,6 @@
 import 'package:dmfsse/src/models/message.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 import '../../data_repository/message_data_repository.dart';
 import 'message_event.dart';
@@ -36,7 +37,9 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
           // bool isMessagesent = messageDataRepository.sendMessage(mess, id)
           bool isMessageSent =
               await messageDataRepository.sendMessage(event.messagebody);
-          if (isMessageSent) {
+              List<MessageInfo> listOfMessage =
+              await messageDataRepository.getAllUserMessage();
+          if (isMessageSent && listOfMessage is List<Message>) {
             emit(MessageSentStateSucess(message:event.messagebody.message.toString()));
           } else {
             emit(MessageStateFailure(errorMessage: "Unable to send message"));

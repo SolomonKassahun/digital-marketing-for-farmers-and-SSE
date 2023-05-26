@@ -1,17 +1,21 @@
 class ListOfMessage {
   String id;
   String message;
-  Sender? sender;
-  Reciever? reciever;
+  Sender sender;
+  Reciever reciever;
+  String createdAt;
+  String updatedAt;
   ListOfMessage(
-      {required this.id, required this.message, this.sender, this.reciever});
+      {required this.id, required this.message,required this.sender,required this.reciever,required this.createdAt,required this.updatedAt});
   Map<String, dynamic> toJson() =>
-      {'id': id, 'message': message, 'sender': sender, 'reciever': reciever};
+      {'id': id, 'message': message, 'sender': sender, 'reciever': reciever,'createdAt':createdAt,'updatedAt':updatedAt};
   ListOfMessage.fromJson(Map<String, dynamic> json)
       : id = json['_id'],
         message = json['message'],
         sender = Sender.fromJson(json['sender']),
-        reciever = Reciever.fromJson(json['reciever']);
+        reciever = Reciever.fromJson(json['reciever']),
+        createdAt = json['createdAt'],
+        updatedAt = json['updatedAt'];
 }
 
 class Sender {

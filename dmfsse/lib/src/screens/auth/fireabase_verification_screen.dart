@@ -100,19 +100,30 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
     await userPreference.storeToken(widget.token);
     await userPreference.storeUserId(widget.id);
     if (widget.loggedInUserInfo.roles.first == 'customer') {
-      // ignore: use_build_context_synchronously
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const CustomerHomepage()));
+    // ignore: use_build_context_synchronously
+    Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const CustomerHomepage()),
+              (route) => false);
+     
     }
     if (widget.loggedInUserInfo.roles.first == 'farmer') {
+       // ignore: use_build_context_synchronously
+       Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const FarmerHomepage()),
+              (route) => false);
       // ignore: use_build_context_synchronously
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const FarmerHomepage()));
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) => const FarmerHomepage()));
     }
     if (widget.loggedInUserInfo.roles.first == 'sse') {
       // ignore: use_build_context_synchronously
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const SseHomepage()));
+       Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const SseHomepage()),
+              (route) => false);
+      
     }
   }
 

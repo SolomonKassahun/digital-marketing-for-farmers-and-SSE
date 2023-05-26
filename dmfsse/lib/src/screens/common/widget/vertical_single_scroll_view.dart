@@ -23,6 +23,7 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
 
   @override
   void initState() {
+    widget.products.sort(((a, b) => a.createdAt.toString().compareTo(b.createdAt.toString())));
     listOfProduct = widget.products
         .where((element) =>
             element.name
@@ -46,7 +47,8 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
               ? const Center(child: Text("No Product"))
               : Column(
                   children: listOfProduct
-                      .map((product) => GestureDetector(
+                      .map(
+                        (product) => GestureDetector(
                             onTap: () {
                               Navigator.push(
                                   context,
@@ -134,9 +136,16 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                                                   Navigator.pushNamed(context, LoginScreen.routeName);
                                                  }, child: const  Text("Add To Cart"))
                                               ],
-                                            )
+                                          
+                                            ),
+                                            
                                        ],
                                      ),
+                                    const  SizedBox(width: 30,),
+                                   const  Padding(
+                                       padding:  EdgeInsets.only(right: 0.0),
+                                       child:  Text('2023'),
+                                     )
                                     
                                   
                                   ],

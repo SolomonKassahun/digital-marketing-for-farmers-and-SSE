@@ -21,7 +21,7 @@ class ProductDataProvider {
   }
 
   Future<List<Product>> getAllActiveProduct() async {
-    init();
+
     try {
       final response = await http.get(
         Uri.parse(baseUrl),
