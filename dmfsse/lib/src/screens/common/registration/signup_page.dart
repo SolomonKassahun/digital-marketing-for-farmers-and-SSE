@@ -24,6 +24,14 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController addressController = TextEditingController();
   TextEditingController rolesController = TextEditingController();
 
+  bool isNumeric(String s) {
+    // ignore: unnecessary_null_comparison
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
+  }
+
   Widget _title() {
     return RichText(
       textAlign: TextAlign.center,
@@ -136,18 +144,23 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         //  InputTextFormField(),
                         InputTextFormField(
-                          hintTxt: 'Enter phone number',
+                          hintTxt: '09*********',
                           controller: phoneNumberController,
                           isRequired: false,
                           onChanged: (String value) {},
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.phone,
                           errorMessage: "phone number",
                           obscureText: false,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter Phone number";
+                              return "Invalid phone number";
                             } else if (value.toString().length != 10) {
-                              return "phone number must be 10 digit";
+                              return "Invalid phone number";
+                            } else if (!isNumeric(value)) {
+                              print(isNumeric(value));
+                              return "Invalid phone number";
+                            } else if (value.toString().characters.first != '0') {
+                              return "Invalid phone number";
                             } else {
                               return null;
                             }

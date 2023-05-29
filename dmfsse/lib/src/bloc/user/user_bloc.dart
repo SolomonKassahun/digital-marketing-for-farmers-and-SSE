@@ -25,6 +25,19 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           throw Exception(e);
         }
       }
+      if(event is GetUserByPhoneNumber){
+        try {
+           User  user = await userDataRepository.getUserByPhoneNumber(event.phoneNumber);
+           // ignore: unnecessary_null_comparison
+           if(user != null){
+                     emit (GetUserInfoSucess(user: user));
+           } 
+           emit(GetUserInfoFailure(
+                message: "No internet. Failed to load user"));
+        } catch (e) {
+          emit (GetUserInfoFailure(message: e.toString()));
+        }
+      }
     });
   }
 }

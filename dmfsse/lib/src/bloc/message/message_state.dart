@@ -4,13 +4,21 @@ import '../../models/message_list.dart';
 
 class MessageState {}
 
-class MessageStateInitial extends MessageState {}
-class SendMessageStateInitial extends MessageState {}
+class MessageStateInitial extends MessageState {
+   List<ListOfMessage>? listOfMessage;
+   MessageStateInitial({this.listOfMessage});
+}
+class SendMessageStateInitial extends MessageState {
+  
+}
 
-class MessageStateSentInitial extends MessageState {}
+class MessageStateSentInitial extends MessageState {
+  List<ListOfMessage>? listOfMessage;
+  MessageStateSentInitial({this.listOfMessage});
+}
 
 class MessageSentStateSucess extends MessageState {
-  String message;
+  ListOfMessage message;
   MessageSentStateSucess({required this.message});
 }
 

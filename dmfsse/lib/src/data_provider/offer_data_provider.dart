@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 class OfferDataProvider {
   String offerUrl = "${Ip.ip}/myOffers";
+
   late String accessToken;
   void init() async {
     UserPreference userPreference = UserPreference();
@@ -60,36 +61,46 @@ class OfferDataProvider {
     }
   }
 
-  Future<Offer> acceptOffer(OfferUpdateData offer) async {
+  Future<bool> acceptOffer(OfferUpdateData offer) async {
     init();
+    print('of ii was ${offer.offerId}');
     try {
-      final response = await http.patch(Uri.parse(offerUrl),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'x-access-token': accessToken,
-          },
-          body: jsonEncode({
-            {
-              "accepted": offer.accepted,
-              "canRate": offer.canRate,
-              "quantity": offer.quantity,
-              "offerPrice": offer.offerPrice
-            }
-          }));
-      if (response.statusCode == 200) {
+      final response =
+          await http.patch(Uri.parse('${Ip.ip}/order/${offer.offerId}'),
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'x-access-token': accessToken,
+              },
+              body: jsonEncode({
+                "accepted": offer.accepted,
+                "canRate": offer.canRate,
+                "quantity": offer.quantity,
+                "offerPrice": offer.offerPrice
+              }));
+      if (response.statusCode == 201) {
+        print('staus code is ${response.statusCode}');
         final myOffer = jsonDecode(response.body);
-        return myOffer;
+        return true;
       }
+      print('staus code is ${response.statusCode}');
       throw Exception("No internet. Failed to accept offer");
     } catch (e) {
+      print("The error was");
+      print(e.toString());
       throw Exception(e.toString());
     }
   }
 
   Future<bool> deleteOffer(String offerId) async {
+    init();
     try {
-      final response = await http.delete(Uri.parse('$offerUrl/$offerId'));
+      final response =
+          await http.delete(Uri.parse('$offerUrl/$offerId'), headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'x-access-token': accessToken,
+      });
       if (response.statusCode == 200) {
         final myOffer = jsonDecode(response.body) as List;
         return true;

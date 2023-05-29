@@ -1,6 +1,8 @@
 import 'package:dmfsse/src/bloc/order/order_bloc.dart';
 import 'package:dmfsse/src/bloc/order/order_event.dart';
 import 'package:dmfsse/src/bloc/order/order_state.dart';
+import 'package:dmfsse/src/screens/customer/customer_homepage.dart';
+import 'package:dmfsse/src/screens/customer/customer_offer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -55,6 +57,17 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                       }
                       if (state is OrderStateFailure) {
                         isInOrder = false;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text("Failed to send Offer")));
+                        isInOrder = false;
+                      }
+                      if(state is OrderStateSucess){
+isInOrder = false;
+ Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const CustomerHomepage()),
+                (route) => false);
                       }
                     }),
                     builder: ((context, state) {
@@ -127,9 +140,14 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                                       print("send order button clicked");
 
                                       if (_formKey.currentState!.validate()) {
-                                        // Order order = Order(quantity: quantityController.text, offerPrice: priceController.text, id: widget.product.id.toString());
-                                        // SendOrderEvent sendOrderEvent = SendOrderEvent(order: order);
-                                        // BlocProvider.of<OrderBloc>(context).add(sendOrderEvent);
+                                        Order order = Order(
+                                            quantity: quantityController.text,
+                                            offerPrice: priceController.text,
+                                            id: widget.product.id.toString());
+                                        SendOrderEvent sendOrderEvent =
+                                            SendOrderEvent(order: order);
+                                        BlocProvider.of<OrderBloc>(context)
+                                            .add(sendOrderEvent);
                                       }
                                     },
                                     child: isInOrder

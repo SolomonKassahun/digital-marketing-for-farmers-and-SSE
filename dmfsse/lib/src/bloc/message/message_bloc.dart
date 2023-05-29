@@ -1,5 +1,7 @@
 import 'package:dmfsse/src/models/message.dart';
+import 'package:dmfsse/src/models/message_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 import '../../data_repository/message_data_repository.dart';
 import 'message_event.dart';
@@ -14,8 +16,6 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
       if (event is FetchAllMessageEvent) {
         emit(MessageStateInitial());
         try {
-          
-          print('list of message ');
           List<MessageInfo> listOfMessage =
               await messageDataRepository.getAllUserMessage();
           print('list of message $listOfMessage');
@@ -31,13 +31,20 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
         }
       }
       if (event is SendMessageEvent) {
-        emit(SendMessageStateInitial());
+        await messageDataRepository.sendMessage(event.messagebody);
+       
+        // emit (MessageStateSentInitial(listOfMessage: ));
+        // emit (MessageStateInitial());
         try {
           // bool isMessagesent = messageDataRepository.sendMessage(mess, id)
           bool isMessageSent =
               await messageDataRepository.sendMessage(event.messagebody);
+          // List<MessageInfo> listOfMessage =
+          //     await messageDataRepository.getAllUserMessage();
+          // ignore: unnecessary_null_comparison
           if (isMessageSent) {
-            emit(MessageSentStateSucess(message:event.messagebody.message.toString()));
+            // emit(MessageSentStateSucess(
+            //     message: isMessageSent));
           } else {
             emit(MessageStateFailure(errorMessage: "Unable to send message"));
           }
@@ -56,7 +63,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
             emit(MessageStateFailure(errorMessage: "Unable to load message"));
           }
         } catch (e) {
-          throw Exception("Failed to load Message");
+          throw Exception(e.toString());
         }
       }
     });

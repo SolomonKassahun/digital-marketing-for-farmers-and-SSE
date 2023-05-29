@@ -2,6 +2,8 @@ import 'package:dmfsse/src/bloc/offer/offer_bloc.dart';
 import 'package:dmfsse/src/bloc/offer/offer_event.dart';
 import 'package:dmfsse/src/bloc/offer/offer_state.dart';
 import 'package:dmfsse/src/models/offer.dart';
+import 'package:dmfsse/src/screens/farmer/farmer_homepage.dart';
+import 'package:dmfsse/src/screens/farmer/farmer_offer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,20 +17,39 @@ class FarmerOfferDetail extends StatefulWidget {
 
 class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
   bool isOfferAccepted = false;
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.offer.offeredProduct.name.toString()),
       ),
-      body: BlocBuilder<OfferBloc, OfferState>(
-        
+      body: BlocConsumer<OfferBloc, OfferState>(
+        listener: (context, state) {
+         if(state is OfferStateFailure){
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content:
+                    Text("Failed to accept Offer")));
+         }
+         if(state is OfferAcceptStateSucess){
+          // Navigator.pop(context);
+          Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const FarmerHomepage()),
+                (route) => false);
+           
+         }
+        },
         builder: (context, state) {
           if(state is OfferStateLoading){
             isOfferAccepted = true;
           }
           else{
             isOfferAccepted = false;
+          }
+          if(state is OfferStateLoading){
+            return const  Center(child:   CircularProgressIndicator(color: Colors.black,));
           }
           return Padding(
             padding: const EdgeInsets.only(left: 20),
@@ -111,6 +132,21 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                   ],
                 ),
                 const SizedBox(
+                  height: 5,
+                ),
+                  Row(
+                  children: [
+                    const Text(
+                      "Status:    ",
+                      style: TextStyle(color: Colors.black38),
+                    ),
+                    Text(
+                      widget.offer.accepted.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+                const SizedBox(
                   height: 30,
                 ),
                 const Text(
@@ -155,12 +191,17 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          OfferUpdateData offerUpdateData = OfferUpdateData(accepted: true, canRate: widget.offer.canRate, quantity: widget.offer.quantity, offerPrice: widget.offer.offerPrice);
+                          OfferUpdateData offerUpdateData = OfferUpdateData(offerId: widget.offer.id,accepted: "accepted", canRate: widget.offer.canRate, quantity: widget.offer.quantity, offerPrice: widget.offer.offerPrice);
                           AcceptOfferEvent acceptOfferEvent = AcceptOfferEvent(offer: offerUpdateData);
                           BlocProvider.of<OfferBloc>(context).add(acceptOfferEvent);
-                        }, child: const Text("Accept Offer")),
+                        }, child: isOfferAccepted ? const CircularProgressIndicator(color: Colors.white,) :const Text("Accept Offer")
+                        ),
                     ElevatedButton(
-                        onPressed: () {}, child: const Text("Reject Offer"))
+                        onPressed: () {
+                           OfferUpdateData offerUpdateData = OfferUpdateData(offerId: widget.offer.id,accepted: "rejected", canRate: widget.offer.canRate, quantity: widget.offer.quantity, offerPrice: widget.offer.offerPrice);
+                          AcceptOfferEvent acceptOfferEvent = AcceptOfferEvent(offer: offerUpdateData);
+                          BlocProvider.of<OfferBloc>(context).add(acceptOfferEvent);
+                        }, child:isOfferAccepted ? const CircularProgressIndicator(color: Colors.white,) : const Text("Reject Offer"))
                   ],
                 )
               ],

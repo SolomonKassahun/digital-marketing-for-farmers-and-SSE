@@ -53,6 +53,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   firebase_auth: ^4.5.0
+  url_launcher: ^6.1.11
+  flutter_phone_direct_caller: ^2.1.1
+  chapasdk: ^0.0.6
+ 
 
 dev_dependencies:
   flutter_test:

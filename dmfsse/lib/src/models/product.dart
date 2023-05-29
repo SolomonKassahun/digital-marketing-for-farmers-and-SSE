@@ -52,23 +52,27 @@ class PostedBy {
   String lastName;
   String roles;
   String? profilePicture;
+  String phoneNumber;
   PostedBy(
       {required this.id,
       required this.firstName,
       required this.lastName,
       required this.roles,
-       this.profilePicture});
+       this.profilePicture,
+       required this.phoneNumber});
   Map<String, dynamic> toJson() => {
         'id': id,
         'fistName': firstName,
         'lastName': lastName,
         'roles': roles,
-        'profilePicture': profilePicture
+        'profilePicture': profilePicture,
+        'phoneNumber':phoneNumber
       };
   PostedBy.fromJson(Map<String, dynamic> json)
       : id = json['_id'],
         firstName = json['firstName'],
         lastName = json['lastName'],
         roles = json['roles'],
-        profilePicture = json['profilePicture'];
+        profilePicture = json['profilePicture'],
+        phoneNumber = json['phoneNumber'];
 }

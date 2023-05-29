@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:dmfsse/src/models/message.dart';
 import 'package:http/http.dart' as http;
-
 import '../../Ip/ip.dart';
 import '../../local_storage/user_preference.dart';
 import '../models/message_list.dart';
@@ -50,11 +47,13 @@ class MessageDataProvier {
           },
           body: jsonEncode({"message": messageBody.message}));
       if (response.statusCode == 201) {
-        print("status code one is ${response.statusCode}");
+        print("status code one is ${response.body}");
+        // return ListOfMessage.fromJson(jsonDecode(response.body));
         return true;
       }
-      print("status code two is ${response.statusCode} body: ${response.body}");
       return false;
+    //   print("status code two is ${response.statusCode} body: ${response.body}");
+    //  throw Exception("Failed to send message");
     } catch (e) {
       throw Exception('the problem was that ${e.toString()}');
     }

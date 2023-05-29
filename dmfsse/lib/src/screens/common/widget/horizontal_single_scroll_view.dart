@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dmfsse/src/screens/common/widget/product_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -46,55 +47,64 @@ class _HorizontalSingleScrollViewState
                               (product) => Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Column(children: [
-                                    SizedBox(
-                                      width: 80,
-                                      height: 80,
-                                      child: 
-                                     
-                                      CachedNetworkImage(
-                                                  fit: BoxFit.fill,
-                                                  height: 75.0,
-                                                  width: 75.0,
-                                                  imageUrl: product.photo.toString(),
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
-                                                      Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            4,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            4,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      image: DecorationImage(
-                                                          image: imageProvider,
-                                                          fit: BoxFit.cover),
+                                  GestureDetector(
+                                     onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetail(product: product)));
+                            },
+                                    child: Column(children: [
+                                      SizedBox(
+                                        width: 80,
+                                        height: 80,
+                                        child: 
+                                       
+                                        CachedNetworkImage(
+                                                    fit: BoxFit.fill,
+                                                    height: 75.0,
+                                                    width: 75.0,
+                                                    imageUrl: product.photo.toString(),
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
+                                                        Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              4,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              4,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        image: DecorationImage(
+                                                            image: imageProvider,
+                                                            fit: BoxFit.cover),
+                                                      ),
                                                     ),
+                                                    placeholder: (context, url) =>
+                                                        const Center(
+                                                            child: SpinKitCircle(
+                                                      color: Colors.black,
+                                                    )),
+                                                    errorWidget: (context, url,
+                                                            error) =>
+                                                        const Icon(Icons.error),
                                                   ),
-                                                  placeholder: (context, url) =>
-                                                      const Center(
-                                                          child: SpinKitCircle(
-                                                    color: Colors.black,
-                                                  )),
-                                                  errorWidget: (context, url,
-                                                          error) =>
-                                                      const Icon(Icons.error),
-                                                ),
-
-                                      
-                                    ),
-                                    Text(
-                                      product.name.toString(),
-                                      style:
-                                          const TextStyle(color: Colors.black),
-                                    )
-                                  ]),
+                                  
+                                        
+                                      ),
+                                      Text(
+                                        product.name.toString(),
+                                        style:
+                                            const TextStyle(color: Colors.black),
+                                      )
+                                    ]),
+                                  ),
                                   const SizedBox(
                                     width: 10,
                                   ),

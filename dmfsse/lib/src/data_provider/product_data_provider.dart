@@ -21,7 +21,6 @@ class ProductDataProvider {
   }
 
   Future<List<Product>> getAllActiveProduct() async {
-    init();
     try {
       final response = await http.get(
         Uri.parse(baseUrl),
@@ -144,8 +143,13 @@ class ProductDataProvider {
   }
 
   Future<bool> deleteProduct(String id) async {
+    init();
     try {
-      final response = await http.delete(Uri.parse("${baseUrl}/$id"));
+      final response = await http.delete(Uri.parse("$baseUrl/$id"), headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'x-access-token': accessToken,
+      });
       if (response.statusCode == 200) {
         return true;
       }

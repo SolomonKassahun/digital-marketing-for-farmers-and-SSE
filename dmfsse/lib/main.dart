@@ -1,3 +1,5 @@
+
+
 import 'package:dmfsse/local_storage/user_preference.dart';
 import 'package:dmfsse/src/bloc/Register/register_bloc.dart';
 import 'package:dmfsse/src/bloc/order/order_bloc.dart';
@@ -11,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc_observer.dart';
 import 'routes/routes.dart';
 import 'src/bloc/Auth/auth_bloc.dart';
+import 'src/bloc/chapa_payment/payment_bloc.dart';
 import 'src/bloc/message/message_bloc.dart';
 import 'src/bloc/offer/offer_bloc.dart';
 import 'src/bloc/product/product_bloc.dart';
@@ -19,10 +22,12 @@ import 'src/bloc/user/user_bloc.dart';
 import 'src/data_provider/message_data_provider.dart';
 import 'src/data_provider/offer_data_provider.dart';
 import 'src/data_provider/order_data_provider.dart';
+import 'src/data_provider/payment_data_provider.dart';
 import 'src/data_provider/product_data_provider.dart';
 import 'src/data_provider/training_data_provider.dart';
 import 'src/data_repository/message_data_repository.dart';
 import 'src/data_repository/offer_data_repository.dart';
+import 'src/data_repository/payment_data_repository.dart';
 import 'src/data_repository/training_data_repository.dart';
 import 'src/data_repository/user_data_repository.dart';
 import 'src/screens/splash_screen.dart';
@@ -31,6 +36,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await EasyLocalization.ensureInitialized();
+
   Bloc.observer = AppBlocObserver();
   runApp(EasyLocalization(
       path: 'assets/translations',
@@ -53,6 +59,7 @@ class MyApp extends StatelessWidget {
   final OrderDataRepostory orderDataRepostory =
       OrderDataRepostory(orderDataProvider: OrderDataProvider());
   final OfferDataRepository  offerDataRepository = OfferDataRepository(offerDataProvider: OfferDataProvider());
+  final PaymentDataRepository paymentDataRepository =  PaymentDataRepository(paymentDataProvider: PaymentDataProvider());
 
   MyApp({Key? key}) : super(key: key);
 
@@ -74,7 +81,8 @@ class MyApp extends StatelessWidget {
                 MessageBloc(messageDataRepository: messageDataRepository)),
         BlocProvider<OrderBloc>(
             create: (_) => OrderBloc(orderDataRepostory: orderDataRepostory)),
-        BlocProvider<OfferBloc>(create: (_) => OfferBloc(offerDataRepository: offerDataRepository))
+        BlocProvider<OfferBloc>(create: (_) => OfferBloc(offerDataRepository: offerDataRepository)),
+        BlocProvider<PaymentBloc>(create: (_) =>PaymentBloc(paymentDataRepository: paymentDataRepository))
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
