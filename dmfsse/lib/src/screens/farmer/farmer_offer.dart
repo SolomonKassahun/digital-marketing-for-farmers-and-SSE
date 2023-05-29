@@ -53,10 +53,7 @@ class _FarmerOfferState extends State<FarmerOffer> {
               }
               if (state is OfferStateFailure) {
                 return const Center(
-                  child: SpinKitCircle(
-                    color: Colors.black,
-                  ),
-                );
+                  child: Text("Failed to load Offer"));
               }
               if (state is OfferStateSucess) {
                 return SingleChildScrollView(

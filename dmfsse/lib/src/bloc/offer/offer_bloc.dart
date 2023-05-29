@@ -47,16 +47,19 @@ class OfferBloc extends Bloc<OfferEvent, OfferState> {
       if (event is AcceptOfferEvent) {
         emit(OfferStateLoading());
         try {
-          Offer offer = await offerDataRepository.acceptOffer(event.offer);
-          List<Offer> lstOfOffer = await offerDataRepository.getMyOffer();
+          print("Bezuken bzuken 0");
+          bool offer = await offerDataRepository.acceptOffer(event.offer);
+           print("Bezuken bzuken 1");
+          // List<Offer> lstOfOffer = await offerDataRepository.getMyOffer();
+          print("Bezuken bzuken");
           // ignore: unnecessary_type_check
-          if (offer is Offer && lstOfOffer is List<Offer>) {
-            emit(OfferStateSucess(offer: lstOfOffer));
+          if (offer) {
+            emit(OfferAcceptStateSucess());
           } else {
             emit(OfferStateFailure(message: "Failed to load update offer"));
           }
         } catch (e) {
-          emit(OfferStateFailure(message: "Failed to load update offer"));
+          emit(OfferStateFailure(message: e.toString()));
         }
       }
       if (event is DeleteOfferEvent) {

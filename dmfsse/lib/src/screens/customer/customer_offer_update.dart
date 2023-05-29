@@ -4,7 +4,9 @@ import 'package:dmfsse/src/models/offer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/offer/offer_event.dart';
 import '../common/widget/product_form.dart';
+import 'customer_homepage.dart';
 import 'customer_offer.dart';
 
 class CustomerOfferUpdate extends StatefulWidget {
@@ -48,15 +50,18 @@ class _CustomerOfferUpdateState extends State<CustomerOfferUpdate> {
                       topRight: Radius.circular(50))),
               child: BlocConsumer<OfferBloc, OfferState>(
                 listener: (context, state) {
-                  if(state is OfferStateSucess){
-                    Navigator.pop(context);
+                  if(state is OfferAcceptStateSucess){
+                      Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const CustomerHomepage()),
+                (route) => false);
                   }
                 },
                 builder: (context, state) {
                   if(state is OfferStateLoading){
                     isUpdate = true;
                   }
-                  if(state is OfferStateFailure){
+                  else{
                     isUpdate = false;
                   }
                   return SingleChildScrollView(
@@ -132,20 +137,10 @@ class _CustomerOfferUpdateState extends State<CustomerOfferUpdate> {
                                     onPressed: () {
                                       formKey.currentState!.save();
                                       if(formKey.currentState!.validate()){
-                                        // print(widget.product.id);
-                                        //  Product product = Product(
-                                        //   id: widget.product.id,
-                                        //   name: productBody['name'],
-                                        //    price: int.parse(productBody['price']), 
-                                        //    description: productBody['description'], 
-                                        //    amount: int.parse(productBody['amount']),
-                                        //    photo: widget.product.photo,
-                                        //    soldout: widget.product.soldout,
-                                           
-                                        //    );
-                                        // UpdateProduct updateProduct = UpdateProduct(product);
-                                        //  BlocProvider.of<ProductBloc>(context)
-                                        //     .add(updateProduct);
+                                          OfferUpdateData offerUpdateData = OfferUpdateData(offerId: widget.offer.id,accepted: widget.offer.accepted, canRate: widget.offer.canRate, quantity: int.parse(offerInfo['quantity']), offerPrice: int.parse(offerInfo['offerPrice']));
+                          AcceptOfferEvent acceptOfferEvent = AcceptOfferEvent(offer: offerUpdateData);
+                          BlocProvider.of<OfferBloc>(context).add(acceptOfferEvent);
+                                      
                                       }
                                        
 

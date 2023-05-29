@@ -66,25 +66,30 @@ class OfferedProduct {
   int price;
   String description;
   String userId;
+  String photo;
   OfferedProduct(
       {required this.id,
       required this.name,
       required this.price,
       required this.description,
+      required this.photo,
       required this.userId});
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
         'price': price,
         'description': description,
-        'userId': userId
+        'userId': userId,
+        'photo':photo
+
       };
   OfferedProduct.fromJson(Map<String, dynamic> json)
       : id = json['_id'],
         name = json['name'],
         price = json['price'],
         description = json['description'],
-        userId = json['postedBy'];
+        userId = json['postedBy'],
+        photo = json['photo'];
 }
 
 class OfferUpdateData {

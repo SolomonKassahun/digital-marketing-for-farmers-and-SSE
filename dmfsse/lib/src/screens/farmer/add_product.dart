@@ -99,9 +99,12 @@ class _AddProductPageState extends State<AddProductPage> {
                                                             actions: <Widget>[
                                                               TextButton(
                                                                 onPressed: () {
-                                                                  Navigator.of(
-                                                                          ctx)
-                                                                      .pop();
+                                                                  BlocProvider.of<
+                                                                              ProductBloc>(
+                                                                          context)
+                                                                      .add(DeleteProduct(e
+                                                                          .id
+                                                                          .toString()));
                                                                 },
                                                                 child:
                                                                     Container(

@@ -6,6 +6,7 @@ class OfferStateSucess extends OfferState {
   List<Offer> offer;
   OfferStateSucess({required this.offer});
 }
+class OfferAcceptStateSucess extends OfferState {}
 class OfferStateFailure extends OfferState{
   String message;
   OfferStateFailure({required this.message});

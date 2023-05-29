@@ -32,7 +32,8 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                 content:
                     Text("Failed to accept Offer")));
          }
-         if(state is OfferStateSucess){
+         if(state is OfferAcceptStateSucess){
+          // Navigator.pop(context);
           Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const FarmerHomepage()),
@@ -41,12 +42,12 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
          }
         },
         builder: (context, state) {
-          // if(state is OfferStateLoading){
-          //   isOfferAccepted = true;
-          // }
-          // else{
-          //   isOfferAccepted = false;
-          // }
+          if(state is OfferStateLoading){
+            isOfferAccepted = true;
+          }
+          else{
+            isOfferAccepted = false;
+          }
           if(state is OfferStateLoading){
             return const  Center(child:   CircularProgressIndicator(color: Colors.black,));
           }

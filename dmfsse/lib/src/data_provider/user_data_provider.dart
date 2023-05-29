@@ -76,7 +76,6 @@ class UserDataProvider {
               user.profilePicture.toString(), '/ProfilePictures')
           .then((value) {
         profilePicture = value.toString();
-
       });
 
       await FirebaseTaskManager.uploadImage(
@@ -84,9 +83,10 @@ class UserDataProvider {
           .then((value) {
         identificationPicture = value.toString();
       });
-            final profileImgUrl = await FirebaseTaskManager.getImage(profilePicture.toString(),  'ProfilePictures',
-                    15);
-      final identificationImgUrl = await FirebaseTaskManager.getImage(identificationPicture.toString(), '/IdentificationPictures', 22);
+      final profileImgUrl = await FirebaseTaskManager.getImage(
+          profilePicture.toString(), 'ProfilePictures', 15);
+      final identificationImgUrl = await FirebaseTaskManager.getImage(
+          identificationPicture.toString(), '/IdentificationPictures', 22);
       final url = Uri.parse(registrationUrl);
       final response = await http.post(url,
           headers: {
@@ -130,6 +130,18 @@ class UserDataProvider {
         print('statis code two is ${response.statusCode}');
         throw Exception("failed to load");
       }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<User> getUserByPhoneNumber(String phoneNumber) async {
+    try {
+      final response = await http.get(Uri.parse("${Ip.ip}/$phoneNumber"));
+      if (response.statusCode == 200) {
+        return User.fromJson(jsonDecode(response.body));
+      }
+      throw Exception("Failed to fetch user");
     } catch (e) {
       throw Exception(e.toString());
     }

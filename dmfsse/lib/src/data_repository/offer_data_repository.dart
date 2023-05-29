@@ -15,7 +15,7 @@ class OfferDataRepository {
       print("list of ooooo is ${listOfOffer}");
     return listOfOffer;
    }
-   Future<Offer> acceptOffer(OfferUpdateData offer){
+   Future<bool> acceptOffer(OfferUpdateData offer){
     return offerDataProvider.acceptOffer(offer);
    }
    Future<bool> deleteOffer(String offerId){

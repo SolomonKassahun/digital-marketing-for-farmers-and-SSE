@@ -21,4 +21,7 @@ class UserDataRepository {
     print("Get user info at repo");
     return userDataProvider.getUserInfo(id);
   }
+  Future<User> getUserByPhoneNumber(String phoneNumber){
+    return userDataProvider.getUserByPhoneNumber(phoneNumber);
+  }
 }

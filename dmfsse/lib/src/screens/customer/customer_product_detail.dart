@@ -152,7 +152,7 @@ class _CustomrProductDetailState extends State<CustomrProductDetail> {
                     TextButton(
                         onPressed: () async {
                           String phoneNumber =
-                              "+251${widget.product.postedBy!.phoneNumber.toString().substring(0)}";
+                              "+251${widget.product.postedBy!.phoneNumber.toString().substring(1)}";
                           bool? res = await FlutterPhoneDirectCaller.callNumber(
                               phoneNumber);
                         },

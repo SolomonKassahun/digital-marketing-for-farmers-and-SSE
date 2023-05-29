@@ -237,7 +237,9 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                     style: TextStyle(color: Colors.black54, fontSize: 15),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      
+                    },
                     child: const Text(
                       "RESEND",
                       style: TextStyle(

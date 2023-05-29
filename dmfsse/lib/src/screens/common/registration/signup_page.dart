@@ -144,7 +144,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         //  InputTextFormField(),
                         InputTextFormField(
-                          hintTxt: 'Enter phone number',
+                          hintTxt: '09*********',
                           controller: phoneNumberController,
                           isRequired: false,
                           onChanged: (String value) {},
@@ -153,14 +153,14 @@ class _SignupPageState extends State<SignupPage> {
                           obscureText: false,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter Phone number";
+                              return "Invalid phone number";
                             } else if (value.toString().length != 10) {
-                              return "phone number must be 10 digit";
+                              return "Invalid phone number";
                             } else if (!isNumeric(value)) {
                               print(isNumeric(value));
-                              return "phone number must be number";
+                              return "Invalid phone number";
                             } else if (value.toString().characters.first != '0') {
-                              return "phone number must start with 0";
+                              return "Invalid phone number";
                             } else {
                               return null;
                             }

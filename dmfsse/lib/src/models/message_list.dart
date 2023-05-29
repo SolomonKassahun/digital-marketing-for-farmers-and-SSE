@@ -1,12 +1,12 @@
 class ListOfMessage {
-  String id;
+  String? id;
   String message;
   Sender sender;
   Reciever reciever;
-  String createdAt;
-  String updatedAt;
+  String? createdAt;
+  String? updatedAt;
   ListOfMessage(
-      {required this.id, required this.message,required this.sender,required this.reciever,required this.createdAt,required this.updatedAt});
+      { this.id, required this.message,required this.sender,required this.reciever, this.createdAt, this.updatedAt});
   Map<String, dynamic> toJson() =>
       {'id': id, 'message': message, 'sender': sender, 'reciever': reciever,'createdAt':createdAt,'updatedAt':updatedAt};
   ListOfMessage.fromJson(Map<String, dynamic> json)
@@ -46,4 +46,10 @@ class Reciever {
         firstName = json['firstName'],
         lastName = json['lastName'],
         roles = json['roles'];
+}
+
+class AllMessage {
+  String id;
+  String message;
+  AllMessage({required this.id,required this.message});
 }

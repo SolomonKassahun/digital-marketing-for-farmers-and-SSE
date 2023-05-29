@@ -67,9 +67,9 @@ Map<String, dynamic> productBody = {};
                        if(state is InitialState){
                         isUpdate = true;
                       }
-                      if(state is FetchAllProductFailure){
-                        isUpdate = false;
-                      }
+                     else{
+                      isUpdate = false;
+                     }
                       return SingleChildScrollView(
                              scrollDirection: Axis.vertical,
                              child: Form(

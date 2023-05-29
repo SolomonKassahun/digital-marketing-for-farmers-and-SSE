@@ -24,7 +24,7 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
   @override
   void initState() {
     widget.products.sort(((a, b) => a.createdAt.toString().compareTo(b.createdAt.toString())));
-    listOfProduct = widget.products
+    listOfProduct = widget.products.reversed
         .where((element) =>
             element.name
                 .toLowerCase()
