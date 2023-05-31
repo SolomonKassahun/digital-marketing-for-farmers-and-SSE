@@ -30,14 +30,42 @@ class _FarmerDashboardState extends State<FarmerDashboard> {
             const SizedBox(
               height: 5,
             ),
-            SearchFilterButton(
-              searchController: searchController,
-              onChanged: (value) {
-                setState(() {
-                  searchTerm = value;
-                });
-              },
-            ),
+             Padding(
+                padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                child: TextField(
+                  controller: searchController,
+                  onChanged: (value) {
+                    setState(() {
+                      searchTerm = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 228, 225, 225))),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 228, 225, 225))),
+                    hintText: "Search...",
+                    hintStyle: const TextStyle(
+                        color: Color.fromARGB(255, 112, 110, 110)),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey.shade600,
+                      size: 20,
+                    ),
+                    filled: true,
+                    fillColor: const Color.fromARGB(255, 228, 225, 225),
+                    contentPadding: const EdgeInsets.all(8),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 228, 225, 225))),
+                  ),
+                ),
+              ),
             const SizedBox(
               height: 35,
             ),

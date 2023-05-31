@@ -1,7 +1,6 @@
 import 'package:dmfsse/src/models/message.dart';
 import 'package:dmfsse/src/models/message_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 import '../../data_repository/message_data_repository.dart';
 import 'message_event.dart';
@@ -31,20 +30,12 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
         }
       }
       if (event is SendMessageEvent) {
-        await messageDataRepository.sendMessage(event.messagebody);
-       
-        // emit (MessageStateSentInitial(listOfMessage: ));
-        // emit (MessageStateInitial());
         try {
-          // bool isMessagesent = messageDataRepository.sendMessage(mess, id)
-          bool isMessageSent =
+          ListOfMessage isMessageSent =
               await messageDataRepository.sendMessage(event.messagebody);
-          // List<MessageInfo> listOfMessage =
-          //     await messageDataRepository.getAllUserMessage();
           // ignore: unnecessary_null_comparison
-          if (isMessageSent) {
-            // emit(MessageSentStateSucess(
-            //     message: isMessageSent));
+          if (isMessageSent != null) {
+            emit(MessageSentStateSucess(message: isMessageSent));
           } else {
             emit(MessageStateFailure(errorMessage: "Unable to send message"));
           }
@@ -53,7 +44,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
         }
       }
       if (event is GetYourMessage) {
-        emit(MessageStateInitial());
+        // emit(MessageStateInitial());
         try {
           final listOfMessage =
               await messageDataRepository.getYourMessage(event.id);
@@ -64,6 +55,22 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
           }
         } catch (e) {
           throw Exception(e.toString());
+        }
+      }
+      if (event is DeleteMessageEvent) {
+        emit(MessageStateInitial());
+        try {
+          final isMessageDeleted =
+              await messageDataRepository.deleteMessage(event.id, event.userId);
+          final listOfMessage =
+              await messageDataRepository.getYourMessage(event.userId);
+          if (isMessageDeleted && listOfMessage != []) {
+            emit(MessageStateGetSucess(listOfMessage: listOfMessage));
+          } else {
+            emit(MessageStateFailure(errorMessage: "Unable to load message"));
+          }
+        } catch (e) {
+          emit(MessageStateFailure(errorMessage: "Unable to delete message"));
         }
       }
     });

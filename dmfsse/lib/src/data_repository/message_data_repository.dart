@@ -14,12 +14,15 @@ class MessageDataRepository {
     return listOfMesssage;
   }
 
-  Future<bool> sendMessage(MessageBody messageBody) async {
+  Future<ListOfMessage> sendMessage(MessageBody messageBody) async {
     print("message at provier");
     return messageDataProvier.sendMessage(messageBody);
   }
 
   Future<List<ListOfMessage>> getYourMessage(String id) async {
     return messageDataProvier.getYourMessage(id);
+  }
+  Future<bool> deleteMessage(String id,String userId){
+    return messageDataProvier.deleteMessage(id,userId);
   }
 }
