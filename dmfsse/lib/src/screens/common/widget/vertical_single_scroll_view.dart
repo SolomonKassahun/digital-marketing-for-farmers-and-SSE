@@ -142,9 +142,9 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                                        ],
                                      ),
                                     const  SizedBox(width: 30,),
-                                   const  Padding(
+                                    const Padding(
                                        padding:  EdgeInsets.only(right: 0.0),
-                                       child:  Text('2023'),
+                                       child:  Text("2023"),
                                      )
                                     
                                   

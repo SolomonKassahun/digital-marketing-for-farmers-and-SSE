@@ -128,12 +128,12 @@ class _ProductDetailState extends State<ProductDetail> {
                               ),
                             ],
                           ),
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, LoginScreen.routeName);
-                              },
-                              child: const Text("Send Message"))
+                          // ElevatedButton(
+                          //     onPressed: () {
+                          //       Navigator.pushNamed(
+                          //           context, LoginScreen.routeName);
+                          //     },
+                          //     child: const Text("Send Message"))
                         ],
                       )
                     ],

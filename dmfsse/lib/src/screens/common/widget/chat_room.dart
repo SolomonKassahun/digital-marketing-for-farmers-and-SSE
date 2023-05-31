@@ -7,8 +7,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../../../local_storage/user_preference.dart';
 import '../../../bloc/message/message_bloc.dart';
 import '../../../bloc/message/message_event.dart';
-import '../../../data_provider/message_data_provider.dart';
-import '../../../data_repository/message_data_repository.dart';
 import '../../../models/message.dart';
 import '../../../models/message_list.dart';
 
@@ -20,10 +18,12 @@ class ChatRoom extends StatefulWidget {
   State<ChatRoom> createState() => _ChatRoomState();
 }
 
+bool isDeleted = false;
+
 class _ChatRoomState extends State<ChatRoom> {
   late String id;
   final ScrollController listScrollController = ScrollController();
-  late List<ListOfMessage> listOfMessage;
+  List<ListOfMessage> listOfMessage = [];
   void getId() async {
     UserPreference userPreference = UserPreference();
     id = (await userPreference.getUserId());
@@ -47,22 +47,66 @@ class _ChatRoomState extends State<ChatRoom> {
                     const SizedBox(
                       width: 10,
                     ),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                      decoration: const BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (ctx) => AlertDialog(
+                            // title: const Text("Product Deleted"),
+                            content:
+                                const Text("Do you want to delete Message?"),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  BlocProvider.of<MessageBloc>(context).add(
+                                      DeleteMessageEvent(
+                                          id: e.id.toString(),
+                                          userId: widget.message.id));
+                                           Navigator.of(ctx).pop();
+                                  // BlocProvider.of<
+                                  //             ProductBloc>(
+                                  //         context)
+                                  //     .add(DeleteProduct(e
+                                  //         .id
+                                  //         .toString()));
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(14),
+                                  child: const Text("Yes"),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(14),
+                                  child: const Text("No"),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                        // Navigator.push(context, MaterialPageRoute(builder: ((context) => const DeleteMessageDialogBox())));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        decoration: const BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
                         ),
-                      ),
-                      width: 200,
-                      margin:
-                          const EdgeInsets.only(bottom: 5, right: 5, top: 2),
-                      child: Text(
-                        e.message,
-                        style: const TextStyle(color: Colors.white),
+                        width: 200,
+                        margin:
+                            const EdgeInsets.only(bottom: 5, right: 5, top: 2),
+                        child: Text(
+                          e.message,
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ],
@@ -106,13 +150,9 @@ class _ChatRoomState extends State<ChatRoom> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController messageConroller = TextEditingController();
   String msg = '';
-
-  // Widget getUserM(){
-  //   return BlocProvider(
-  //     create: ((context) => MessageBloc(messageDataRepository: MessageDataRepository(messageDataProvier: MessageDataProvier()))).call()
-
-  //     );
-  // }
+  void clearText() {
+    messageConroller.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,111 +196,59 @@ class _ChatRoomState extends State<ChatRoom> {
         ),
       ),
       body: Stack(children: [
-        BlocConsumer<MessageBloc, MessageState>(
-          listener: (context, state) {
-            if (state is MessageStateGetSucess) {
-              // state.listOfMessage.add(ListOfMessage(message: messageConroller.text.toString(),sender: Sender(id: id), reciever: Reciever(id: widget.message.id)));
+        BlocBuilder<MessageBloc, MessageState>(
+          // listener: (context, state) {
+          //   if (state is MessageStateGetSucess) {
+          //     // state.listOfMessage.add(ListOfMessage(message: messageConroller.text.toString(),sender: Sender(id: id), reciever: Reciever(id: widget.message.id)));
 
-              // listOfMessage = state.listOfMessage;
-            }
-          },
+          //     // listOfMessage = state.listOfMessage;
+          //   }
+          // },
           builder: (BuildContext context, state) {
-            if (state is MessageStateInitial) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
-              );
-            }
+            // if (state is MessageStateInitial) {
+            //   return const Center(
+            //     child: CircularProgressIndicator(
+            //       color: Colors.blue,
+            //     ),
+            //   );
+            // }
             if (state is MessageStateFailure) {
               return const Center(child: Text("Failed to load message"));
             }
 
             if (state is MessageStateGetSucess) {
-              state.listOfMessage.add(ListOfMessage(message: messageConroller.text.toString(),sender: Sender(id: id), reciever: Reciever(id: widget.message.id)));
+              state.listOfMessage.add(ListOfMessage(
+                  message: messageConroller.text.toString(),
+                  sender: Sender(id: id),
+                  reciever: Reciever(id: widget.message.id)));
               state.listOfMessage.sort((a, b) =>
                   a.createdAt.toString().compareTo(b.createdAt.toString()));
               listOfMessage = state.listOfMessage;
+              isDeleted = true;
 
               // listOfMessage = state.listOfMessage.map((e) => e.);
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: getChildren(),
-                  // children: listOfMessage
-                  //     .map(
-                  //       (e) => (e.sender.id == id)
-                  //           ?
-                  //           //  Column(
-                  //           // crossAxisAlignment: CrossAxisAlignment.end,
-                  //           // children: [
-                  //           Row(
-                  //               mainAxisAlignment:
-                  //                   MainAxisAlignment.spaceBetween,
-                  //               children: [
-                  //                 const SizedBox(
-                  //                   width: 10,
-                  //                 ),
-                  //                 Container(
-                  //                   padding: const EdgeInsets.fromLTRB(
-                  //                       15, 10, 15, 10),
-                  //                   decoration: const BoxDecoration(
-                  //                     color: Colors.blue,
-                  //                     borderRadius: BorderRadius.only(
-                  //                       topLeft: Radius.circular(10),
-                  //                       bottomLeft: Radius.circular(10),
-                  //                       bottomRight: Radius.circular(10),
-                  //                     ),
-                  //                   ),
-                  //                   width: 200,
-                  //                   margin: const EdgeInsets.only(
-                  //                       bottom: 5, right: 5, top: 2),
-                  //                   child: Text(
-                  //                     e.message,
-                  //                     style:
-                  //                         const TextStyle(color: Colors.white),
-                  //                   ),
-                  //                 ),
-                  //               ],
-                  //             )
-                  //           // const SizedBox(
-                  //           //   height: 2,
-                  //           // )
-                  //           // ],
-                  //           // )
-                  //           : Column(
-                  //               children: [
-                  //                 Container(
-                  //                   padding: const EdgeInsets.fromLTRB(
-                  //                       15, 10, 15, 10),
-                  //                   // width: 200,
-                  //                   decoration: BoxDecoration(
-                  //                       color: Colors.pink,
-                  //                       borderRadius: BorderRadius.circular(8)),
-                  //                   margin:
-                  //                       const EdgeInsets.only(left: 10, top: 2),
-                  //                   child: Text(
-                  //                     e.message,
-                  //                     style:
-                  //                         const TextStyle(color: Colors.white),
-                  //                   ),
-                  //                 ),
-                  //                 const SizedBox(
-                  //                   height: 2,
-                  //                 )
-                  //               ],
-                  //             ),
-                  //     )
-                  //     .toList(),
                 ),
               );
               // return const Center(child: Text("wait a minute!! "));
             }
-            // if(state is MessageSentStateSucess){
-            //   listOfMessage.add(state.message);
-            // }
-            return const Center(
-              child: Text("Failed to load Message. "),
+            if (state is MessageSentStateSucess) {
+              listOfMessage.add(state.message);
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: getChildren(),
+                ),
+              );
+            }
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: getChildren(),
+              ),
             );
           },
           // child: SizedBox(
@@ -268,6 +256,9 @@ class _ChatRoomState extends State<ChatRoom> {
           //   width: double.infinity,
           //   child: buildListMessage(),
           // ),
+        ),
+        const SizedBox(
+          width: 15,
         ),
         Align(
           alignment: Alignment.bottomLeft,
@@ -338,6 +329,11 @@ class _ChatRoomState extends State<ChatRoom> {
                       msg = messageConroller.text.toString();
                       messageBody.message = messageConroller.text.toString();
                       messageBody.id = widget.message.id.toString();
+                      clearText();
+                      // FocusScopeNode currentFocus = FocusScope.of(context);
+                      // if (!currentFocus.hasPrimaryFocus) {
+                      //   currentFocus.unfocus();
+                      // }
                       BlocProvider.of<MessageBloc>(context)
                           .add(SendMessageEvent(messageBody));
                       print("message is in ready to sent");

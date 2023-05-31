@@ -16,7 +16,8 @@ class GetYourMessage extends MessageEvent {
 
 class DeleteMessageEvent extends MessageEvent {
   String id;
-  DeleteMessageEvent({required this.id});
+  String userId;
+  DeleteMessageEvent({required this.id,required this.userId});
 }
 
 class UpdateMessageEvent extends MessageEvent {

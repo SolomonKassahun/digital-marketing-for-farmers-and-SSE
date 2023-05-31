@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dmfsse/generated/locale_keys.g.dart';
 
 class SearchFilterButton extends StatelessWidget {
-  final TextEditingController  searchController;
+  final TextEditingController searchController;
   final void Function(String)? onChanged;
 
   const SearchFilterButton(
@@ -12,15 +12,34 @@ class SearchFilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width - 150,
+      width: MediaQuery.of(context).size.width * 0.65,
       child: TextFormField(
         controller: searchController,
         onChanged: onChanged,
         decoration: InputDecoration(
-            hintText: LocaleKeys.searchText.tr(),
-            prefixIcon: const Icon(Icons.search),
-            border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+          hintStyle: const TextStyle(color: Color.fromARGB(255, 112, 110, 110)),
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.grey.shade600,
+            size: 20,
+          ),
+          filled: true,
+          fillColor: const Color.fromARGB(255, 228, 225, 225),
+          contentPadding: const EdgeInsets.all(8),
+          hintText: LocaleKeys.searchText.tr(),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide:
+                  const BorderSide(color: Color.fromARGB(255, 228, 225, 225))),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide:
+                  const BorderSide(color: Color.fromARGB(255, 228, 225, 225))),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide:
+                  const BorderSide(color: Color.fromARGB(255, 228, 225, 225))),
+        ),
       ),
     );
   }

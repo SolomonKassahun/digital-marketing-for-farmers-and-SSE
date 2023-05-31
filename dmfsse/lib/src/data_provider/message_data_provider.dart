@@ -33,7 +33,7 @@ class MessageDataProvier {
     }
   }
 
-  Future<bool> sendMessage(MessageBody messageBody) async {
+  Future<ListOfMessage> sendMessage(MessageBody messageBody) async {
     init();
     print(
         'accessToken: $accessToken id: ${messageBody.id} message body: ${messageBody.message}');
@@ -48,12 +48,12 @@ class MessageDataProvier {
           body: jsonEncode({"message": messageBody.message}));
       if (response.statusCode == 201) {
         print("status code one is ${response.body}");
-        // return ListOfMessage.fromJson(jsonDecode(response.body));
-        return true;
+        return ListOfMessage.fromJson(jsonDecode(response.body)[0]);
+       
       }
-      return false;
+      
     //   print("status code two is ${response.statusCode} body: ${response.body}");
-    //  throw Exception("Failed to send message");
+     throw Exception("Failed to send message");
     } catch (e) {
       throw Exception('the problem was that ${e.toString()}');
     }
@@ -77,6 +77,25 @@ class MessageDataProvier {
       }
       print('status code: ${response.statusCode} body: ');
       throw Exception('No Connection');
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+  Future<bool> deleteMessage(String id,String userId) async{
+    init();
+    try {
+      final response = await http.delete(Uri.parse("${Ip.ip}/message/$id"),
+       headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'x-access-token': accessToken
+        },);
+      if(response.statusCode == 200){
+        print('status code one is ${response.statusCode}');
+        return true;
+      }
+       print('status code two is ${response.statusCode}');
+      return false;
     } catch (e) {
       throw Exception(e.toString());
     }

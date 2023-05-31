@@ -1,6 +1,12 @@
 import 'package:dmfsse/src/screens/common/widget/message.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/product/product_bloc.dart';
+import '../../bloc/product/product_event.dart';
+import '../customer/customer_dashboard.dart';
+import '../farmer/add_product.dart';
+import '../farmer/farmer_offer.dart';
 import 'sse_deals.dart';
 import 'sse_drawer.dart';
 
@@ -17,10 +23,12 @@ class _SseHomepageState extends State<SseHomepage> {
   getItemWidget(int index) {
     switch (index) {
       case 0:
-        return const SseHomepage();
+        return const CustomerDashboard();
       case 1:
-        return const SseDeals();
+        return const AddProductPage();
       case 2:
+        return const FarmerOffer();
+      case 3:
         return const MessageRoom();
       default:
         return const SseHomepage();
@@ -35,16 +43,19 @@ class _SseHomepageState extends State<SseHomepage> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<ProductBloc>(context).add(FetchAllProduct());
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Homepage"),
+        
       ),
       drawer: const Drawer(child: SseDrawer()),
+       body: getItemWidget(selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.shop), label: "Shop"),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: "Message")
+          BottomNavigationBarItem(icon: Icon(Icons.post_add), label: "Product"),
+          BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart,),label: "Offer"),
+          BottomNavigationBarItem(icon: Icon(Icons.message), label: "Message"),
         ],
         currentIndex: selectedIndex,
         onTap: _onItemTapped,

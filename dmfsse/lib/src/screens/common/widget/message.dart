@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../../bloc/message/message_bloc.dart';
 import '../../../bloc/message/message_event.dart';
+import '../../../models/message.dart';
 import 'chat_room.dart';
 
 class MessageRoom extends StatefulWidget {
@@ -24,20 +25,65 @@ class _MessageRoomState extends State<MessageRoom> {
   }
 
   String? imageUrl;
+  List<MessageInfo> messageInf = [];
+  TextEditingController searchController = TextEditingController();
+  String searchTerm = '';
 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<MessageBloc>(context).add(FetchAllMessageEvent());
     return SingleChildScrollView(
       child: Column(
-        
         children: [
+        Padding(
+                padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                child: TextField(
+                  controller: searchController,
+                  onChanged: (value) {
+                    setState(() {
+                      searchTerm = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 228, 225, 225))),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 228, 225, 225))),
+                    hintText: "Search...",
+                    hintStyle: const TextStyle(
+                        color: Color.fromARGB(255, 112, 110, 110)),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey.shade600,
+                      size: 20,
+                    ),
+                    filled: true,
+                    fillColor: const Color.fromARGB(255, 228, 225, 225),
+                    contentPadding: const EdgeInsets.all(8),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 228, 225, 225))),
+                  ),
+                ),
+              ),
           BlocBuilder<MessageBloc, MessageState>(
             builder: (context, state) {
               if (state is MessageStateInitial) {
-                return const Center(
-                  child: SpinKitCircle(
-                    color: Colors.black,
+                return Center(
+                  child: Column(
+                    children: const [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    ],
                   ),
                 );
               }
@@ -47,43 +93,30 @@ class _MessageRoomState extends State<MessageRoom> {
                 );
               }
               if (state is MessageStateSucess) {
+                messageInf = state.message
+                    .where((element) => element.firstName
+                        .toString()
+                        .toLowerCase() 
+                        .contains(searchTerm.toString().toLowerCase()) 
+                        || 
+                        element.lastName
+                        .toString()
+                        .toLowerCase() 
+                        .contains(searchTerm.toString().toLowerCase()) 
+                        )
+                    .toList();
                 return state.message.isEmpty
-                    ? const   Center(child:  Text("No message!"))
+                    ? const Center(child: Text("No message!"))
                     : SingleChildScrollView(
                         child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 16, left: 16, right: 16),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Search...",
-                                hintStyle:
-                                    TextStyle(color: Colors.grey.shade600),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Colors.grey.shade600,
-                                  size: 20,
-                                ),
-                                filled: true,
-                                fillColor: Colors.grey.shade100,
-                                contentPadding: const EdgeInsets.all(8),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                        color: Colors.grey.shade100)),
-                              ),
-                            ),
-                          ),
                           const SizedBox(
                             height: 15.0,
                           ),
                           Column(
-                            children: state.message
+                            children: messageInf
                                 .map((e) => GestureDetector(
                                       onTap: () {
-                                      
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -106,53 +139,51 @@ class _MessageRoomState extends State<MessageRoom> {
                                                   (e.profilePicture == null)
                                                       ? const Icon(Icons.person)
                                                       : CachedNetworkImage(
+                                                          fit: BoxFit.fill,
+                                                          height: 40.0,
+
+                                                          width: 40,
+
+                                                          imageUrl: e
+                                                              .profilePicture
+                                                              .toString(),
+                                                          // imageUrl: snapshot.data,
+                                                          imageBuilder: (context,
+                                                                  imageProvider) =>
+                                                              Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                4,
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                4,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              image: DecorationImage(
+                                                                  image:
+                                                                      imageProvider,
                                                                   fit: BoxFit
-                                                                      .fill,
-                                                                  height: 40.0,
-
-                                                                  width: 40,
-
-                                                                  imageUrl:e.profilePicture.toString(),
-                                                                  // imageUrl: snapshot.data,
-                                                                  imageBuilder:
-                                                                      (context,
-                                                                              imageProvider) =>
-                                                                          Container(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        4,
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                        4,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      image: DecorationImage(
-                                                                          image:
-                                                                              imageProvider,
-                                                                          fit: BoxFit
-                                                                              .cover),
-                                                                    ),
-                                                                  ),
-                                                                  placeholder: (context,
-                                                                          url) =>
-                                                                      const Center(
-                                                                          child:
-                                                                              SpinKitCircle(
-                                                                    color: Colors
-                                                                        .blue,
-                                                                  )),
-                                                                  errorWidget: (context,
-                                                                          url,
-                                                                          error) =>
-                                                                      const Icon(
-                                                                          Icons
-                                                                              .person),
-                                                                ),
-                                                 
+                                                                      .cover),
+                                                            ),
+                                                          ),
+                                                          placeholder: (context,
+                                                                  url) =>
+                                                              const Center(
+                                                                  child:
+                                                                      SpinKitCircle(
+                                                            color: Colors.blue,
+                                                          )),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              const Icon(
+                                                                  Icons.person),
+                                                        ),
                                                   const SizedBox(
                                                     width: 20,
                                                   ),
