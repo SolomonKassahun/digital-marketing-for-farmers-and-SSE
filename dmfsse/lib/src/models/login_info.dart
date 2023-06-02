@@ -74,3 +74,56 @@ class LoggedInUserInfo {
   // user = User.fromJson(json['user'])
   ;
 }
+
+class GetUserInfoByPhoneNumber {
+ 
+  final String id;
+  final bool? verified;
+
+  final String? accessToken;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? phoneNumber;
+  String? profilePicture;
+  String? identifictionPicture;
+
+  List<String>? roles;
+  GetUserInfoByPhoneNumber({
+     required this.id,
+      this.accessToken,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.phoneNumber,
+      this.profilePicture,
+      this.identifictionPicture,
+      this.roles,
+      this.verified});
+  Map<String, dynamic> toJson() => {
+        'accessToken': accessToken,
+        'verified': verified,
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'phoneNumber': phoneNumber,
+        'profilePicture': profilePicture,
+        'roles': roles,
+        'identifictionPicture': identifictionPicture,
+        'id': id
+      };
+  GetUserInfoByPhoneNumber.fromJson(Map<String, dynamic> json)
+      : accessToken = json['accessToken'],
+        verified = json['verified'],
+        id = json['_id'],
+        firstName = json['firstName'],
+        lastName = json['lastName'],
+        email = json['email'],
+        phoneNumber = json['phoneNumber'],
+        profilePicture = json['profilePicture'],
+        identifictionPicture = json['identifictionPicture'],
+        roles = json['roles'].map((role) => role).toList().cast<String>()
+  // user = User.fromJson(json['user'])
+  ;
+}
+

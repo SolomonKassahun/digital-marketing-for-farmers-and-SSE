@@ -61,28 +61,45 @@ class _SplashScreenState extends State<SplashScreen> {
         height: MediaQuery.of(context).size.height,
         color: const Color.fromARGB(255, 15, 23, 43),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-           const  SizedBox(height: 100,),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              padding: const EdgeInsets.only(top: 50),
-              decoration: const BoxDecoration(
-                  // image:
-                  image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/logo-o.jpg',
-                      ),
-                      fit: BoxFit.cover)),
+            // Container(
+            //   height: MediaQuery.of(context).size.height * 0.2,
+            // ),
+            const Center(
+              child: Text(
+                'Welcome To DMFSSE',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35,
+                  color: Colors.white,
+                ),
+              ),
             ),
-            const SizedBox(
-              height: 35,
-            ),
-            const Text(
-              "Digital Marker For Farmer   and Small Sized Enterprises",
-              style: TextStyle(fontSize: 25,color: Colors.white),
+
+            // Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   height: 50,
+            //   padding: const EdgeInsets.only(top: 50),
+            //   decoration: const BoxDecoration(
+            //       // image:
+            //       image: DecorationImage(
+            //           image: AssetImage(
+            //             'assets/images/logo-o.jpg',
+            //           ),
+            //           fit: BoxFit.cover)),
+            // ),
+          
+            Center(
+              child: Container(
+                margin: const EdgeInsets.all(20),
+                child: const Text(
+                  "Shimeta",
+                  style: TextStyle(fontSize: 35, color: Colors.white),
+                ),
+              ),
             ),
           ],
         ),

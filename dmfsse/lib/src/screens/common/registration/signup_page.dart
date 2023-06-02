@@ -169,7 +169,7 @@ class _SignupPageState extends State<SignupPage> {
                         const Text(
                           "Address",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 15, 23, 43)),
+                              fontWeight: FontWeight.bold, color:  Color.fromARGB(255, 15, 23, 43)),
                         ),
                         const SizedBox(
                           height: 5,

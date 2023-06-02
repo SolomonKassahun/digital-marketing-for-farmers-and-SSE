@@ -2,13 +2,13 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import '../../../models/login_info.dart';
 import '../widget/forget_password_screen.dart';
 
 class FirebaseAuthService extends StatefulWidget {
-   final LoggedInUserInfo loggedInUserInfo;
-  const FirebaseAuthService({required this.loggedInUserInfo,super.key});
+    final String verificationID;
+    final GetUserInfoByPhoneNumber getUserInfoByPhoneNumber;
+  const FirebaseAuthService({required this.verificationID,required this.getUserInfoByPhoneNumber,super.key});
 
   @override
   State<FirebaseAuthService> createState() => _FirebaseAuthServiceState();
@@ -24,7 +24,7 @@ class _FirebaseAuthServiceState extends State<FirebaseAuthService> {
     try {
       await auth.verifyPhoneNumber(
           phoneNumber:
-              "+251${widget.loggedInUserInfo.phoneNumber.toString().substring(1)}",
+              "+251${widget.getUserInfoByPhoneNumber.phoneNumber.toString().substring(1)}",
           verificationCompleted:
               (PhoneAuthCredential phoneAuthCredential) async {
             await auth.signInWithCredential(phoneAuthCredential);
@@ -50,10 +50,7 @@ class _FirebaseAuthServiceState extends State<FirebaseAuthService> {
                 content:
                     Text("Please check your phone for the verification code")));
 
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const ForgetPasswordScreen()),
-                (route) => false);
+           
             PhoneAuthCredential phoneAuthCredential =
                 PhoneAuthProvider.credential(
                     verificationId: verificationId, smsCode: sms);
@@ -70,6 +67,22 @@ class _FirebaseAuthServiceState extends State<FirebaseAuthService> {
         btnOkOnPress: () {},
       ).show();
     }
+  }
+  void signInWIthPhoneNumber() async {
+    setState(() {
+      isVerify = true;
+    });
+    final AuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: widget.verificationID.toString(),
+      smsCode: pinCodeController.text,
+    );
+    final UserCredential user = (await auth.signInWithCredential(credential));
+     // ignore: use_build_context_synchronously
+     Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) =>  ForgetPasswordScreen(id: widget.getUserInfoByPhoneNumber.id.toString(),)),
+                (route) => false);
+    
   }
   @override
   Widget build(BuildContext context) {
@@ -111,7 +124,7 @@ class _FirebaseAuthServiceState extends State<FirebaseAuthService> {
                       children: [
                         TextSpan(
                             text:
-                                '+251${widget.loggedInUserInfo.phoneNumber.toString()}',
+                                '+251${widget.getUserInfoByPhoneNumber.phoneNumber.toString()}',
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -173,12 +186,12 @@ class _FirebaseAuthServiceState extends State<FirebaseAuthService> {
                   ),
                   TextButton(
                     onPressed: () {
-                      
+                       verifyPhoneNumber();
                     },
                     child: const Text(
                       "RESEND",
                       style: TextStyle(
-                          color: Colors.blue,
+                          color: Color.fromARGB(255, 15, 23, 43),
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     ),
@@ -197,10 +210,11 @@ class _FirebaseAuthServiceState extends State<FirebaseAuthService> {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    verifyPhoneNumber();
+                    signInWIthPhoneNumber();
+                   
                   },
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue),
+                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ))),

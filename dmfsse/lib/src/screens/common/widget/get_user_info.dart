@@ -19,7 +19,7 @@ class GetUserInfo extends StatefulWidget {
 
 class _GetUserInfoState extends State<GetUserInfo> {
   TextEditingController phoneNumberController = TextEditingController();
-  LoggedInUserInfo? loggedInUserInfo;
+  GetUserInfoByPhoneNumber? loggedInUserInfo;
   bool isCodeSent = false;
   final formKey = GlobalKey<FormState>();
   bool isNumeric(String s) {
@@ -29,12 +29,20 @@ class _GetUserInfoState extends State<GetUserInfo> {
     }
     return double.tryParse(s) != null;
   }
+
   TextEditingController pinCodeController = TextEditingController();
 
-    FirebaseAuth auth = FirebaseAuth.instance;
-   
+  FirebaseAuth auth = FirebaseAuth.instance;
 
-  void verifyPhoneNumber()async {
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    phoneNumberController.dispose();
+
+    super.dispose();
+  }
+
+  void verifyPhoneNumber() async {
     try {
       await auth.verifyPhoneNumber(
           phoneNumber:
@@ -44,7 +52,6 @@ class _GetUserInfoState extends State<GetUserInfo> {
             await auth.signInWithCredential(phoneAuthCredential);
           },
           verificationFailed: (FirebaseAuthException firebaseAuthException) {
-           
             AwesomeDialog(
               context: context,
               dialogType: DialogType.error,
@@ -64,12 +71,14 @@ class _GetUserInfoState extends State<GetUserInfo> {
 
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) =>  FirebaseAuthService(loggedInUserInfo: loggedInUserInfo as LoggedInUserInfo,)),
+                MaterialPageRoute(
+                    builder: (context) => FirebaseAuthService(
+                          getUserInfoByPhoneNumber:
+                              loggedInUserInfo as GetUserInfoByPhoneNumber,
+                          verificationID: verificationId,
+                        )),
                 (route) => false);
-            PhoneAuthCredential phoneAuthCredential =
-                PhoneAuthProvider.credential(
-                    verificationId: verificationId, smsCode: sms);
-            await auth.signInWithCredential(phoneAuthCredential);
+           
           },
           codeAutoRetrievalTimeout: (String verificationId) {});
     } catch (e) {
@@ -92,124 +101,131 @@ class _GetUserInfoState extends State<GetUserInfo> {
       ),
       body: Center(
         child: Container(
-          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3,left: 20,right: 20),
-          child: BlocConsumer<UserBloc, UserState>(
-              listener: (context, state) {
-                if(state is GetUserInfoSucess){
-                  loggedInUserInfo = state.user as LoggedInUserInfo;
-                  verifyPhoneNumber();
-        
-                //  Navigator.pushAndRemoveUntil(
-                // context,
-                // MaterialPageRoute(builder: (context) =>  FirebaseAuthService(loggedInUserInfo: state.user as LoggedInUserInfo,)),
-                // (route) => false);
-                }
-              },
+          margin: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.3,
+              left: 20,
+              right: 20),
+          child: BlocConsumer<UserBloc, UserState>(listener: (context, state) {
+            if (state is GetUserInfoByPhoneNumberSucess) {
+              loggedInUserInfo = state.user;
               
-              builder: (context, state) {
-              if(state is GetUserInfoInitial){
-                isCodeSent = true;
-              } else{
-                isCodeSent = false;
-              }
-                return Center(
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Phone Number",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Color.fromARGB(255, 15, 23, 43)),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        //  InputTextFormField(),
-                        InputTextFormField(
-                          hintTxt: '09*********',
-                          controller: phoneNumberController,
-                          isRequired: false,
-                          onChanged: (String value) {},
-                          keyboardType: TextInputType.phone,
-                          errorMessage: "phone number",
-                          obscureText: false,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter Phone number";
-                            } else if (value.toString().length != 10) {
-                              return "phone number must be 10 digit";
-                            } else if (!isNumeric(value)) {
-                              print(isNumeric(value));
-                              return "phone number must be number";
-                            } else if (value.toString().characters.first != '0') {
-                              return "phone number must start with 0";
-                            } else {
-                              return null;
+              verifyPhoneNumber();
+
+              //  Navigator.pushAndRemoveUntil(
+              // context,
+              // MaterialPageRoute(builder: (context) =>  FirebaseAuthService(loggedInUserInfo: state.user as LoggedInUserInfo,)),
+              // (route) => false);
+            }
+          }, builder: (context, state) {
+            if (state is GetUserInfoInitial) {
+              isCodeSent = true;
+            } 
+            if(state is GetUserInfoFailure) {
+              isCodeSent = false;
+            }
+            return Center(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Phone Number",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 15, 23, 43)),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    //  InputTextFormField(),
+                    InputTextFormField(
+                      hintTxt: '09*********',
+                      controller: phoneNumberController,
+                      isRequired: false,
+                      onChanged: (String value) {},
+                      keyboardType: TextInputType.phone,
+                      errorMessage: "phone number",
+                      obscureText: false,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Invalid phone number";
+                        } else if (value.toString().length != 10) {
+                          return "Invalid phone number";
+                        } else if (!isNumeric(value)) {
+                          
+                          return "Invalid phone number";
+                        } else if (value.toString().characters.first != '0') {
+                          return "Invalid phone number";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+
+                    Container(
+                      width: 200,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color.fromARGB(255, 15, 23, 43)),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ))),
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              GetUserByPhoneNumber getUserByPhoneNumber =
+                                  GetUserByPhoneNumber(
+                                      phoneNumber: phoneNumberController.text
+                                          .toString());
+                              BlocProvider.of<UserBloc>(context)
+                                  .add(getUserByPhoneNumber);
                             }
                           },
-                        ),
-                       
-                  Container(
-                        width: 200,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43)),
-                                shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ))),
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                GetUserByPhoneNumber getUserByPhoneNumber = GetUserByPhoneNumber(phoneNumber: phoneNumberController.text.toString());
-                                BlocProvider.of<UserBloc>(context).add(getUserByPhoneNumber);
-                              }
-                            },
-                            child: isCodeSent
-                                ? const CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )
-                                : const Text("Send Code")),
-                      ),
-                        // Container(
-                        //   margin: const EdgeInsets.only(left: 50, right: 50),
-                        //   width: 60,
-                        //   height: 50,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(100),
-                        //   ),
-                        //   child: ElevatedButton(
-                        //     onPressed: () {
-                        //       if(formKey.currentState!.validate()){
-                        //         GetUserByPhoneNumber getUserByPhoneNumber = GetUserByPhoneNumber(phoneNumber: phoneNumberController.text.toString());
-                        //         BlocProvider.of<UserBloc>(context).add(getUserByPhoneNumber);
-                        //       }
-                        //     },
-                        //     style: ButtonStyle(
-                        //         backgroundColor:
-                        //             MaterialStateProperty.all(Colors.blue),
-                        //         shape:
-                        //             MaterialStateProperty.all(RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.circular(25),
-                        //         ))),
-                        //     child: isVerify
-                        //         ? const CircularProgressIndicator(
-                        //             color: Colors.white,
-                        //           )
-                        //         : const Text("Send Code"),
-                        //   ),
-                        // )
-                      ],
+                          child: isCodeSent
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : const Text("Send Code")),
                     ),
-                  ),
-                );
-              }),
+                    // Container(
+                    //   margin: const EdgeInsets.only(left: 50, right: 50),
+                    //   width: 60,
+                    //   height: 50,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(100),
+                    //   ),
+                    //   child: ElevatedButton(
+                    //     onPressed: () {
+                    //       if(formKey.currentState!.validate()){
+                    //         GetUserByPhoneNumber getUserByPhoneNumber = GetUserByPhoneNumber(phoneNumber: phoneNumberController.text.toString());
+                    //         BlocProvider.of<UserBloc>(context).add(getUserByPhoneNumber);
+                    //       }
+                    //     },
+                    //     style: ButtonStyle(
+                    //         backgroundColor:
+                    //             MaterialStateProperty.all(Colors.blue),
+                    //         shape:
+                    //             MaterialStateProperty.all(RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(25),
+                    //         ))),
+                    //     child: isVerify
+                    //         ? const CircularProgressIndicator(
+                    //             color: Colors.white,
+                    //           )
+                    //         : const Text("Send Code"),
+                    //   ),
+                    // )
+                  ],
+                ),
+              ),
+            );
+          }),
         ),
       ),
     );

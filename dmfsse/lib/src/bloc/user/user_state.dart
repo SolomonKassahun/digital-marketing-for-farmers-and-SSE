@@ -9,6 +9,8 @@ class UserUpdateSucess extends UserState {
   User user;
   UserUpdateSucess({required this.user});
 }
+class UserForgetPasswordInitial extends UserState {}
+class UserForgetPasswordSuccess extends UserState{}
 
 class UserUpdateFailure extends UserState {
   String message;
@@ -31,7 +33,7 @@ class GetUserInfoSucess extends UserState {
 }
 class GetUserInfoInitial extends UserState {}
 class GetUserInfoByPhoneNumberSucess extends UserState {
-  LoggedInUserInfo user;
+  GetUserInfoByPhoneNumber user;
   GetUserInfoByPhoneNumberSucess({required this.user});
 }
 
