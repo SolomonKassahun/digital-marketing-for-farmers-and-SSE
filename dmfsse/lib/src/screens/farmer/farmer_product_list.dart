@@ -154,8 +154,24 @@ class _FarmerProductListState extends State<FarmerProductList> {
                                           ],
                                         ),
                                         ElevatedButton(
+                                          style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43),),
+                                // shape: MaterialStateProperty.all(
+                                //     RoundedRectangleBorder(
+                                //   borderRadius: BorderRadius.circular(25),
+                                
+                                // )
+                                // )
+                                ),
                                           onPressed: () {
-                                           
+                                             Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CustomerOfferRoom(
+                                                          product: product,
+                                                        )));
                                            
                                           },
                                           child: const Text("Buy product"),

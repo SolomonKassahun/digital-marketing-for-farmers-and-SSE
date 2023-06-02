@@ -1,20 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dmfsse/src/bloc/user/user_state.dart';
-import 'package:dmfsse/src/screens/farmer/training.dart';
 import 'package:dmfsse/src/screens/homepage_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../local_storage/user_preference.dart';
 import '../../bloc/user/user_bloc.dart';
 import '../../bloc/user/user_event.dart';
 import '../../models/login_info.dart';
-import '../../service/firebase_service.dart';
 import '../common/widget/help.dart';
 import '../common/widget/user_profile.dart';
-import 'add_product.dart';
-import 'farmer_offer.dart';
+
 
 class FarmerDrawer extends StatefulWidget {
   const FarmerDrawer({super.key});
@@ -41,6 +39,10 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
     getUsers();
 
     super.initState();
+  }
+  void shareApp() async{
+  String appLink = 'https://digital-marketing-for-farmers-and-sse.onrender.com/';
+    await FlutterShare.share(title: "Share app",linkUrl: appLink);
   }
 
   @override
@@ -93,10 +95,10 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
                       ),
         
             decoration: const BoxDecoration(
-              color: Colors.blueAccent,
+              color: Color.fromARGB(255, 15, 23, 43),
             ),
           ),
-          ListTile(
+         ListTile(
             title: const Text('Homepage'),
             leading: const Icon(Icons.home),
             onTap: () {
@@ -108,7 +110,30 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
             title: const Text('Profile'),
             leading: const Icon(Icons.person),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: ((context) =>   UserProfile(loggedInUserInfo: loggedInUserInfo as LoggedInUserInfo,))));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => UserProfile(
+                            loggedInUserInfo:
+                                loggedInUserInfo as LoggedInUserInfo,
+                          ))));
+            },
+          ),
+          
+          Divider(height: 10, color: Colors.white.withOpacity(0.6)),
+          ListTile(
+            title: const Text('Contact Us '),
+            leading: const Icon(Icons.contact_page),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          Divider(height: 10, color: Colors.white.withOpacity(0.6)),
+          ListTile(
+            title: const Text('About '),
+            leading: const Icon(Icons.add_location),
+            onTap: () {
+              Navigator.pop(context);
             },
           ),
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
@@ -116,39 +141,28 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
             title: const Text('Help'),
             leading: const Icon(Icons.help),
             onTap: () {
-             
-              Navigator.push(context, MaterialPageRoute(builder: ((context) =>  const  Help())));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => const Help())));
             },
           ),
-          //   Divider(height: 10, color: Colors.white.withOpacity(0.6)),
-          // ListTile(
-          //   title: const Text('Offer'),
-          //   leading: const Icon(Icons.local_offer),
-          //   onTap: () {
-             
-          //     Navigator.push(context, MaterialPageRoute(builder: ((context) =>  const  FarmerOffer())));
-          //   },
-          // ),
-          //    Divider(height: 10, color: Colors.white.withOpacity(0.6)),
-          // ListTile(
-          //   title: const Text('Trainings'),
-          //   leading: const Icon(Icons.train),
-          //   onTap: () {
-             
-          //     Navigator.push(context, MaterialPageRoute(builder: ((context) =>  const  Education())));
-          //   },
-          // ),
-          Divider(height: 20, color: Colors.white.withOpacity(0.6)),
+          Divider(height: 10, color: Colors.white.withOpacity(0.6)),
+         
           ListTile(
             title: const Text('Settings'),
             leading: const Icon(Icons.settings),
             onTap: () {
-
               Navigator.pop(context);
             },
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.23),
-          Divider(height: 20, color: Colors.white.withOpacity(0.6)),
+           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
+          ListTile(
+            title: const Text('Share '),
+            leading: const Icon(Icons.share),
+            onTap: () {
+             shareApp();
+            },
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
           Container(
             alignment: Alignment.bottomCenter,
             child: ListTile(

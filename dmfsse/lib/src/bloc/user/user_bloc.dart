@@ -1,7 +1,7 @@
 import 'package:dmfsse/src/data_repository/user_data_repository.dart';
-import 'package:dmfsse/src/models/user_registeration_info.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/login_info.dart';
 import '../../models/user.dart';
 import 'user_event.dart';
 import 'user_state.dart';
@@ -26,11 +26,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         }
       }
       if(event is GetUserByPhoneNumber){
+        emit (GetUserInfoInitial());
         try {
-           User  user = await userDataRepository.getUserByPhoneNumber(event.phoneNumber);
+           LoggedInUserInfo  user = await userDataRepository.getUserByPhoneNumber(event.phoneNumber);
            // ignore: unnecessary_null_comparison
            if(user != null){
-                     emit (GetUserInfoSucess(user: user));
+                     emit (GetUserInfoByPhoneNumberSucess(user: user));
            } 
            emit(GetUserInfoFailure(
                 message: "No internet. Failed to load user"));

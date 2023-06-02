@@ -7,7 +7,6 @@ import '../../bloc/product/product_event.dart';
 import '../../models/product.dart';
 import '../common/widget/input_field.dart';
 import '../common/widget/upload_image.dart';
-import '../homepage_screen.dart';
 import 'farmer_homepage.dart';
 
 class AddProductDetail extends StatefulWidget {
@@ -48,11 +47,11 @@ class _AddProductDetailState extends State<AddProductDetail> {
     return Scaffold(
       appBar: AppBar(
           title: const Text("Add Product Detail"),
-          backgroundColor: Colors.blue),
+          backgroundColor: const Color.fromARGB(255, 15, 23, 43)),
       body: Container(
           width: double.infinity,
           height: double.infinity,
-          color: Colors.blue,
+          color: const Color.fromARGB(255, 15, 23, 43),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,7 +80,6 @@ class _AddProductDetailState extends State<AddProductDetail> {
                     //   isRegister = true;
                     // }
                     if (state is AddProductSucess) {
-                      
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -105,7 +103,10 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 "Name",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Color.fromARGB(255, 15, 23, 43)),
+                              ),
+                              const SizedBox(
+                                height: 10,
                               ),
                               //  InputTextFormField(),
                               InputTextFormField(
@@ -131,7 +132,10 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 "Price",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Color.fromARGB(255, 15, 23, 43)),
+                              ),
+                              const SizedBox(
+                                height: 10,
                               ),
                               InputTextFormField(
                                 hintTxt: 'Price',
@@ -157,7 +161,10 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 "Amount",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Color.fromARGB(255, 15, 23, 43)),
+                              ),
+                              const SizedBox(
+                                height: 10,
                               ),
                               InputTextFormField(
                                 hintTxt: 'amount',
@@ -182,7 +189,10 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 "Description",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Color.fromARGB(255, 15, 23, 43)),
+                              ),
+                              const SizedBox(
+                                height: 10,
                               ),
                               const SizedBox(
                                 height: 10,
@@ -204,10 +214,10 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                     ),
                                     //fillColor: Colors.green
                                     contentPadding: const EdgeInsets.only(
-                                      top: 6,
-                                      // bottom: 6,
-                                      // left: 12,
-                                    ),
+
+                                        // bottom: 6,
+                                        // left: 12,
+                                        ),
                                   ),
                                 ),
                               ),
@@ -218,7 +228,7 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                 "Add Product Photo",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Color.fromARGB(255, 15, 23, 43)),
                               ),
                               Center(
                                 child: UploadImage(pickImage: (image) {
@@ -273,7 +283,8 @@ class _AddProductDetailState extends State<AddProductDetail> {
                                     style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all(
-                                                Colors.blue),
+                                                const Color.fromARGB(
+                                                    255, 15, 23, 43)),
                                         shape: MaterialStateProperty.all(
                                             RoundedRectangleBorder(
                                           borderRadius:

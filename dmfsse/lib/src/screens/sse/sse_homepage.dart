@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/product/product_bloc.dart';
 import '../../bloc/product/product_event.dart';
 import '../customer/customer_dashboard.dart';
+import '../customer/customer_drawer.dart';
 import '../farmer/add_product.dart';
 import '../farmer/farmer_offer.dart';
 import 'sse_deals.dart';
@@ -46,9 +47,11 @@ class _SseHomepageState extends State<SseHomepage> {
     BlocProvider.of<ProductBloc>(context).add(FetchAllProduct());
     return Scaffold(
       appBar: AppBar(
-        
+        backgroundColor: const Color.fromARGB(255, 15, 23, 43),
       ),
-      drawer: const Drawer(child: SseDrawer()),
+      drawer: const Drawer(
+        child: CustomerDrawer(),
+      ),
        body: getItemWidget(selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

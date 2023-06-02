@@ -26,11 +26,12 @@ class _CustomerOfferUpdateState extends State<CustomerOfferUpdate> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.offer.offeredProduct.name.toString()),
+        backgroundColor: const Color.fromARGB(255, 15, 23, 43),
       ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Colors.blue,
+        color: const Color.fromARGB(255, 15, 23, 43),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +75,7 @@ class _CustomerOfferUpdateState extends State<CustomerOfferUpdate> {
                               "Quantity",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue),
+                                  color:  Color.fromARGB(255, 15, 23, 43)),
                             ),
                             const SizedBox(
                               height: 10.0,
@@ -103,7 +104,7 @@ class _CustomerOfferUpdateState extends State<CustomerOfferUpdate> {
                               "Offer Price",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue),
+                                  color:  Color.fromARGB(255, 15, 23, 43)),
                             ),
                             const SizedBox(
                               height: 10.0,
@@ -150,7 +151,7 @@ class _CustomerOfferUpdateState extends State<CustomerOfferUpdate> {
                                     style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all(
-                                                Colors.blue),
+                                                const Color.fromARGB(255, 15, 23, 43)),
                                         shape: MaterialStateProperty.all(
                                             RoundedRectangleBorder(
                                           borderRadius:

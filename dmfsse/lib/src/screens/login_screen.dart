@@ -12,6 +12,7 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 import 'auth/fireabase_verification_screen.dart';
 import 'common/widget/custom_login_textfield.dart';
+import 'common/widget/get_user_info.dart';
 import 'sse/sse_homepage.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -236,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                             style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(Colors.blue),
+                                    MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43)),
                                 shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
@@ -260,10 +261,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           const SizedBox(),
                           TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const GetUserInfo()));
+                              },
                               child: const Text(
                                 "Forget Password",
-                                style: TextStyle(color: Colors.blueAccent),
+                                style: TextStyle(color:  Color.fromARGB(255, 15, 23, 43)),
                               )),
                         ],
                       ),
@@ -281,7 +284,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: const Text(
                                 "Sign up",
                                 style: TextStyle(
-                                    color: Colors.blueAccent, fontSize: 20),
+                                    color:  Color.fromARGB(255, 15, 23, 43), fontSize: 20),
                               ))
                         ],
                       )

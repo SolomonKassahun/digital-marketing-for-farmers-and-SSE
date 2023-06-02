@@ -135,12 +135,19 @@ class UserDataProvider {
     }
   }
 
-  Future<User> getUserByPhoneNumber(String phoneNumber) async {
+  Future<LoggedInUserInfo> getUserByPhoneNumber(String phoneNumber) async {
     try {
-      final response = await http.get(Uri.parse("${Ip.ip}/$phoneNumber"));
+    
+      final response = await http.get(
+        Uri.parse(
+          "${Ip.ip}/userByPhoneNumber?phoneNumber=$phoneNumber",
+        ),
+      );
       if (response.statusCode == 200) {
-        return User.fromJson(jsonDecode(response.body));
+        print("status code one is ${response.statusCode}");
+        return LoggedInUserInfo.fromJson(jsonDecode(response.body));
       }
+      print("status code two is ${response.statusCode}");
       throw Exception("Failed to fetch user");
     } catch (e) {
       throw Exception(e.toString());

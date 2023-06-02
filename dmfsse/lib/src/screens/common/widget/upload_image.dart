@@ -42,14 +42,13 @@ class _UploadImageState extends State<UploadImage> {
           color: Colors.white,
         ),
         child: file == null
-            ? Container(
-                child: Center(
-                child: Icon(
-                  Icons.add_photo_alternate_outlined,
-                  color: Colors.blue,
-                  size: size.width * 0.2,
-                ),
-              ))
+            ? Center(
+            child: Icon(
+              Icons.add_photo_alternate_outlined,
+              color: const Color.fromARGB(255, 15, 23, 43),
+              size: size.width * 0.2,
+            ),
+              )
             : Container(
                 height: 120.0,
                 width: 120.0,

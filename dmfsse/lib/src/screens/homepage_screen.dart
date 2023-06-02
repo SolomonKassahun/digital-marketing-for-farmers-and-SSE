@@ -59,14 +59,14 @@ class _HomepageState extends State<Homepage> {
                           value: 'am',
                           child: Text(
                             'አማ',
-                            style: TextStyle(color: Colors.blue),
+                            style: TextStyle(color:  Color.fromARGB(255, 15, 23, 43)),
                           ),
                         ),
                         DropdownMenuItem(
                             value: 'en',
                             child: Text(
                               "EN",
-                              style: TextStyle(color: Colors.blue),
+                              style: TextStyle(color:  Color.fromARGB(255, 15, 23, 43)),
                             )),
                         // DropdownMenuItem(
                         //   value: "oro",
@@ -143,8 +143,10 @@ class _HomepageState extends State<Homepage> {
             onPressed: () {
               Navigator.pushNamed(context, LoginScreen.routeName);
             },
+            
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25.0))),
+                backgroundColor: const Color.fromARGB(255, 15, 23, 43),
             child: Text(LocaleKeys.loginText.tr()),
           )),
     );

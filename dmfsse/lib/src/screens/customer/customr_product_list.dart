@@ -153,6 +153,10 @@ class _CustomerProductListState extends State<CustomerProductList> {
                                           ],
                                         ),
                                         ElevatedButton(
+                                           style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43),),
+                     
+                      ),
                                           onPressed: () {
                                           
                                             Navigator.push(
