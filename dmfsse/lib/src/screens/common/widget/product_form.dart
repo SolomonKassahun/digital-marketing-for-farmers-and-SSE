@@ -31,7 +31,7 @@ class ProductTextFormField extends StatelessWidget {
         onTap: () {},
         keyboardType: keyboardType,
         onEditingComplete: () => FocusScope.of(context).unfocus(),
-        style: TextStyle(fontSize: 18, color: Theme.of(context).primaryColor),
+        style:const  TextStyle(fontSize: 18, color:  Color.fromARGB(255, 15, 23, 43)),
         onChanged: (value) => onChanged(value.toString()),
         initialValue: initialValue,
         obscureText: obscureText,

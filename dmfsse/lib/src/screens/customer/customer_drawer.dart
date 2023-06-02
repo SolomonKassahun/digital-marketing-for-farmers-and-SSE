@@ -2,6 +2,7 @@ import 'package:dmfsse/src/bloc/user/user_state.dart';
 import 'package:dmfsse/src/screens/homepage_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_share/flutter_share.dart';
 
 import '../../../local_storage/user_preference.dart';
 import '../../bloc/user/user_bloc.dart';
@@ -26,6 +27,10 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
         loggedInUserInfo = value;
       });
     });
+  }
+  void shareApp() async{
+  String appLink = 'https://digital-marketing-for-farmers-and-sse.onrender.com/';
+    await FlutterShare.share(title: "Share app",linkUrl: appLink);
   }
 
   @override
@@ -59,7 +64,7 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
               backgroundImage: AssetImage('assets/images/drawerPP.jpg'),
             ),
             decoration: const BoxDecoration(
-              color: Colors.blueAccent,
+              color:  Color.fromARGB(255, 15, 23, 43),
             ),
           ),
           ListTile(
@@ -83,6 +88,23 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
                           ))));
             },
           ),
+          
+          Divider(height: 10, color: Colors.white.withOpacity(0.6)),
+          ListTile(
+            title: const Text('Contact Us '),
+            leading: const Icon(Icons.contact_page),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          Divider(height: 10, color: Colors.white.withOpacity(0.6)),
+          ListTile(
+            title: const Text('About '),
+            leading: const Icon(Icons.add_location),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
             title: const Text('Help'),
@@ -90,23 +112,27 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => const Help())));
-
-             
             },
           ),
-          Divider(height: 20, color: Colors.white.withOpacity(0.6)),
+          Divider(height: 10, color: Colors.white.withOpacity(0.6)),
+         
           ListTile(
             title: const Text('Settings'),
             leading: const Icon(Icons.settings),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
               Navigator.pop(context);
             },
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.23),
-          Divider(height: 20, color: Colors.white.withOpacity(0.6)),
+           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
+          ListTile(
+            title: const Text('Share '),
+            leading: const Icon(Icons.share),
+            onTap: () {
+              shareApp();
+            },
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+          // Divider(height: 20, color: Colors.white.withOpacity(0.6)),
           Container(
             alignment: Alignment.bottomCenter,
             child: ListTile(

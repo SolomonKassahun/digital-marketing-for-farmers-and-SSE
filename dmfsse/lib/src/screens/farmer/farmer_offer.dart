@@ -52,8 +52,7 @@ class _FarmerOfferState extends State<FarmerOffer> {
                 );
               }
               if (state is OfferStateFailure) {
-                return const Center(
-                  child: Text("Failed to load Offer"));
+                return const Center(child: Text("Failed to load Offer"));
               }
               if (state is OfferStateSucess) {
                 return SingleChildScrollView(
@@ -71,27 +70,90 @@ class _FarmerOfferState extends State<FarmerOffer> {
                               child: Card(
                                 child: SizedBox(
                                   height: 70.0,
-                                  child: ListTile(
-                                      leading: const Icon(Icons.local_offer),
-                                      title: Text(e.offeredProduct.name),
-                                      trailing: ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        FarmerOfferDetail(
-                                                          offer: e,
-                                                        )));
+                                  child: 
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children:  [
+                                      
+                                       Row(
+                                         children: const [
+                                          SizedBox(width: 15,),
+                                           Icon(Icons.local_offer),
+                                         ],
+                                       ),
+                                       Text(e.accepted,style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                       ElevatedButton(
+                                              style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          const Color.fromARGB(
+                                                              255, 15, 23, 43)),
+                                                  // shape: MaterialStateProperty.all(
+                                                  //     RoundedRectangleBorder(
+                                                  //   borderRadius:
+                                                  //       BorderRadius.circular(25),
+                                                  // ))
+                                                  ),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            FarmerOfferDetail(
+                                                              offer: e,
+                                                            )));
 
-                                            // if(e.accepted == 'accepted'){
-                                            //  PaymentModel offerModel = PaymentModel(amount: e.quantity.toString(), currency: 'ETB', email: 'gg@gmail.com', firstName: e.orderBy.firstName, lastName: e.orderBy.lastName, phoneNumber:"0986557047", txtRef: 'chewatatest', callbackUrl: "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60", customization: ['teff','Thank you']);
+                                                // if(e.accepted == 'accepted'){
+                                                //  PaymentModel offerModel = PaymentModel(amount: e.quantity.toString(), currency: 'ETB', email: 'gg@gmail.com', firstName: e.orderBy.firstName, lastName: e.orderBy.lastName, phoneNumber:"0986557047", txtRef: 'chewatatest', callbackUrl: "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60", customization: ['teff','Thank you']);
 
-                                            // } else{
-                                            //    Navigator.push(context, MaterialPageRoute(builder: (context) => FarmerOfferDetail(offer: e,)));
-                                            // }
-                                          },
-                                          child: const Text("View Detail"))),
+                                                // } else{
+                                                //    Navigator.push(context, MaterialPageRoute(builder: (context) => FarmerOfferDetail(offer: e,)));
+                                                // }
+                                              },
+                                              child: const Text("View Detail")),
+                                    ],
+                                  )
+                                  
+                                  // ListTile(
+                                  //     leading: const Icon(Icons.local_offer),
+                                  //     title: Text(e.offeredProduct.name),
+                                  //     trailing: Row(
+                                  //       mainAxisSize: MainAxisSize.min,
+                                  //       children: [
+                                  //         Text("Pending"),
+                                  //         SizedBox(width: 20,),
+                                  //         ElevatedButton(
+                                  //             style: ButtonStyle(
+                                  //                 backgroundColor:
+                                  //                     MaterialStateProperty.all(
+                                  //                         const Color.fromARGB(
+                                  //                             255, 15, 23, 43)),
+                                  //                 // shape: MaterialStateProperty.all(
+                                  //                 //     RoundedRectangleBorder(
+                                  //                 //   borderRadius:
+                                  //                 //       BorderRadius.circular(25),
+                                  //                 // ))
+                                  //                 ),
+                                  //             onPressed: () {
+                                  //               Navigator.push(
+                                  //                   context,
+                                  //                   MaterialPageRoute(
+                                  //                       builder: (context) =>
+                                  //                           FarmerOfferDetail(
+                                  //                             offer: e,
+                                  //                           )));
+
+                                  //               // if(e.accepted == 'accepted'){
+                                  //               //  PaymentModel offerModel = PaymentModel(amount: e.quantity.toString(), currency: 'ETB', email: 'gg@gmail.com', firstName: e.orderBy.firstName, lastName: e.orderBy.lastName, phoneNumber:"0986557047", txtRef: 'chewatatest', callbackUrl: "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60", customization: ['teff','Thank you']);
+
+                                  //               // } else{
+                                  //               //    Navigator.push(context, MaterialPageRoute(builder: (context) => FarmerOfferDetail(offer: e,)));
+                                  //               // }
+                                  //             },
+                                  //             child: const Text("View Detail")),
+                                  //       ],
+                                  //     )
+                                  //     ),
                                 ),
                               ),
                             ))

@@ -1,3 +1,4 @@
+import 'package:chapasdk/chapa_payment%20initializer.dart';
 import 'package:dmfsse/src/bloc/offer/offer_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,30 +82,54 @@ class _CustomerOfferState extends State<CustomerOffer> {
                                   child: SizedBox(
                                     height: 70.0,
                                     child: ListTile(
-                                        leading: const Icon(Icons.local_offer),
-                                        title: Text(e.offeredProduct.name),
+                                        leading: const Icon(Icons.local_offer,color:  Color.fromARGB(255, 15, 23, 43),),
+                                        title: Text(e.offeredProduct.name,style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                                         trailing: (e.accepted == 'accepted')
                                             ? ElevatedButton(
+                                               style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43),),
+                      
+                      ),
                                                 onPressed: () {
                                                   print('pressed');
-                                                  PaymentModel offerModel =
-                                                      PaymentModel(
-                                                          amount: e.quantity
-                                                              .toString(),
-                                                          currency: 'ETB',
-                                                          email: 'g8@gmail.com',
-                                                          firstName: e.orderBy
-                                                              .firstName,
-                                                          lastName: e
-                                                              .orderBy.lastName,
-                                                          phoneNumber:
-                                                              "0333333333",
-                                                          txtRef:
-                                                              'fdjafadsfjhsajdfhajshfdshaf',
-                                                          callbackUrl:
-                                                              "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60",
-                                                          customization:
-                                                              "Thank for banking us.");
+                                                  PaymentModel offerModel = PaymentModel(
+                                                    context: context,
+                                                      amount:
+                                                          e.quantity.toString(),
+                                                      currency: 'ETB',
+                                                      email: '${e.orderBy.firstName}${e.orderBy.lastName}@gmail.com',
+                                                      firstName:
+                                                          e.orderBy.firstName,
+                                                      lastName:
+                                                          e.orderBy.lastName,
+                                                      phoneNumber: "0333333333",
+                                                      txtRef:
+                                                         e.id,
+                                                      callbackUrl:
+                                                          "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60",
+                                                      customization:
+                                                          "Thank for banking us.");
+                                                  // Chapa.paymentParameters(
+                                                  //     context: context,
+                                                  //     publicKey:
+                                                  //         'CHASECK_TEST-Zy6eSfeshRoHHsxDS4Ccf1dzuIgHIHtv',
+                                                  //     currency: 'ETB',
+                                                  //     amount:
+                                                  //         e.quantity.toString(),
+                                                  //     email:
+                                                  //         "${e.orderBy.firstName}${e.orderBy.lastName}@gmail.com",
+                                                  //     phone: "0953890542",
+                                                  //     firstName:
+                                                  //         e.orderBy.firstName,
+                                                  //     lastName:
+                                                  //         e.orderBy.lastName,
+                                                  //     txRef: e.id,
+                                                  //     title:
+                                                  //         "Payment for my favourite merchant",
+                                                  //     desc:
+                                                  //         'Thank for banking us.',
+                                                  //     namedRouteFallBack:
+                                                  //         '/customerHomepage');
                                                   showDialog(
                                                       context: context,
                                                       builder: (ctx) =>
@@ -130,7 +155,7 @@ class _CustomerOfferState extends State<CustomerOffer> {
                                                                         )));
                                                       },
                                                       icon: const Icon(
-                                                          Icons.edit)),
+                                                          Icons.edit,color: Colors.blue,)),
                                                   IconButton(
                                                       onPressed: () {
                                                         showDialog(
@@ -179,7 +204,7 @@ class _CustomerOfferState extends State<CustomerOffer> {
                                                         );
                                                       },
                                                       icon: const Icon(
-                                                          Icons.delete))
+                                                          Icons.delete),color: Colors.red,)
                                                 ],
                                               )),
                                   ),

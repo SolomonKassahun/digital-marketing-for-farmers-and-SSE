@@ -23,6 +23,7 @@ class _ProductDetailState extends State<ProductDetail> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Product Detail"),
+          backgroundColor: const  Color.fromARGB(255, 15, 23, 43),
         ),
         body: SizedBox(
           height: double.infinity,

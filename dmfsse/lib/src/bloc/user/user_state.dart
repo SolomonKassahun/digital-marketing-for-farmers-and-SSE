@@ -1,3 +1,4 @@
+import '../../models/login_info.dart';
 import '../../models/user.dart';
 
 class UserState {}
@@ -27,6 +28,11 @@ class UserDeleteFailure extends UserState {
 class GetUserInfoSucess extends UserState {
   User user;
   GetUserInfoSucess({required this.user});
+}
+class GetUserInfoInitial extends UserState {}
+class GetUserInfoByPhoneNumberSucess extends UserState {
+  LoggedInUserInfo user;
+  GetUserInfoByPhoneNumberSucess({required this.user});
 }
 
 class GetUserInfoFailure extends UserState {

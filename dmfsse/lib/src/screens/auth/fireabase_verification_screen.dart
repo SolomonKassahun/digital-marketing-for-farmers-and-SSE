@@ -243,7 +243,7 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                     child: const Text(
                       "RESEND",
                       style: TextStyle(
-                          color: Colors.blue,
+                          color:  Color.fromARGB(255, 15, 23, 43),
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     ),
@@ -265,7 +265,7 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                     signInWIthPhoneNumber();
                   },
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue),
+                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43),),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ))),

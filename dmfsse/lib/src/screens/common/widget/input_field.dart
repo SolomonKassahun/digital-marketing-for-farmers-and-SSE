@@ -56,9 +56,12 @@ class InputTextFormField extends StatelessWidget {
             left: 12,
           ),
           fillColor: Colors.white,
+          focusColor:const  Color.fromARGB(255, 15, 23, 43),
+        
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15.0),
-            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            borderSide: const  BorderSide(color:  Color.fromARGB(255, 15, 23, 43)),
+          
           ),
           suffixIcon: isPassword != null
               ? IconButton(

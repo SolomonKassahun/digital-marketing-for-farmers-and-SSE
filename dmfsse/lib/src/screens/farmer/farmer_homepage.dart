@@ -50,7 +50,7 @@ class _FarmerHomepageState extends State<FarmerHomepage> {
     BlocProvider.of<ProductBloc>(context).add(FetchAllProduct());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color.fromARGB(255, 15, 23, 43),
       ),
       drawer: const Drawer(child: FarmerDrawer()),
       body: _getItemWidget(selectedIndex),

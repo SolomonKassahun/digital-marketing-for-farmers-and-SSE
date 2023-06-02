@@ -85,7 +85,7 @@ class _AddProductPageState extends State<AddProductPage> {
                                                                         ))));
                                                       },
                                                       icon: const Icon(
-                                                          Icons.edit)),
+                                                          Icons.edit),color: Colors.blue,),
                                                   IconButton(
                                                       onPressed: () {
                                                         showDialog(
@@ -137,7 +137,7 @@ class _AddProductPageState extends State<AddProductPage> {
                                                         );
                                                       },
                                                       icon: const Icon(
-                                                          Icons.delete)),
+                                                          Icons.delete,color: Colors.red,)),
                                                 ],
                                               ),
                                             )),
@@ -170,7 +170,7 @@ class _AddProductPageState extends State<AddProductPage> {
                   Navigator.pushNamed(context, AddProductDetail.routeName);
                 },
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43)),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ))),

@@ -44,8 +44,7 @@ class UserProfile extends StatelessWidget {
                       fit: BoxFit.fill,
                       height: 160.0,
                       width: MediaQuery.of(context).size.width,
-                      imageUrl:
-                          loggedInUserInfo.profilePicture.toString(),
+                      imageUrl: loggedInUserInfo.profilePicture.toString(),
                       // imageUrl: snapshot.data,
                       imageBuilder: (context, imageProvider) => Container(
                         width: MediaQuery.of(context).size.width * 4,
@@ -93,32 +92,42 @@ class UserProfile extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text("${loggedInUserInfo.firstName} ${loggedInUserInfo.lastName}"),
+                  Row(
+                    children: [
+                      const Icon(Icons.person),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                          "${loggedInUserInfo.firstName} ${loggedInUserInfo.lastName}"),
+                    ],
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Divider(
-                    height: 5,
-                    color: Colors.black,
-                  ),
-                   const SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   const Text(
                     'Phone',
-                     style: TextStyle(color: Colors.black26),
+                    style: TextStyle(color: Colors.black26),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(loggedInUserInfo.phoneNumber),
+                  Row(
+                    children: [
+                      const Icon(Icons.phone),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Text(loggedInUserInfo.phoneNumber),
+                    ],
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Divider(
-                    height: 10,
-                    color: Colors.black,
-                  ),
+                  
                   const Text(
                     'Roles ',
                     style: TextStyle(color: Colors.black26),
@@ -126,13 +135,19 @@ class UserProfile extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(loggedInUserInfo.roles.first),
+                  Row(
+                    children: [
+                     const  Icon(Icons.info),
+                       const SizedBox(
+                        width: 20,
+                      ),
+                      Text(loggedInUserInfo.roles.first),
+                    ],
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  const Divider(
-                    height: 5,
-                  )
+                  
                 ],
               ),
             )

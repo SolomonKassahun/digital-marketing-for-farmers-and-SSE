@@ -78,8 +78,9 @@ class _PasswordPageState extends State<PasswordPage> {
                 const Text(
                   "Password",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.blue),
+                      fontWeight: FontWeight.bold, color: Color.fromARGB(255, 15, 23, 43)),
                 ),
+                const SizedBox(height: 10,),
                 //  InputTextFormField(),
                 InputTextFormField(
                   hintTxt: 'New Password',
@@ -111,7 +112,10 @@ class _PasswordPageState extends State<PasswordPage> {
                 const Text(
                   "Confirm Password",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.blue),
+                      fontWeight: FontWeight.bold, color: Color.fromARGB(255, 15, 23, 43)),
+                ),
+                 const SizedBox(
+                  height: 10,
                 ),
                 //  InputTextFormField(),
                 InputTextFormField(
@@ -142,7 +146,7 @@ class _PasswordPageState extends State<PasswordPage> {
                 const Text(
                   "Add Profile Photo",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.blue),
+                      fontWeight: FontWeight.bold, color: Color.fromARGB(255, 15, 23, 43)),
                 ),
                 Center(
                   child: UploadImage(pickImage: (image) {
@@ -157,7 +161,7 @@ class _PasswordPageState extends State<PasswordPage> {
                 const Text(
                   "Add Identification Photo",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.blue),
+                      fontWeight: FontWeight.bold, color: Color.fromARGB(255, 15, 23, 43)),
                 ),
 
                 const SizedBox(
@@ -181,7 +185,7 @@ class _PasswordPageState extends State<PasswordPage> {
                     child: ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.blue),
+                                MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43)),
                             shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),

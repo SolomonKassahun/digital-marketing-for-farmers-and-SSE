@@ -45,7 +45,9 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
      BlocProvider.of<ProductBloc>(context).add(FetchAllProduct());
     return Scaffold(
       
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 15, 23, 43),
+      ),
       drawer: const Drawer(
         child: CustomerDrawer(),
       ),

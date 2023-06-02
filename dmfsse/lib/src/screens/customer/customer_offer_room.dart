@@ -28,11 +28,12 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.product.name),
+        backgroundColor: const Color.fromARGB(255, 15, 23, 43),
       ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Colors.blue,
+        color: const Color.fromARGB(255, 15, 23, 43),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,12 +63,13 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                                 content: Text("Failed to send Offer")));
                         isInOrder = false;
                       }
-                      if(state is OrderStateSucess){
-isInOrder = false;
- Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const CustomerHomepage()),
-                (route) => false);
+                      if (state is OrderStateSucess) {
+                        isInOrder = false;
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CustomerHomepage()),
+                            (route) => false);
                       }
                     }),
                     builder: ((context, state) {
@@ -82,7 +84,7 @@ isInOrder = false;
                                 "Quantity",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color:  Color.fromARGB(255, 15, 23, 43)),
                               ),
                               const SizedBox(
                                 height: 10.0,
@@ -110,7 +112,7 @@ isInOrder = false;
                                 "Price",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color:  Color.fromARGB(255, 15, 23, 43)),
                               ),
                               const SizedBox(
                                 height: 10.0,
@@ -136,6 +138,13 @@ isInOrder = false;
                               ),
                               Center(
                                 child: ElevatedButton(
+                                  style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43)),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ))),
                                     onPressed: () {
                                       print("send order button clicked");
 

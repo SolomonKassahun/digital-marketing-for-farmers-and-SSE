@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+
 class PaymentModel {
   String amount;
   String currency;
@@ -10,7 +12,9 @@ class PaymentModel {
   String txtRef;
   String callbackUrl;
   String customization;
+  BuildContext context;
   PaymentModel({
+    required this.context,
     required this.amount,
     required this.currency, 
     required this.email,

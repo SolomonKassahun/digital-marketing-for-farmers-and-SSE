@@ -52,11 +52,11 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color.fromARGB(255, 15, 23, 43),
       ),
       body: Container(
         width: double.infinity,
-        color: Colors.blueAccent,
+        color: const Color.fromARGB(255, 15, 23, 43),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,7 +88,7 @@ class _SignupPageState extends State<SignupPage> {
                         const Text(
                           "First Name",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.blue),
+                              fontWeight: FontWeight.bold, color:  Color.fromARGB(255, 15, 23, 43)),
                         ),
                         const SizedBox(
                           height: 5,
@@ -112,7 +112,7 @@ class _SignupPageState extends State<SignupPage> {
                         const Text(
                           "Last Name",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.blue),
+                              fontWeight: FontWeight.bold, color:  Color.fromARGB(255, 15, 23, 43)),
                         ),
                         const SizedBox(
                           height: 5,
@@ -137,7 +137,7 @@ class _SignupPageState extends State<SignupPage> {
                         const Text(
                           "Phone Number",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.blue),
+                              fontWeight: FontWeight.bold, color:  Color.fromARGB(255, 15, 23, 43)),
                         ),
                         const SizedBox(
                           height: 5,
@@ -169,7 +169,7 @@ class _SignupPageState extends State<SignupPage> {
                         const Text(
                           "Address",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.blue),
+                              fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 15, 23, 43)),
                         ),
                         const SizedBox(
                           height: 5,
@@ -212,7 +212,7 @@ class _SignupPageState extends State<SignupPage> {
                             child: ElevatedButton(
                                 style: ButtonStyle(
                                     backgroundColor:
-                                        MaterialStateProperty.all(Colors.blue),
+                                        MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43)),
                                     shape: MaterialStateProperty.all(
                                         RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(25),

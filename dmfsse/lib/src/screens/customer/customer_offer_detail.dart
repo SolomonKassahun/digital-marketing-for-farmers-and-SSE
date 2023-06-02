@@ -17,6 +17,7 @@ class _CustomerOfferDetailState extends State<CustomerOfferDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const  Color.fromARGB(255, 15, 23, 43),
         title: Text(widget.offer.offeredProduct.name.toString()),
       ),
       body: BlocBuilder<OfferBloc, OfferState>(

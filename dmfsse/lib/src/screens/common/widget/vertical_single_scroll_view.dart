@@ -23,7 +23,8 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
 
   @override
   void initState() {
-    widget.products.sort(((a, b) => a.createdAt.toString().compareTo(b.createdAt.toString())));
+    widget.products.sort(
+        ((a, b) => a.createdAt.toString().compareTo(b.createdAt.toString())));
     listOfProduct = widget.products.reversed
         .where((element) =>
             element.name
@@ -47,8 +48,7 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
               ? const Center(child: Text("No Product"))
               : Column(
                   children: listOfProduct
-                      .map(
-                        (product) => GestureDetector(
+                      .map((product) => GestureDetector(
                             onTap: () {
                               Navigator.push(
                                   context,
@@ -59,95 +59,116 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 side: BorderSide(
-                                  color:
-                                      Theme.of(context).colorScheme.outline,
+                                  color: Theme.of(context).colorScheme.outline,
                                 ),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(12)),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(12)),
                               ),
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 height: 100.0,
                                 child: Center(
                                     child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    CachedNetworkImage(
-                                      fit: BoxFit.fill,
-                                      height: 75.0,
-                                      width: 75.0,
-                                      imageUrl: product.photo.toString(),
-                                      imageBuilder:
-                                          (context, imageProvider) =>
-                                              Container(
-                                        width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                            4,
-                                        height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                            4,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.rectangle,
-                                          image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.cover),
+                                    Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 10,
                                         ),
-                                      ),
-                                      placeholder: (context, url) =>
-                                          const Center(
-                                              child: SpinKitCircle(
-                                        color: Colors.black,
-                                      )),
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
+                                        CachedNetworkImage(
+                                          fit: BoxFit.fill,
+                                          height: 75.0,
+                                          width: 75.0,
+                                          imageUrl: product.photo.toString(),
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                4,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                4,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.rectangle,
+                                              image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                  child: SpinKitCircle(
+                                            color: Colors.black,
+                                          )),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                        ),
+                                      ],
                                     ),
-
                                     const SizedBox(
                                       width: 20,
                                     ),
-                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                       children: [
-                                      const  SizedBox(height: 20,),
-                                         SizedBox(
-                                              child: Text(
-                                                product.name,
-                                                style: const TextStyle(
-                                                    color: Colors.black),
-                                              ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        SizedBox(
+                                          child: Text(
+                                            product.name,
+                                            style: const TextStyle(
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          child: Text(
+                                            "${product.price.toString()} ETB",
+                                            style: const TextStyle(
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                              const Color.fromARGB(
+                                                  255, 15, 23, 43),
                                             ),
-                                            SizedBox(
-                                              child: Text(
-                                                "${product.price.toString()} ETB",
-                                                style: const TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
-                                               
-                                                 ElevatedButton(onPressed: (){
-                                                  Navigator.pushNamed(context, LoginScreen.routeName);
-                                                 }, child: const  Text("Add To Cart"))
-                                              ],
-                                          
-                                            ),
-                                            
-                                       ],
-                                     ),
-                                    const  SizedBox(width: 30,),
-                                    const Padding(
-                                       padding:  EdgeInsets.only(right: 0.0),
-                                       child:  Text("2023"),
-                                     )
-                                    
-                                  
+                                            // shape: MaterialStateProperty.all(
+                                            //     RoundedRectangleBorder(
+                                            //   borderRadius: BorderRadius.circular(25),
+
+                                            // )
+                                            // )
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pushNamed(context,
+                                                LoginScreen.routeName);
+                                          },
+                                          child: const Text("Add To Cart"),
+                                        ),
+                                      ],
+                                    ),
+                                   const SizedBox(width: 5,),
+                                    Row(
+                                      children: const[
+                                         Padding(
+                                          padding: EdgeInsets.only(right: 0.0),
+                                          child: Text("2023"),
+                                        
+                                        ),
+                                        SizedBox(width: 10,)
+                                      ],
+                                    )
                                   ],
                                 )),
                               ),
