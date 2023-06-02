@@ -135,20 +135,44 @@ class UserDataProvider {
     }
   }
 
-  Future<LoggedInUserInfo> getUserByPhoneNumber(String phoneNumber) async {
+  Future<GetUserInfoByPhoneNumber> getUserByPhoneNumber(String phoneNumber) async {
     try {
     
       final response = await http.get(
         Uri.parse(
-          "${Ip.ip}/userByPhoneNumber?phoneNumber=$phoneNumber",
+          "${Ip.ip}/userByPhoneNumber/$phoneNumber",
         ),
       );
       if (response.statusCode == 200) {
         print("status code one is ${response.statusCode}");
-        return LoggedInUserInfo.fromJson(jsonDecode(response.body));
+        return GetUserInfoByPhoneNumber.fromJson(jsonDecode(response.body));
       }
       print("status code two is ${response.statusCode}");
       throw Exception("Failed to fetch user");
+    } catch (e) {
+      print("the erros is ");
+      print(e.toString());
+      throw Exception(e.toString());
+    }
+  }
+  Future<bool> forgetPassword(String newPassword,String userId) async{
+    try {
+     
+      final response = await http.patch(Uri.parse("${Ip.ip}/forgotpassword/$userId"),
+      headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                
+              },
+      body: jsonEncode({
+        'password':newPassword
+      }));
+      if(response.statusCode == 201){
+        print('status code one is ${response.statusCode}');
+        return true;
+      }
+       print('status code two is ${response.statusCode}');
+      return false;
     } catch (e) {
       throw Exception(e.toString());
     }

@@ -9,6 +9,11 @@ class GetUserInfoEvent extends UserEvent {
   String id;
   GetUserInfoEvent({required this.id});
 }
+class ForgetPasswordEvent extends UserEvent{
+  String newPassword;
+  String userId;
+  ForgetPasswordEvent({required this.newPassword,required this.userId});
+}
 class GetUserByPhoneNumber extends UserEvent {
   String phoneNumber;
   GetUserByPhoneNumber({required this.phoneNumber});

@@ -21,7 +21,10 @@ class UserDataRepository {
     print("Get user info at repo");
     return userDataProvider.getUserInfo(id);
   }
-  Future<LoggedInUserInfo> getUserByPhoneNumber(String phoneNumber){
+  Future<GetUserInfoByPhoneNumber> getUserByPhoneNumber(String phoneNumber){
     return userDataProvider.getUserByPhoneNumber(phoneNumber);
+  }
+  Future<bool> forgetPassword(String newPassword,String userId){
+    return userDataProvider.forgetPassword(newPassword, userId);
   }
 }

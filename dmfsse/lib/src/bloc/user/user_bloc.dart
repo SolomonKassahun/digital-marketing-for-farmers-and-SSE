@@ -28,7 +28,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if(event is GetUserByPhoneNumber){
         emit (GetUserInfoInitial());
         try {
-           LoggedInUserInfo  user = await userDataRepository.getUserByPhoneNumber(event.phoneNumber);
+           GetUserInfoByPhoneNumber  user = await userDataRepository.getUserByPhoneNumber(event.phoneNumber);
            // ignore: unnecessary_null_comparison
            if(user != null){
                      emit (GetUserInfoByPhoneNumberSucess(user: user));
@@ -37,6 +37,22 @@ class UserBloc extends Bloc<UserEvent, UserState> {
                 message: "No internet. Failed to load user"));
         } catch (e) {
           emit (GetUserInfoFailure(message: e.toString()));
+        }
+      }
+      if(event is ForgetPasswordEvent){
+        emit (UserForgetPasswordInitial());
+        try {
+          bool forgetPassword = await userDataRepository.forgetPassword(event.newPassword, event.userId);
+         if(forgetPassword){
+          emit (UserForgetPasswordSuccess());
+         }
+         else{
+           emit(GetUserInfoFailure(
+                message: "Failed to forget password"));
+         }
+        } catch (e) {
+          emit(GetUserInfoFailure(
+                message: "Failed to forget password"));
         }
       }
     });

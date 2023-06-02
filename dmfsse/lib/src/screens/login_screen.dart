@@ -262,7 +262,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(),
                           TextButton(
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const GetUserInfo()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => GetUserInfo()));
                               },
                               child: const Text(
                                 "Forget Password",
