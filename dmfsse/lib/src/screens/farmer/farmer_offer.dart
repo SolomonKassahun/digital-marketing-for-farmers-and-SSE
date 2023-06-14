@@ -81,7 +81,7 @@ class _FarmerOfferState extends State<FarmerOffer> {
                                            Icon(Icons.local_offer),
                                          ],
                                        ),
-                                       Text(e.accepted,style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                       Text(e.accepted.toUpperCase(),style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                                        ElevatedButton(
                                               style: ButtonStyle(
                                                   backgroundColor:

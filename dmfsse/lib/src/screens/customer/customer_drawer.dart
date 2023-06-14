@@ -7,7 +7,11 @@ import 'package:flutter_share/flutter_share.dart';
 import '../../../local_storage/user_preference.dart';
 import '../../bloc/user/user_bloc.dart';
 import '../../models/login_info.dart';
+import '../common/widget/about_page.dart';
+import '../common/widget/faq.dart';
 import '../common/widget/help.dart';
+import '../common/widget/help_page.dart';
+import '../common/widget/settings.dart';
 import '../common/widget/user_profile.dart';
 
 class CustomerDrawer extends StatefulWidget {
@@ -91,36 +95,28 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
           
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text('Contact Us '),
-            leading: const Icon(Icons.contact_page),
+            title: const Text(' FAQs'),
+             leading: const Icon(Icons.help),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: ((context) => const  FAQPage())));
             },
           ),
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text('About '),
+            title: const Text('About us '),
             leading: const Icon(Icons.add_location),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: ((context) => const  AboutUsPage())));
             },
           ),
-          Divider(height: 10, color: Colors.white.withOpacity(0.6)),
-          ListTile(
-            title: const Text('Help'),
-            leading: const Icon(Icons.help),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => const Help())));
-            },
-          ),
+         
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
          
           ListTile(
             title: const Text('Settings'),
             leading: const Icon(Icons.settings),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: ((context) => const SettingsPage())));
             },
           ),
            Divider(height: 10, color: Colors.white.withOpacity(0.6)),

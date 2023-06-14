@@ -81,10 +81,17 @@ class _CustomerOfferState extends State<CustomerOffer> {
                                 child: Card(
                                   child: SizedBox(
                                     height: 70.0,
-                                    child: ListTile(
-                                        leading: const Icon(Icons.local_offer,color:  Color.fromARGB(255, 15, 23, 43),),
-                                        title: Text(e.offeredProduct.name,style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                                        trailing: (e.accepted == 'accepted')
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                         Row(
+                                         children: const [
+                                          SizedBox(width: 15,),
+                                           Icon(Icons.local_offer,color:  Color.fromARGB(255, 15, 23, 43),)
+                                         ],
+                                       ),
+                                       Text(e.accepted.toUpperCase(),style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                       (e.accepted == 'accepted')
                                             ? ElevatedButton(
                                                style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43),),
@@ -109,33 +116,14 @@ class _CustomerOfferState extends State<CustomerOffer> {
                                                           "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60",
                                                       customization:
                                                           "Thank for banking us.");
-                                                  // Chapa.paymentParameters(
-                                                  //     context: context,
-                                                  //     publicKey:
-                                                  //         'CHASECK_TEST-Zy6eSfeshRoHHsxDS4Ccf1dzuIgHIHtv',
-                                                  //     currency: 'ETB',
-                                                  //     amount:
-                                                  //         e.quantity.toString(),
-                                                  //     email:
-                                                  //         "${e.orderBy.firstName}${e.orderBy.lastName}@gmail.com",
-                                                  //     phone: "0953890542",
-                                                  //     firstName:
-                                                  //         e.orderBy.firstName,
-                                                  //     lastName:
-                                                  //         e.orderBy.lastName,
-                                                  //     txRef: e.id,
-                                                  //     title:
-                                                  //         "Payment for my favourite merchant",
-                                                  //     desc:
-                                                  //         'Thank for banking us.',
-                                                  //     namedRouteFallBack:
-                                                  //         '/customerHomepage');
+                                                 
                                                   showDialog(
                                                       context: context,
                                                       builder: (ctx) =>
                                                           PaymentAlertDialogBox(
                                                             paymentModel:
                                                                 offerModel,
+                                                                quantity: e.quantity,
                                                           ));
                                                 },
                                                 child: const Text("Payment"))
@@ -206,7 +194,10 @@ class _CustomerOfferState extends State<CustomerOffer> {
                                                       icon: const Icon(
                                                           Icons.delete),color: Colors.red,)
                                                 ],
-                                              )),
+                                              )
+                                      ],
+                                    )
+                                   
                                   ),
                                 ),
                               ),

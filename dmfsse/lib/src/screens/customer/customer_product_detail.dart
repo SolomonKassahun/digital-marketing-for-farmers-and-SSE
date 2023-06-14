@@ -128,6 +128,11 @@ class _CustomrProductDetailState extends State<CustomrProductDetail> {
                             ],
                           ),
                           ElevatedButton(
+                            style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 15, 23, 43),),
+                      
+                      
+                      ),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -159,7 +164,7 @@ class _CustomrProductDetailState extends State<CustomrProductDetail> {
                         },
                         child: Row(
                           children: [
-                           const Icon(Icons.call,size: 24,),
+                           const Icon(Icons.call,size: 24,color: Color.fromARGB(255, 15, 23, 43),),
                            const SizedBox(width: 10,),
                            Text(widget.product.postedBy!.phoneNumber.toString(),style: const TextStyle(color: Colors.black38,fontSize: 16),)
                           ],

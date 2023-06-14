@@ -141,7 +141,7 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                       style: TextStyle(color: Colors.black38),
                     ),
                     Text(
-                      widget.offer.accepted.toString(),
+                      widget.offer.accepted.toString().toUpperCase(),
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],

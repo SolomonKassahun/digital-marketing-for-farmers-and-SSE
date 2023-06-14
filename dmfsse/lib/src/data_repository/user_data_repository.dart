@@ -27,4 +27,7 @@ class UserDataRepository {
   Future<bool> forgetPassword(String newPassword,String userId){
     return userDataProvider.forgetPassword(newPassword, userId);
   }
+  Future<bool> updateProfile(ProfileUpdate profileUpdate){
+    return userDataProvider.updateProfile(profileUpdate);
+  }
 }

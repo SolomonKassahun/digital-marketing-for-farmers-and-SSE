@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dmfsse/src/bloc/offer/offer_bloc.dart';
 import 'package:dmfsse/src/bloc/offer/offer_state.dart';
 import 'package:dmfsse/src/models/offer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CustomerOfferDetail extends StatefulWidget {
   final Offer offer;
@@ -46,9 +48,50 @@ class _CustomerOfferDetailState extends State<CustomerOfferDetail> {
                     const SizedBox(
                       width: 20,
                     ),
-                    const CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/drawerPP.jpg'),
-                    ),
+                    CachedNetworkImage(
+                                                          fit: BoxFit.fill,
+                                                          height: 40.0,
+
+                                                          width: 40,
+
+                                                          imageUrl: widget.offer.offeredProduct.photo,
+                                                          // imageUrl: snapshot.data,
+                                                          imageBuilder: (context,
+                                                                  imageProvider) =>
+                                                              Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                4,
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                4,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              image: DecorationImage(
+                                                                  image:
+                                                                      imageProvider,
+                                                                  fit: BoxFit
+                                                                      .cover),
+                                                            ),
+                                                          ),
+                                                          placeholder: (context,
+                                                                  url) =>
+                                                              const Center(
+                                                                  child:
+                                                                      SpinKitCircle(
+                                                            color: Colors.blue,
+                                                          )),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              const Icon(
+                                                                  Icons.person),
+                                                        ),
                     const SizedBox(
                       width: 10,
                     ),

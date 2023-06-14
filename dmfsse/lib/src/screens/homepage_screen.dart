@@ -23,7 +23,7 @@ class _HomepageState extends State<Homepage> {
   TextEditingController searchController = TextEditingController();
   String? imageUrl;
   String searchTerm = "";
-  String _initialValue = "en";
+  String _initialValue = "am";
 
   @override
   Widget build(BuildContext context) {

@@ -135,9 +135,9 @@ class UserDataProvider {
     }
   }
 
-  Future<GetUserInfoByPhoneNumber> getUserByPhoneNumber(String phoneNumber) async {
+  Future<GetUserInfoByPhoneNumber> getUserByPhoneNumber(
+      String phoneNumber) async {
     try {
-    
       final response = await http.get(
         Uri.parse(
           "${Ip.ip}/userByPhoneNumber/$phoneNumber",
@@ -155,23 +155,49 @@ class UserDataProvider {
       throw Exception(e.toString());
     }
   }
-  Future<bool> forgetPassword(String newPassword,String userId) async{
+
+  Future<bool> updateProfile(ProfileUpdate profileUpdate) async {
+    
+    initState();
     try {
-     
-      final response = await http.patch(Uri.parse("${Ip.ip}/forgotpassword/$userId"),
-      headers: {
+      print(profileUpdate.id);
+      final response =
+          await http.patch(Uri.parse("${Ip.ip}/user/${profileUpdate.id}"),
+              headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                
+                'x-access-token': accessToken.toString()
               },
-      body: jsonEncode({
-        'password':newPassword
-      }));
-      if(response.statusCode == 201){
+              body: jsonEncode({
+                'firstName': profileUpdate.firstName,
+              'lastName': profileUpdate.lastName,
+                'phoneNumber': profileUpdate.phoneNumber
+              }));
+      if (response.statusCode == 201) {
         print('status code one is ${response.statusCode}');
         return true;
       }
-       print('status code two is ${response.statusCode}');
+      print('status code two is ${response.statusCode}');
+      return false;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<bool> forgetPassword(String newPassword, String userId) async {
+    try {
+      final response =
+          await http.patch(Uri.parse("${Ip.ip}/forgotpassword/$userId"),
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+              },
+              body: jsonEncode({'password': newPassword}));
+      if (response.statusCode == 201) {
+        print('status code one is ${response.statusCode}');
+        return true;
+      }
+      print('status code two is ${response.statusCode}');
       return false;
     } catch (e) {
       throw Exception(e.toString());

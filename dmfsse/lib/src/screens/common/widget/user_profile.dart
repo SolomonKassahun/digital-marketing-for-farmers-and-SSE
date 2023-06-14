@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dmfsse/src/screens/common/widget/user_profile_update.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -12,11 +13,12 @@ class UserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: const  Color.fromARGB(255, 15, 23, 43),
         title: const Center(child: Text("Profile")),
         actions: [
           TextButton(
               onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> UserProfileUpdate(loggedInUserInfo: loggedInUserInfo)));
                 print("profile update button clicked");
               },
               child: const Text(
@@ -34,7 +36,7 @@ class UserProfile extends StatelessWidget {
           children: [
             Container(
               height: 200,
-              color: const Color.fromRGBO(33, 150, 243, 1),
+              color: const Color.fromARGB(255, 15, 23, 43),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

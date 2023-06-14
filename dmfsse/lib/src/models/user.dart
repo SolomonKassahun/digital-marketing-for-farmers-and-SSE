@@ -47,3 +47,11 @@ class User {
         createdAt = json['createdAt'],
         updatedAt = json['updatedAt'];
 }
+
+class ProfileUpdate {
+  String id;
+  String firstName;
+  String lastName;
+  String phoneNumber;
+  ProfileUpdate({required this.id,required this.firstName,required this.lastName,required this.phoneNumber});
+}

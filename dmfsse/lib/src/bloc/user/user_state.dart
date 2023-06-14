@@ -9,9 +9,12 @@ class UserUpdateSucess extends UserState {
   User user;
   UserUpdateSucess({required this.user});
 }
+class UpdateSucess extends UserState{
+  ProfileUpdate profileUpdate;
+  UpdateSucess({required this.profileUpdate});
+}
 class UserForgetPasswordInitial extends UserState {}
 class UserForgetPasswordSuccess extends UserState{}
-
 class UserUpdateFailure extends UserState {
   String message;
   UserUpdateFailure({required this.message});

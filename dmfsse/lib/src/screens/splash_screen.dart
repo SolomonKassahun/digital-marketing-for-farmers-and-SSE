@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     UserPreference userPreference = UserPreference();
     userPreference.getUserInformation().then((value) async {
-      Timer(const Duration(milliseconds: 1000), () {
+      Timer(const Duration(milliseconds: 2000), () {
         if (value == null) {
           print("User is not logged in");
           Navigator.pushAndRemoveUntil(
@@ -67,17 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
             // Container(
             //   height: MediaQuery.of(context).size.height * 0.2,
             // ),
-            const Center(
-              child: Text(
-                'Welcome To DMFSSE',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 35,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            
 
             // Container(
             //   width: MediaQuery.of(context).size.width,
@@ -96,8 +86,8 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Container(
                 margin: const EdgeInsets.all(20),
                 child: const Text(
-                  "Shimeta",
-                  style: TextStyle(fontSize: 35, color: Colors.white),
+                  "SHEMETA",
+                  style: TextStyle(fontSize: 35, color: Colors.red),
                 ),
               ),
             ),
