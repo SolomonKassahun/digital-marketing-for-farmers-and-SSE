@@ -66,7 +66,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       Row(
                         children: [
                           Text(
-                            "ET Birr ${widget.product.price}",
+                            "ETB ${widget.product.price}",
                             style: const TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),

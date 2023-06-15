@@ -172,16 +172,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 150,
+                        height: MediaQuery.of(context).size.height * 0.25,
                         decoration: const BoxDecoration(
                             // image:
                             image: DecorationImage(
                                 image: AssetImage(
                                   'assets/images/logo-o.jpg',
                                 ),
-                                fit: BoxFit.cover)),
+                                fit: BoxFit.contain)),
                       ),
+
                       label,
+                      const SizedBox(height: 50,),
                       CustomLoginTextField(
                         // isObsecure: false,
                         textFieldName: "enter phone number",
