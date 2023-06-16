@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:dmfsse/generated/locale_keys.g.dart';
+
+import '../../../../generated/locale_keys.g.dart';
 
 class SearchFilterButton extends StatelessWidget {
   final TextEditingController searchController;
@@ -26,7 +27,7 @@ class SearchFilterButton extends StatelessWidget {
           filled: true,
           fillColor: const Color.fromARGB(255, 228, 225, 225),
           contentPadding: const EdgeInsets.all(8),
-          hintText: LocaleKeys.searchText.tr(),
+          hintText:LocaleKeys.searchText.tr(),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
               borderSide:

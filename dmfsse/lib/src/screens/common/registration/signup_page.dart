@@ -1,6 +1,8 @@
 import 'package:dmfsse/src/screens/common/registration/password_page.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../generated/locale_keys.g.dart';
 import '../widget/input_field.dart';
 import '../widget/roles_dropdown.dart';
 
@@ -35,10 +37,10 @@ class _SignupPageState extends State<SignupPage> {
   Widget _title() {
     return RichText(
       textAlign: TextAlign.center,
-      text: const TextSpan(children: [
+      text:  TextSpan(children: [
         TextSpan(
-          text: 'Create Your Account\n',
-          style: TextStyle(color: Colors.white, fontSize: 30),
+          text: '${LocaleKeys.creatYourAccountText.tr()}\n',
+          style: const TextStyle(color: Colors.white, fontSize: 30),
         ),
         // TextSpan(
         //   text: 'Register to access your account',
@@ -85,33 +87,33 @@ class _SignupPageState extends State<SignupPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          "First Name",
-                          style: TextStyle(
+                         Text(
+                          LocaleKeys.firstNameText.tr(),
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, color:  Color.fromARGB(255, 15, 23, 43)),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         InputTextFormField(
-                          hintTxt: 'Write first  name',
+                          hintTxt: LocaleKeys.firstNameText.tr(),
                           controller: firstNameController,
                           isRequired: false,
                           onChanged: (String value) {},
                           keyboardType: TextInputType.text,
-                          errorMessage: "first name",
+                          errorMessage: LocaleKeys.firstNameText.tr(),
                           obscureText: false,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter first name";
+                              return LocaleKeys.firstNameText.tr();
                             } else {
                               return null;
                             }
                           },
                         ),
-                        const Text(
-                          "Last Name",
-                          style: TextStyle(
+                         Text(
+                          LocaleKeys.lastNameText.tr(),
+                          style: const  TextStyle(
                               fontWeight: FontWeight.bold, color:  Color.fromARGB(255, 15, 23, 43)),
                         ),
                         const SizedBox(
@@ -119,24 +121,24 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         //  InputTextFormField(),
                         InputTextFormField(
-                          hintTxt: 'Write last name',
+                          hintTxt: LocaleKeys.lastNameText.tr(),
                           controller: lastNameController,
                           isRequired: false,
                           onChanged: (String value) {},
                           keyboardType: TextInputType.text,
-                          errorMessage: 'last name',
+                          errorMessage: LocaleKeys.creatYourAccountText.tr(),
                           obscureText: false,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter last name";
+                              return LocaleKeys.lastNameText.tr();
                             } else {
                               return null;
                             }
                           },
                         ),
-                        const Text(
-                          "Phone Number",
-                          style: TextStyle(
+                         Text(
+                          LocaleKeys.phoneNumberText.tr(),
+                          style: const  TextStyle(
                               fontWeight: FontWeight.bold, color:  Color.fromARGB(255, 15, 23, 43)),
                         ),
                         const SizedBox(
@@ -149,7 +151,7 @@ class _SignupPageState extends State<SignupPage> {
                           isRequired: false,
                           onChanged: (String value) {},
                           keyboardType: TextInputType.phone,
-                          errorMessage: "phone number",
+                          errorMessage: LocaleKeys.phoneNumberText.tr(),
                           obscureText: false,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -166,9 +168,9 @@ class _SignupPageState extends State<SignupPage> {
                             }
                           },
                         ),
-                        const Text(
-                          "Address",
-                          style: TextStyle(
+                         Text(
+                          LocaleKeys.addressText.tr(),
+                          style: const  TextStyle(
                               fontWeight: FontWeight.bold, color:  Color.fromARGB(255, 15, 23, 43)),
                         ),
                         const SizedBox(
@@ -176,16 +178,16 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         //  InputTextFormField(),
                         InputTextFormField(
-                          hintTxt: 'Write you address here',
+                          hintTxt: LocaleKeys.addressText.tr(),
                           controller: addressController,
                           isRequired: false,
                           onChanged: (String value) {},
                           keyboardType: TextInputType.text,
-                          errorMessage: "address",
+                          errorMessage: LocaleKeys.addressText.tr(),
                           obscureText: false,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter address";
+                              return LocaleKeys.addressText.tr();
                             } else {
                               return null;
                             }
@@ -233,7 +235,7 @@ class _SignupPageState extends State<SignupPage> {
                                     print('the roles is $role');
                                   }
                                 },
-                                child: const Text("Next")),
+                                child:  Text(LocaleKeys.nextText.tr())),
                           ),
                         )
                       ],

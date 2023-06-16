@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dmfsse/src/service/firebase_service.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../../generated/locale_keys.g.dart';
 import '../../../models/product.dart';
 import '../../login_screen.dart';
 
@@ -22,7 +24,7 @@ class _ProductDetailState extends State<ProductDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Product Detail"),
+          title:  Text(LocaleKeys.productDetialText.tr()),
           backgroundColor: const  Color.fromARGB(255, 15, 23, 43),
         ),
         body: SizedBox(

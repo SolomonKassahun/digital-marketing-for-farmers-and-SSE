@@ -68,7 +68,7 @@ class CustomLoginTextField extends StatelessWidget {
         ),
        validator: (values){
         if(values == null || values.isEmpty){
-          return 'please enter $errorMessage';
+          return '$errorMessage';
         }
        },
       ),

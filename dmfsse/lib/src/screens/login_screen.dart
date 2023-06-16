@@ -5,11 +5,13 @@ import 'package:dmfsse/src/bloc/Auth/auth_state.dart';
 import 'package:dmfsse/src/models/login_info.dart';
 import 'package:dmfsse/src/screens/customer/customer_homepage.dart';
 import 'package:dmfsse/src/screens/farmer/farmer_homepage.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
+import '../../generated/locale_keys.g.dart';
 import 'auth/fireabase_verification_screen.dart';
 import 'common/widget/custom_login_textfield.dart';
 import 'common/widget/get_user_info.dart';
@@ -186,21 +188,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 50,),
                       CustomLoginTextField(
                         // isObsecure: false,
-                        textFieldName: "enter phone number",
+                        textFieldName: LocaleKeys.phoneNumberText.tr(),
                         controller: phoneController,
-                        errorMessage: 'Phone number?',
+                        errorMessage: LocaleKeys.phoneNumberText.tr(),
                         icon: Icons.phone,
                         isDisabled: true,
 
                         validator: (value) {
                           if (value.isEmpty || value.toString().length < 10) {
-                            return "enter username";
+                            return  LocaleKeys.phoneNumberText.tr();
                           } else {
                             return null;
                           }
                         },
                         obsecureText: false,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
                       ),
                       const SizedBox(
                         height: 15,
@@ -208,19 +210,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       CustomLoginTextField(
                         isPassword: true,
                         isDisabled: true,
-                        errorMessage: 'password?',
+                        errorMessage: LocaleKeys.passwordText.tr(),
                         isObscured: (value) {
                           setState(() {
                             _isObscured = !_isObscured;
                           });
                         },
                         keyboardType: TextInputType.text,
-                        textFieldName: "enter password",
+                        textFieldName: LocaleKeys.passwordText.tr(),
                         controller: passwordController,
                         icon: Icons.lock,
                         validator: (value) {
                           if (value.isEmpty || value.toString().length < 5) {
-                            return "enter password";
+                            return LocaleKeys.passwordText.tr();
                           } else {
                             return null;
                           }
@@ -253,7 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ? const CircularProgressIndicator(
                                     color: Colors.white,
                                   )
-                                : const Text("Log in")),
+                                :  Text(LocaleKeys.logInText.tr())),
                       ),
                       const SizedBox(
                         height: 15,
@@ -266,9 +268,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => GetUserInfo()));
                               },
-                              child: const Text(
-                                "Forget Password",
-                                style: TextStyle(color:  Color.fromARGB(255, 15, 23, 43)),
+                              child:  Text(
+                                LocaleKeys.forgetPasswordText.tr(),
+                                style: const  TextStyle(color:  Color.fromARGB(255, 15, 23, 43)),
                               )),
                         ],
                       ),
@@ -278,15 +280,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("New user?"),
+                           Text("${LocaleKeys.newUserText.tr()} ?"),
                           TextButton(
                               onPressed: () {
                                 Navigator.pushNamed(context, '/registration');
                               },
-                              child: const Text(
-                                "Sign up",
-                                style: TextStyle(
-                                    color:  Color.fromARGB(255, 15, 23, 43), fontSize: 20),
+                              child:  Text(
+                                LocaleKeys.signupText.tr(),
+                                style: const TextStyle(
+                                    color:  Colors.blue, fontSize: 20),
                               ))
                         ],
                       )

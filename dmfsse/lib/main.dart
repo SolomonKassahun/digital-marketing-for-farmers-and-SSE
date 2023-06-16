@@ -40,7 +40,7 @@ void main() async {
   Bloc.observer = AppBlocObserver();
   runApp(EasyLocalization(
       path: 'assets/translations',
-      supportedLocales: const [Locale('am'), Locale('en'), Locale('oro')],
+      supportedLocales: const [Locale('am'), Locale('en')],
       fallbackLocale: const Locale('en'),
       startLocale: const Locale('am'),
       saveLocale: true,

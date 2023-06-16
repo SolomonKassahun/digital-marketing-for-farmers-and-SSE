@@ -4,8 +4,11 @@ import 'package:dmfsse/src/bloc/product/product_state.dart';
 import 'package:dmfsse/src/models/product.dart';
 import 'package:dmfsse/src/screens/farmer/add_product_detail.dart';
 import 'package:dmfsse/src/screens/farmer/product_update.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../generated/locale_keys.g.dart';
 
 class AddProductPage extends StatefulWidget {
   const AddProductPage({super.key});
@@ -92,8 +95,8 @@ class _AddProductPageState extends State<AddProductPage> {
                                                           context: context,
                                                           builder: (ctx) =>
                                                               AlertDialog(
-                                                            title: const Text(
-                                                                "Product Deleted"),
+                                                            title:  Text(
+                                                                LocaleKeys.productDeleteText.tr()),
                                                             content: const Text(
                                                                 "Do you want to delete product?"),
                                                             actions: <Widget>[
@@ -112,8 +115,8 @@ class _AddProductPageState extends State<AddProductPage> {
                                                                       const EdgeInsets
                                                                           .all(14),
                                                                   child:
-                                                                      const Text(
-                                                                          "Yes"),
+                                                                       Text(
+                                                                          LocaleKeys.yesText.tr()),
                                                                 ),
                                                               ),
                                                               TextButton(
@@ -128,8 +131,8 @@ class _AddProductPageState extends State<AddProductPage> {
                                                                       const EdgeInsets
                                                                           .all(14),
                                                                   child:
-                                                                      const Text(
-                                                                          "No"),
+                                                                       Text(
+                                                                          LocaleKeys.noText.tr()),
                                                                 ),
                                                               ),
                                                             ],
@@ -174,7 +177,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ))),
-                child: const Text("Add Product")),
+                child:  Text(LocaleKeys.addProductText.tr())),
           ),
         )
       ]),

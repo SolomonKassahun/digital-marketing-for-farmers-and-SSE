@@ -1,7 +1,9 @@
 import 'package:dmfsse/src/screens/customer/customer_deals.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../../bloc/product/product_bloc.dart';
 import '../../bloc/product/product_event.dart';
 import '../common/widget/list_of_product.dart';
@@ -53,10 +55,10 @@ class _CustomerHomepageState extends State<CustomerHomepage> {
       ),
       body: getSelectedWidget(selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.shop), label: "Shop"),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: "Message")
+        items:  <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon:const Icon(Icons.home), label: LocaleKeys.homeText.tr()),
+           BottomNavigationBarItem(icon: const Icon(Icons.shop), label: LocaleKeys.yourOfferText.tr()),
+          BottomNavigationBarItem(icon: const Icon(Icons.message), label: LocaleKeys.messageText.tr())
         ],
         currentIndex: selectedIndex,
         selectedItemColor: Colors.blue,

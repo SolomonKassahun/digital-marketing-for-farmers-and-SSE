@@ -1,9 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dmfsse/src/bloc/user/user_state.dart';
 import 'package:dmfsse/src/screens/homepage_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../../../local_storage/user_preference.dart';
 import '../../bloc/user/user_bloc.dart';
 import '../../models/login_info.dart';
@@ -64,15 +68,34 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
                     ? "+251${loggedInUserInfo!.phoneNumber.toString().substring(1)}"
                     : "+251",
                 style: const TextStyle(color: Colors.white)),
-            currentAccountPicture: const CircleAvatar(
-              backgroundImage: AssetImage('assets/images/drawerPP.jpg'),
-            ),
+            currentAccountPicture: CachedNetworkImage(
+                        fit: BoxFit.fill,
+                        height: 200.0,
+                        width: MediaQuery.of(context).size.width,
+                        imageUrl: loggedInUserInfo!.profilePicture.toString(),
+                        // imageUrl: snapshot.data,
+                        imageBuilder: (context, imageProvider) => Container(
+                          width: MediaQuery.of(context).size.width * 4,
+                          height: MediaQuery.of(context).size.height * 4,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover),
+                          ),
+                        ),
+                        placeholder: (context, url) => const Center(
+                            child: SpinKitCircle(
+                          color: Colors.white,
+                        )),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
             decoration: const BoxDecoration(
               color:  Color.fromARGB(255, 15, 23, 43),
             ),
           ),
           ListTile(
-            title: const Text('Homepage'),
+            title:  Text(LocaleKeys.homeText.tr()),
             leading: const Icon(Icons.home),
             onTap: () {
               Navigator.pop(context);
@@ -80,7 +103,7 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
           ),
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text('Profile'),
+            title:  Text(LocaleKeys.profileText.tr()),
             leading: const Icon(Icons.person),
             onTap: () {
               Navigator.push(
@@ -95,7 +118,7 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
           
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text(' FAQs'),
+            title:  Text(LocaleKeys.faqText.tr()),
              leading: const Icon(Icons.help),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: ((context) => const  FAQPage())));
@@ -103,7 +126,7 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
           ),
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text('About us '),
+            title:  Text(LocaleKeys.aboutUsText.tr()),
             leading: const Icon(Icons.add_location),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: ((context) => const  AboutUsPage())));
@@ -113,7 +136,7 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
          
           ListTile(
-            title: const Text('Settings'),
+            title:  Text(LocaleKeys.settingsText.tr()),
             leading: const Icon(Icons.settings),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: ((context) => const SettingsPage())));
@@ -121,7 +144,7 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
           ),
            Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text('Share '),
+            title:  Text(LocaleKeys.settingsText.tr()),
             leading: const Icon(Icons.share),
             onTap: () {
               shareApp();
@@ -132,7 +155,7 @@ class _CustomerDrawerState extends State<CustomerDrawer> {
           Container(
             alignment: Alignment.bottomCenter,
             child: ListTile(
-              title: const Text('Log out'),
+              title:  Text(LocaleKeys.logOutText.tr()),
               leading: const Icon(Icons.logout),
               onTap: () {
                 UserPreference userPreference = UserPreference();

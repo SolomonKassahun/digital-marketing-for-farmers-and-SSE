@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dmfsse/src/bloc/user/user_state.dart';
 import 'package:dmfsse/src/screens/homepage_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../../../local_storage/user_preference.dart';
 import '../../bloc/user/user_bloc.dart';
 import '../../bloc/user/user_event.dart';
@@ -74,7 +76,8 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
                     ? "+251${loggedInUserInfo!.phoneNumber.toString().substring(1)}"
                     : "+251",
                 style: const TextStyle(color: Colors.white)),
-                currentAccountPicture:  CachedNetworkImage(
+                currentAccountPicture:
+                 CachedNetworkImage(
                         fit: BoxFit.fill,
                         height: 200.0,
                         width: MediaQuery.of(context).size.width,
@@ -102,7 +105,7 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
             ),
           ),
          ListTile(
-            title: const Text('Homepage'),
+            title:  Text(LocaleKeys.homepageText.tr()),
             leading: const Icon(Icons.home),
             onTap: () {
               Navigator.pop(context);
@@ -110,7 +113,7 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
           ),
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text('Profile'),
+            title:  Text(LocaleKeys.profileText.tr()),
             leading: const Icon(Icons.person),
             onTap: () {
               Navigator.push(
@@ -124,7 +127,7 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
           ),
            Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text(' FAQs'),
+            title:  Text(LocaleKeys.faqText.tr()),
              leading: const Icon(Icons.help),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: ((context) => const  FAQPage())));
@@ -134,7 +137,7 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
          
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text('About us '),
+            title:  Text(LocaleKeys.aboutUsText.tr()),
             leading: const Icon(Icons.add_location),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: ((context) => const  AboutUsPage())));
@@ -144,7 +147,7 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
           Divider(height: 10, color: Colors.white.withOpacity(0.6)),
          
           ListTile(
-            title: const Text('Settings'),
+            title:  Text(LocaleKeys.settingsText.tr()),
             leading: const Icon(Icons.settings),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: ((context) => const SettingsPage())));
@@ -152,7 +155,7 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
           ),
            Divider(height: 10, color: Colors.white.withOpacity(0.6)),
           ListTile(
-            title: const Text('Share '),
+            title:  Text(LocaleKeys.shareText.tr()),
             leading: const Icon(Icons.share),
             onTap: () {
              shareApp();
@@ -162,7 +165,7 @@ class _FarmerDrawerState extends State<FarmerDrawer> {
           Container(
             alignment: Alignment.bottomCenter,
             child: ListTile(
-              title: const Text('Log out'),
+              title:  Text(LocaleKeys.logOutText.tr()),
               leading: const Icon(Icons.logout),
               onTap: () {
                 UserPreference userPreference = UserPreference();

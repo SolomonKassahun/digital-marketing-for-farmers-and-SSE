@@ -2,10 +2,12 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dmfsse/local_storage/user_preference.dart';
 import 'package:dmfsse/src/screens/homepage_screen.dart';
 import 'package:dmfsse/src/screens/sse/sse_homepage.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../../models/login_info.dart';
 import '../customer/customer_homepage.dart';
 import '../farmer/farmer_homepage.dart';
@@ -150,11 +152,11 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                 ),
               ),
               const SizedBox(height: 8),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
+               Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
-                  'Phone Number Verification',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  LocaleKeys.phoneNumberVerficationText.tr(),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -163,7 +165,7 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                     const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
                 child: RichText(
                   text: TextSpan(
-                      text: "Enter the code sent to ",
+                      text: '${LocaleKeys.enterCodeText.tr()} ',
                       children: [
                         TextSpan(
                             text:
@@ -240,9 +242,9 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                     onPressed: () {
                       
                     },
-                    child: const Text(
-                      "RESEND",
-                      style: TextStyle(
+                    child:  Text(
+                      LocaleKeys.resendText.tr(),
+                      style: const  TextStyle(
                           color:  Color.fromARGB(255, 15, 23, 43),
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
@@ -273,7 +275,7 @@ class _FirebaseAuthScreenState extends State<FirebaseAuthScreen> {
                       ? const CircularProgressIndicator(
                           color: Colors.white,
                         )
-                      : const Text("Verify Number"),
+                      :  Text(LocaleKeys.verfiyNumberText.tr()),
                 ),
               )
             ],

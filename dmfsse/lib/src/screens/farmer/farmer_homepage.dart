@@ -3,9 +3,11 @@ import 'package:dmfsse/src/screens/farmer/farmer_product_list.dart';
 import 'package:dmfsse/src/screens/farmer/training.dart';
 import 'package:dmfsse/src/screens/common/widget/message.dart';
 import 'package:dmfsse/src/screens/farmer/product_list.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../../bloc/product/product_bloc.dart';
 import '../../bloc/product/product_event.dart';
 import 'farmer_dashboard.dart';
@@ -55,13 +57,13 @@ class _FarmerHomepageState extends State<FarmerHomepage> {
       drawer: const Drawer(child: FarmerDrawer()),
       body: _getItemWidget(selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        items: const  <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.post_add), label: "Product"),
-          BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart,),label: "Offer"),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: "Message"),
+        items:   <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon:const  Icon(Icons.home), label: LocaleKeys.homeText.tr()),
+          BottomNavigationBarItem(icon: const Icon(Icons.post_add), label: LocaleKeys.addProductText.tr()),
+          BottomNavigationBarItem(icon: const Icon(Icons.add_shopping_cart,),label: LocaleKeys.offerText.tr()),
+          BottomNavigationBarItem(icon: const Icon(Icons.message), label: LocaleKeys.messageText.tr()),
           BottomNavigationBarItem(
-              icon: Icon(Icons.cast_for_education), label: "Course"),
+              icon: const Icon(Icons.cast_for_education), label: LocaleKeys.courseText.tr()),
         ],
         currentIndex: selectedIndex,
         selectedItemColor: Colors.blue,
