@@ -4,8 +4,11 @@ import 'package:dmfsse/src/bloc/offer/offer_state.dart';
 import 'package:dmfsse/src/models/offer.dart';
 import 'package:dmfsse/src/screens/farmer/farmer_homepage.dart';
 import 'package:dmfsse/src/screens/farmer/farmer_offer.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../generated/locale_keys.g.dart';
 
 class FarmerOfferDetail extends StatefulWidget {
   final Offer offer;
@@ -97,18 +100,18 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                 const SizedBox(
                   height: 30,
                 ),
-                const Text(
-                  "Request Detail",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                 Text(
+                 LocaleKeys.requestdDetialText.tr(),
+                  style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Quantity:   ",
-                      style: TextStyle(color: Colors.black38),
+                     Text(
+                      "${LocaleKeys.quantityText.tr()}:   ",
+                      style: const  TextStyle(color: Colors.black38),
                     ),
                     Text(
                       widget.offer.quantity.toString(),
@@ -121,9 +124,9 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Offer Price:    ",
-                      style: TextStyle(color: Colors.black38),
+                     Text(
+                      "${LocaleKeys.offerPriceText.tr()}:    ",
+                      style: const TextStyle(color: Colors.black38),
                     ),
                     Text(
                       widget.offer.offerPrice.toString(),
@@ -136,12 +139,12 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Status:    ",
-                      style: TextStyle(color: Colors.black38),
+                     Text(
+                      "${LocaleKeys.statusDetialText.tr()}:    ",
+                      style: const TextStyle(color: Colors.black38),
                     ),
                     Text(
-                      widget.offer.accepted.toString(),
+                      widget.offer.accepted.toString().toUpperCase(),
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],
@@ -149,18 +152,18 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                 const SizedBox(
                   height: 30,
                 ),
-                const Text(
-                  "Product Detail",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                 Text(
+                  LocaleKeys.productDetailText.tr(),
+                  style:const  TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Product Name:   ",
-                      style: TextStyle(color: Colors.black38),
+                     Text(
+                      "${LocaleKeys.productNameText.tr()}:   ",
+                      style: const TextStyle(color: Colors.black38),
                     ),
                     Text(
                       widget.offer.offeredProduct.name.toString(),
@@ -173,9 +176,9 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Product Price:    ",
-                      style: TextStyle(color: Colors.black38),
+                     Text(
+                      "${LocaleKeys.productpriceText.tr()}:    ",
+                      style: const TextStyle(color: Colors.black38),
                     ),
                     Text(
                       widget.offer.offeredProduct.price.toString(),
@@ -214,7 +217,7 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
-                            : const Text("Accept Offer")),
+                            :  Text(LocaleKeys.acceptOfferText.tr())),
                     ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -240,7 +243,7 @@ class _FarmerOfferDetailState extends State<FarmerOfferDetail> {
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
-                            : const Text("Reject Offer"))
+                            :  Text(LocaleKeys.rejectOfferText.tr()))
                   ],
                 )
               ],

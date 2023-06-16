@@ -1,7 +1,9 @@
+import '../../models/user.dart';
+
 class UserEvent {}
 
 class UpdateUserEvent extends UserEvent {
-  String id;
+  ProfileUpdate id;
   UpdateUserEvent({required this.id});
 }
 

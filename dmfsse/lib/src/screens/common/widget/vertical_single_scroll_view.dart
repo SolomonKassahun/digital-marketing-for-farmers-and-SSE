@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../../generated/locale_keys.g.dart';
 import '../../../models/product.dart';
 import '../../../service/firebase_service.dart';
 import '../../login_screen.dart';
@@ -154,7 +156,7 @@ class _VerticalScrollerProductState extends State<VerticalScrollerProduct> {
                                             Navigator.pushNamed(context,
                                                 LoginScreen.routeName);
                                           },
-                                          child: const Text("Add To Cart"),
+                                          child:  Text(LocaleKeys.addToCartText.tr()),
                                         ),
                                       ],
                                     ),

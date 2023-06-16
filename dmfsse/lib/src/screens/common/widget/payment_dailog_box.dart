@@ -5,11 +5,15 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../bloc/chapa_payment/payment_bloc.dart';
 import '../../../bloc/chapa_payment/payment_event.dart';
 import '../../../bloc/chapa_payment/payment_state.dart';
+import '../../../bloc/offer/offer_bloc.dart';
+import '../../../bloc/offer/offer_event.dart';
+import '../../../models/offer.dart';
 import '../../../models/payment_model.dart';
 
 class PaymentAlertDialogBox extends StatefulWidget {
   final PaymentModel paymentModel;
-  const PaymentAlertDialogBox({required this.paymentModel, super.key});
+  final int quantity;
+  const PaymentAlertDialogBox({required this.paymentModel,required this.quantity, super.key});
 
   @override
   State<PaymentAlertDialogBox> createState() => _PaymentAlertDialogBoxState();
@@ -64,6 +68,16 @@ class _PaymentAlertDialogBoxState extends State<PaymentAlertDialogBox> {
         actions: <Widget>[
           TextButton(
             onPressed: () {
+              OfferUpdateData offerUpdateData = OfferUpdateData(
+                              offerId: widget.paymentModel.txtRef,
+                              accepted: "completed",
+                              canRate: '',
+                              quantity: widget.quantity,
+                              offerPrice: int.parse(widget.paymentModel.amount));
+                          AcceptOfferEvent acceptOfferEvent =
+                              AcceptOfferEvent(offer: offerUpdateData);
+                          BlocProvider.of<OfferBloc>(context)
+                              .add(acceptOfferEvent);
               BlocProvider.of<PaymentBloc>(context)
                   .add(PayPaymentEvent(paymentModel: widget.paymentModel));
             },

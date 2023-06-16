@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../../bloc/product/product_bloc.dart';
 import '../../bloc/product/product_state.dart';
 
@@ -49,7 +51,7 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
                         borderRadius: BorderRadius.circular(20),
                         borderSide: const BorderSide(
                             color: Color.fromARGB(255, 228, 225, 225))),
-                    hintText: "Search...",
+                    hintText: LocaleKeys.searchText.tr(),
                     hintStyle: const TextStyle(
                         color: Color.fromARGB(255, 112, 110, 110)),
                     prefixIcon: Icon(

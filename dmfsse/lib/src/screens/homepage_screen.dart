@@ -23,7 +23,7 @@ class _HomepageState extends State<Homepage> {
   TextEditingController searchController = TextEditingController();
   String? imageUrl;
   String searchTerm = "";
-  String _initialValue = "en";
+  String _initialValue = "am";
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +147,7 @@ class _HomepageState extends State<Homepage> {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25.0))),
                 backgroundColor: const Color.fromARGB(255, 15, 23, 43),
-            child: Text(LocaleKeys.loginText.tr()),
+            child: Text(LocaleKeys.logInText.tr()),
           )),
     );
   }

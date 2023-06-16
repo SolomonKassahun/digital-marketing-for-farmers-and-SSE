@@ -29,10 +29,11 @@ Map<String, dynamic> productBody = {};
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        title:   Text(widget.product.name.toString()),
+        backgroundColor: const Color.fromARGB(255, 15, 23, 43),
+        title:   Text(widget.product.name.toString(),style: const TextStyle(color: Colors.white),),
       ),
       body: Container(
-        color: Colors.blue,
+        color: const Color.fromARGB(255, 15, 23, 43),
         width: double.infinity,
         height: double.infinity,
         child: Column(
@@ -81,7 +82,7 @@ Map<String, dynamic> productBody = {};
                                 "Name",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Color.fromARGB(255, 15, 23, 43)),
                               ),
                                 const SizedBox(
                                 height: 10,
@@ -113,7 +114,7 @@ Map<String, dynamic> productBody = {};
                                 "Price",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Color.fromARGB(255, 15, 23, 43)),
                               ),
                                 const SizedBox(
                                 height: 10,
@@ -142,7 +143,7 @@ Map<String, dynamic> productBody = {};
                                 "Amount",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Color.fromARGB(255, 15, 23, 43)),
                               ),
                                 const SizedBox(
                                 height: 10,
@@ -172,7 +173,7 @@ Map<String, dynamic> productBody = {};
                                 "Description",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Color.fromARGB(255, 15, 23, 43)),
                               ),
                                 const SizedBox(
                                 height: 10,
@@ -242,7 +243,7 @@ Map<String, dynamic> productBody = {};
                                     style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all(
-                                                Colors.blue),
+                                                const Color.fromARGB(255, 15, 23, 43)),
                                         shape: MaterialStateProperty.all(
                                             RoundedRectangleBorder(
                                           borderRadius:

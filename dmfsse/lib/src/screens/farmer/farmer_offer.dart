@@ -1,8 +1,10 @@
 import 'package:dmfsse/src/bloc/offer/offer_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../../bloc/offer/offer_event.dart';
 import '../../bloc/offer/offer_state.dart';
 import '../../models/payment_model.dart';
@@ -32,11 +34,11 @@ class _FarmerOfferState extends State<FarmerOffer> {
           const SizedBox(
             height: 20,
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 20),
+           Padding(
+            padding: const EdgeInsets.only(left: 20),
             child: Text(
-              "Your Offer",
-              style: TextStyle(fontSize: 30),
+              LocaleKeys.yourOfferText.tr(),
+              style:const  TextStyle(fontSize: 30),
             ),
           ),
           const SizedBox(
@@ -81,7 +83,7 @@ class _FarmerOfferState extends State<FarmerOffer> {
                                            Icon(Icons.local_offer),
                                          ],
                                        ),
-                                       Text(e.accepted,style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                       Text(e.accepted.toUpperCase(),style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                                        ElevatedButton(
                                               style: ButtonStyle(
                                                   backgroundColor:
@@ -110,7 +112,7 @@ class _FarmerOfferState extends State<FarmerOffer> {
                                                 //    Navigator.push(context, MaterialPageRoute(builder: (context) => FarmerOfferDetail(offer: e,)));
                                                 // }
                                               },
-                                              child: const Text("View Detail")),
+                                              child:  Text(LocaleKeys.viewDetialText.tr())),
                                     ],
                                   )
                                   

@@ -1,8 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dmfsse/src/bloc/offer/offer_bloc.dart';
 import 'package:dmfsse/src/bloc/offer/offer_state.dart';
 import 'package:dmfsse/src/models/offer.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import '../../../generated/locale_keys.g.dart';
 
 class CustomerOfferDetail extends StatefulWidget {
   final Offer offer;
@@ -33,7 +38,7 @@ class _CustomerOfferDetailState extends State<CustomerOfferDetail> {
                 const Divider(
                   height: 5,
                 ),
-                const Text(
+                const  Text(
                   "You",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
@@ -46,9 +51,50 @@ class _CustomerOfferDetailState extends State<CustomerOfferDetail> {
                     const SizedBox(
                       width: 20,
                     ),
-                    const CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/drawerPP.jpg'),
-                    ),
+                    CachedNetworkImage(
+                                                          fit: BoxFit.fill,
+                                                          height: 40.0,
+
+                                                          width: 40,
+
+                                                          imageUrl: widget.offer.offeredProduct.photo,
+                                                          // imageUrl: snapshot.data,
+                                                          imageBuilder: (context,
+                                                                  imageProvider) =>
+                                                              Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                4,
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                4,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              image: DecorationImage(
+                                                                  image:
+                                                                      imageProvider,
+                                                                  fit: BoxFit
+                                                                      .cover),
+                                                            ),
+                                                          ),
+                                                          placeholder: (context,
+                                                                  url) =>
+                                                              const Center(
+                                                                  child:
+                                                                      SpinKitCircle(
+                                                            color: Colors.blue,
+                                                          )),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              const Icon(
+                                                                  Icons.person),
+                                                        ),
                     const SizedBox(
                       width: 10,
                     ),
@@ -68,18 +114,18 @@ class _CustomerOfferDetailState extends State<CustomerOfferDetail> {
                 const SizedBox(
                   height: 30,
                 ),
-                const Text(
-                  "Request Detail",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                 Text(
+                   LocaleKeys.requestdDetialText.tr(),
+                  style:  const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Quantity:   ",
-                      style: TextStyle(color: Colors.black38),
+                     Text(
+                      "${LocaleKeys.quantityText.tr()}:   ",
+                      style: const TextStyle(color: Colors.black38),
                     ),
                     Text(
                       widget.offer.quantity.toString(),
@@ -92,9 +138,9 @@ class _CustomerOfferDetailState extends State<CustomerOfferDetail> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Offer Price:    ",
-                      style: TextStyle(color: Colors.black38),
+                     Text(
+                      "${LocaleKeys.offerPriceText.tr()}:    ",
+                      style: const TextStyle(color: Colors.black38),
                     ),
                     Text(
                       widget.offer.offerPrice.toString(),
@@ -105,18 +151,18 @@ class _CustomerOfferDetailState extends State<CustomerOfferDetail> {
                 const SizedBox(
                   height: 30,
                 ),
-                const Text(
-                  "Product Detail",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                 Text(
+                  LocaleKeys.productDetailText.tr(),
+                  style:const  TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Product Name:   ",
-                      style: TextStyle(color: Colors.black38),
+                     Text(
+                      "${LocaleKeys.productNameText.tr()}:   ",
+                      style:const  TextStyle(color: Colors.black38),
                     ),
                     Text(
                       widget.offer.offeredProduct.name.toString(),
@@ -129,9 +175,9 @@ class _CustomerOfferDetailState extends State<CustomerOfferDetail> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Product Price:    ",
-                      style: TextStyle(color: Colors.black38),
+                     Text(
+                      "${LocaleKeys.productpriceText.tr()}:    ",
+                      style: const  TextStyle(color: Colors.black38),
                     ),
                     Text(
                       widget.offer.offeredProduct.price.toString(),

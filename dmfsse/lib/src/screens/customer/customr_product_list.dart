@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../../models/product.dart';
 import 'customer_offer_room.dart';
 import 'customer_product_detail.dart';
@@ -167,7 +169,7 @@ class _CustomerProductListState extends State<CustomerProductList> {
                                                           product: product,
                                                         )));
                                           },
-                                          child: const Text("Buy product"),
+                                          child:  Text(LocaleKeys.buyProductText.tr()),
                                         ),
                                         const SizedBox(
                                           width: 2,

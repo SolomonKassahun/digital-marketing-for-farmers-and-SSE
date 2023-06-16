@@ -25,34 +25,46 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           throw Exception(e);
         }
       }
-      if(event is GetUserByPhoneNumber){
-        emit (GetUserInfoInitial());
+      if (event is GetUserByPhoneNumber) {
+        emit(GetUserInfoInitial());
         try {
-           GetUserInfoByPhoneNumber  user = await userDataRepository.getUserByPhoneNumber(event.phoneNumber);
-           // ignore: unnecessary_null_comparison
-           if(user != null){
-                     emit (GetUserInfoByPhoneNumberSucess(user: user));
-           } 
-           emit(GetUserInfoFailure(
-                message: "No internet. Failed to load user"));
+          GetUserInfoByPhoneNumber user =
+              await userDataRepository.getUserByPhoneNumber(event.phoneNumber);
+          // ignore: unnecessary_null_comparison
+          if (user != null) {
+            emit(GetUserInfoByPhoneNumberSucess(user: user));
+          }
+          emit(GetUserInfoFailure(message: "No internet. Failed to load user"));
         } catch (e) {
-          emit (GetUserInfoFailure(message: e.toString()));
+          emit(GetUserInfoFailure(message: e.toString()));
         }
       }
-      if(event is ForgetPasswordEvent){
-        emit (UserForgetPasswordInitial());
+      if (event is UpdateUserEvent) {
+        emit(GetUserInfoInitial());
         try {
-          bool forgetPassword = await userDataRepository.forgetPassword(event.newPassword, event.userId);
-         if(forgetPassword){
-          emit (UserForgetPasswordSuccess());
-         }
-         else{
-           emit(GetUserInfoFailure(
-                message: "Failed to forget password"));
-         }
+          final updateProfile =
+              await userDataRepository.updateProfile(event.id);
+          if (updateProfile) {
+            emit(UpdateSucess(profileUpdate: event.id));
+          } else {
+            emit(GetUserInfoFailure(message: "Failed to update"));
+          }
         } catch (e) {
-          emit(GetUserInfoFailure(
-                message: "Failed to forget password"));
+          emit(GetUserInfoFailure(message: "Failed to update"));
+        }
+      }
+      if (event is ForgetPasswordEvent) {
+        emit(UserForgetPasswordInitial());
+        try {
+          bool forgetPassword = await userDataRepository.forgetPassword(
+              event.newPassword, event.userId);
+          if (forgetPassword) {
+            emit(UserForgetPasswordSuccess());
+          } else {
+            emit(GetUserInfoFailure(message: "Failed to forget password"));
+          }
+        } catch (e) {
+          emit(GetUserInfoFailure(message: "Failed to forget password"));
         }
       }
     });

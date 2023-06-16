@@ -3,9 +3,11 @@ import 'package:dmfsse/src/bloc/order/order_event.dart';
 import 'package:dmfsse/src/bloc/order/order_state.dart';
 import 'package:dmfsse/src/screens/customer/customer_homepage.dart';
 import 'package:dmfsse/src/screens/customer/customer_offer.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../../models/order.dart';
 import '../../models/product.dart';
 import '../common/widget/input_field.dart';
@@ -80,9 +82,9 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                "Quantity",
-                                style: TextStyle(
+                               Text(
+                               LocaleKeys.quantityText.tr(),
+                                style:const  TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color:  Color.fromARGB(255, 15, 23, 43)),
                               ),
@@ -90,16 +92,16 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                                 height: 10.0,
                               ),
                               InputTextFormField(
-                                hintTxt: 'quantity',
+                                hintTxt: LocaleKeys.quantityText.tr(),
                                 controller: quantityController,
                                 isRequired: false,
                                 onChanged: (String value) {},
                                 keyboardType: TextInputType.number,
-                                errorMessage: "Enter product quantity",
+                                errorMessage: LocaleKeys.quantityText.tr(),
                                 obscureText: false,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "Enter product quantity";
+                                    return LocaleKeys.quantityText.tr();
                                   } else {
                                     return null;
                                   }
@@ -108,9 +110,9 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              const Text(
-                                "Price",
-                                style: TextStyle(
+                               Text(
+                                LocaleKeys.productpriceText.tr(),
+                                style: const  TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color:  Color.fromARGB(255, 15, 23, 43)),
                               ),
@@ -118,15 +120,15 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                                 height: 10.0,
                               ),
                               InputTextFormField(
-                                hintTxt: 'Price',
+                                hintTxt:  LocaleKeys.productpriceText.tr(),
                                 controller: priceController,
                                 isRequired: false,
                                 onChanged: (String value) {},
                                 keyboardType: TextInputType.number,
-                                errorMessage: "product price",
+                                errorMessage:  LocaleKeys.productpriceText.tr(),
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "Enter product price";
+                                    return  LocaleKeys.productpriceText.tr();
                                   } else {
                                     return null;
                                   }
@@ -163,7 +165,7 @@ class _CustomerOfferRoomState extends State<CustomerOfferRoom> {
                                         ? const CircularProgressIndicator(
                                             color: Colors.white,
                                           )
-                                        : const Text("Send Offer")),
+                                        :  Text( LocaleKeys.sendOfferText.tr())),
                               ),
                             ],
                           ),
